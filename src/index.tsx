@@ -1,18 +1,28 @@
 import React from 'react';
 import 'intl-pluralrules';
 
-import { SafeAreaView, Text } from 'react-native';
+import './assets/translations/i18n.config';
+import { NavigationContainer } from '@react-navigation/native';
+import { LoginScreen } from './screens/LoginScreen';
+import { RegisterScreen } from './screens/RegisterScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import './translations/i18n.config';
-import { useTranslation } from 'react-i18next';
+const Stack = createNativeStackNavigator();
 
 const App = (): JSX.Element => {
-  const { t } = useTranslation('', { keyPrefix: '' });
-
   return (
-    <SafeAreaView>
-      <Text className="text-3xl">{t('name')}</Text>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+        />
+        <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
