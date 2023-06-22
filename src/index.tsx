@@ -1,18 +1,19 @@
 import React from 'react';
+import 'intl-pluralrules';
 
 import {SafeAreaView, Text} from 'react-native';
 
 import './translations/i18n.config';
 import {useTranslation} from 'react-i18next';
 
-function App(): JSX.Element {
+const App = (): JSX.Element => {
   const {t} = useTranslation('', {keyPrefix: ''});
 
   return (
     <SafeAreaView>
-      <Text>{t('name')}</Text>
+      <Text className="text-3xl">{t('name')}</Text>
     </SafeAreaView>
   );
-}
+};
 
 export default App;
