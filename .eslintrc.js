@@ -1,4 +1,21 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
+  extends: ['@react-native-community', 'plugin:prettier/recommended', 'prettier'],
+  plugins: ['react-hooks', 'unused-imports', 'prettier'],
+  rules: {
+    semi: ['error', 'always'],
+    quotes: ['error', 'single'],
+    'no-unused-vars': 'error',
+    'func-style': ['error', 'expression'],
+    'no-var': 'error',
+    eqeqeq: 'error',
+    'no-eval': 'error',
+    curly: 'error',
+    'brace-style': ['error', '1tbs', { allowSingleLine: true }],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    'unused-imports/no-unused-imports': 'error',
+    '@typescript-eslint/no-explicit-any': 'error',
+    'prettier/prettier': 'error',
+  },
 };
