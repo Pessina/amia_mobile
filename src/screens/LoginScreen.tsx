@@ -1,10 +1,12 @@
-// @ts-nocheck
-
 import { useNavigation } from '@react-navigation/native';
 import { Button, Text } from 'react-native';
+import { RootStackParamList } from '..';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+type NavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
 export const LoginScreen = (): JSX.Element => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation<NavigationProp>();
 
   return (
     <>

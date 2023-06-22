@@ -9,6 +9,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
+export type RootStackParamList = {
+  Login: undefined;
+  Register: undefined;
+};
+
 const App = (): JSX.Element => {
   return (
     <NavigationContainer>
