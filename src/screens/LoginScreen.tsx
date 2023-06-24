@@ -27,12 +27,11 @@ export const LoginScreen = (): JSX.Element => {
     <SafeArea>
       <SpacingContainer
         paddingTop={4}
-        paddingBottom={4}
         paddingLeft={4}
         paddingRight={4}
       >
         <FlexContainer
-          direction="column"
+          flexDirection="column"
           justifyContent="space-between"
           height="full"
           width="full"
@@ -42,13 +41,13 @@ export const LoginScreen = (): JSX.Element => {
             resizeMode="contain"
           />
           <FlexContainer
-            direction="column"
+            flexDirection="column"
             alignItems="center"
             gap={3}
             width="full"
           >
             <FlexContainer
-              direction="column"
+              flexDirection="column"
               gap={2}
               width="full"
             >
@@ -63,7 +62,7 @@ export const LoginScreen = (): JSX.Element => {
               <Text textAlign="center">{t('sub-header')}</Text>
             </FlexContainer>
             <FlexContainer
-              direction="column"
+              flexDirection="column"
               gap={2}
               width="full"
               alignItems="stretch"
