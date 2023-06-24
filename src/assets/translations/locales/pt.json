@@ -1,3 +1,11 @@
 {
-  "name": "Amia"
+  "name": "Amia",
+  "login": {
+    "header": "Amia te ajuda a melhorar a eficiência e qualidade das consultas por meio de AI",
+    "sub-header": "Otimize o fluxo de trabalho médico, transformando as conversas das consultas em registros precisos e detalhados",
+    "buttons": {
+      "login": "Entrar",
+      "signUp": "Criar conta"
+    }
+  }
 }

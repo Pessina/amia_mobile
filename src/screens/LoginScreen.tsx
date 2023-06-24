@@ -1,25 +1,64 @@
-import { useNavigation } from '@react-navigation/native';
-import { Button, Text } from 'react-native';
-import { RootStackParamList } from '..';
-import { StackNavigationProp } from '@react-navigation/stack';
+import styled from 'styled-components/native';
+import { useTranslation } from 'react-i18next';
+import { Button } from '../components/Button/Button';
 
-type NavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+const SafeArea = styled.SafeAreaView`
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const StyledImage = styled.Image`
+  width: 150px;
+  align-self: center;
+`;
+
+const Container = styled.View`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+`;
+
+const HeaderText = styled.Text`
+  font-size: 32px;
+  color: black;
+  text-align: center;
+`;
+
+const SubHeaderText = styled.Text`
+  text-align: center;
+`;
 
 export const LoginScreen = (): JSX.Element => {
-  const { navigate } = useNavigation<NavigationProp>();
+  const { t } = useTranslation('', { keyPrefix: 'login' });
 
   return (
-    <>
-      <Text className="text-2xl w-full text-center text-black">Login</Text>
-      <Text>Login</Text>
-      <Text>Login</Text>
-      <Text>Login</Text>
-      <Button
-        onPress={() => {
-          navigate('Register');
-        }}
-        title="aaaa"
+    <SafeArea>
+      <StyledImage
+        source={require('../assets/images/logo.png')}
+        resizeMode="contain"
       />
-    </>
+      <Container>
+        <Container>
+          <HeaderText>{t('header')}</HeaderText>
+          <SubHeaderText>{t('sub-header')}</SubHeaderText>
+        </Container>
+        <Container>
+          <Button
+            buttonStyle={'primary'}
+            title={t('buttons.login')}
+          />
+          <Button
+            buttonStyle={'transparent'}
+            title={t('buttons.signUp')}
+          />
+        </Container>
+      </Container>
+    </SafeArea>
   );
 };

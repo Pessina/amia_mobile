@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { LoginScreen } from './screens/LoginScreen';
 import { RegisterScreen } from './screens/RegisterScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StyledComponentsThemeProvider } from './providers/StyledComponentsThemeProvider';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,18 +17,20 @@ export type RootStackParamList = {
 
 const App = (): JSX.Element => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-        />
-        <Stack.Screen
-          name="Register"
-          component={RegisterScreen}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <StyledComponentsThemeProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+          />
+          <Stack.Screen
+            name="Register"
+            component={RegisterScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </StyledComponentsThemeProvider>
   );
 };
 
