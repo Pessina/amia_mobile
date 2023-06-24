@@ -3,7 +3,7 @@ import 'intl-pluralrules';
 
 import './assets/translations/i18n.config';
 import { NavigationContainer } from '@react-navigation/native';
-import { LoginScreen } from './screens/LoginScreen';
+import { LoginScreen } from './screens/LoginScreen/LoginScreen';
 import { RegisterScreen } from './screens/RegisterScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyledComponentsThemeProvider } from './providers/StyledComponentsThemeProvider';
