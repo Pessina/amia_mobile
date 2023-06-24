@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 interface InputProps {
   label?: string;
-  value: string;
+  value?: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
   error?: string;
@@ -11,6 +11,8 @@ interface InputProps {
 
 const InputContainer = styled.View`
   margin-bottom: ${({ theme }) => theme.space[4]}px;
+  width: 100%;
+  height: 100%;
 `;
 
 const Label = styled.Text`

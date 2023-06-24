@@ -8,12 +8,12 @@ import { RegisterScreen } from './screens/RegisterScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyledComponentsThemeProvider } from './providers/StyledComponentsThemeProvider';
 
-const Stack = createNativeStackNavigator();
-
 export type RootStackParamList = {
   Login: undefined;
   Register: undefined;
 };
+
+export const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = (): JSX.Element => {
   return (
