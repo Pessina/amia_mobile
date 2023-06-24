@@ -1,5 +1,43 @@
 import { ThemeProvider } from 'styled-components';
 
+export type FontSize =
+  | 'xs'
+  | 'sm'
+  | 'base'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | '4xl'
+  | '5xl'
+  | '6xl'
+  | '7xl'
+  | '8xl'
+  | '9xl';
+
+export type FontWeight =
+  | 'thin'
+  | 'extralight'
+  | 'light'
+  | 'normal'
+  | 'medium'
+  | 'semibold'
+  | 'bold'
+  | 'extrabold'
+  | 'black';
+
+export const fontWeightMap: Record<FontWeight, number> = {
+  thin: 100,
+  extralight: 200,
+  light: 300,
+  normal: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  extrabold: 800,
+  black: 900,
+};
+
 interface Color {
   light: string;
   DEFAULT: string;
@@ -17,19 +55,14 @@ export interface Theme {
     success: string;
   };
   fontSizes: {
-    body: number;
-    subheading: number;
-    heading: number;
+    [key in FontSize]: number;
   };
   lineHeights: {
     body: number;
     heading: number;
   };
   fontWeights: {
-    regular: number;
-    medium: number;
-    semiBold: number;
-    bold: number;
+    [key in FontWeight]: number;
   };
   borderRadius: {
     sm: string;
@@ -68,19 +101,34 @@ const theme: Theme = {
     success: '#008000',
   },
   fontSizes: {
-    body: 14,
-    subheading: 16,
-    heading: 20,
+    xs: 12,
+    sm: 14,
+    base: 16,
+    lg: 18,
+    xl: 20,
+    '2xl': 24,
+    '3xl': 30,
+    '4xl': 36,
+    '5xl': 48,
+    '6xl': 60,
+    '7xl': 72,
+    '8xl': 96,
+    '9xl': 128,
   },
   lineHeights: {
     body: 1.5,
     heading: 1.125,
   },
   fontWeights: {
-    regular: 400,
+    thin: 100,
+    extralight: 200,
+    light: 300,
+    normal: 400,
     medium: 500,
-    semiBold: 600,
+    semibold: 600,
     bold: 700,
+    extrabold: 800,
+    black: 900,
   },
   borderRadius: {
     sm: '4px',
