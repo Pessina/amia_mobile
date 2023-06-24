@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { DimensionContainer, DimensionContainerProps } from '../DimensionContainer';
 
 type FlexContainerProps = DimensionContainerProps & {
-  flexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
+  direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
   justifyContent?:
     | 'flex-start'
     | 'flex-end'
@@ -17,9 +17,9 @@ type FlexContainerProps = DimensionContainerProps & {
 
 export const FlexContainer = styled(DimensionContainer)<FlexContainerProps>`
   display: flex;
-  flex-direction: ${({ flexDirection = 'row' }) => flexDirection};
+  flex-direction: ${({ direction = 'row' }) => direction};
   justify-content: ${({ justifyContent = 'flex-start' }) => justifyContent};
   align-items: ${({ alignItems = 'flex-start' }) => alignItems};
   flex-wrap: ${({ flexWrap = 'nowrap' }) => flexWrap};
-  gap: ${({ theme, gap = theme.space[2] }) => gap}px;
+  gap: ${({ theme, gap = 2 }) => theme.space[gap]};
 `;

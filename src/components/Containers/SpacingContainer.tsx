@@ -12,12 +12,12 @@ interface SpacingContainerProps {
 }
 
 export const SpacingContainer = styled.View<SpacingContainerProps>`
-  margin-top: ${({ marginTop }) => marginTop ?? 0}px;
-  margin-bottom: ${({ marginBottom }) => marginBottom ?? 0}px;
-  margin-left: ${({ marginLeft }) => marginLeft ?? 0}px;
-  margin-right: ${({ marginRight }) => marginRight ?? 0}px;
-  padding-top: ${({ paddingTop }) => paddingTop ?? 0}px;
-  padding-bottom: ${({ paddingBottom }) => paddingBottom ?? 0}px;
-  padding-left: ${({ paddingLeft }) => paddingLeft ?? 0}px;
-  padding-right: ${({ paddingRight }) => paddingRight ?? 0}px;
+  margin-top: ${({ marginTop = 2, theme }) => theme.space[marginTop]}px;
+  margin-bottom: ${({ marginBottom = 2, theme }) => theme.space[marginBottom]}px;
+  margin-left: ${({ marginLeft = 2, theme }) => theme.space[marginLeft]}px;
+  margin-right: ${({ marginRight = 2, theme }) => theme.space[marginRight]}px;
+  padding-top: ${({ paddingTop = 2, theme }) => theme.space[paddingTop]}px;
+  padding-bottom: ${({ paddingBottom = 2, theme }) => theme.space[paddingBottom]}px;
+  padding-left: ${({ paddingLeft = 2, theme }) => theme.space[paddingLeft]}px;
+  padding-right: ${({ paddingRight = 2, theme }) => theme.space[paddingRight]}px;
 `;
