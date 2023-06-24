@@ -1,30 +1,36 @@
 import React from 'react';
+import { GestureResponderEvent } from 'react-native';
 import styled from 'styled-components/native';
 
 export type ButtonProps = {
   buttonStyle: 'primary' | 'transparent';
   title?: string;
+  onPress?: (event: GestureResponderEvent) => void;
 };
 
-const StyledButton = styled.Pressable<ButtonProps>`
+const StyledPressable = styled.Pressable<ButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  border-radius: 50px;
-  background-color: ${(props) =>
-    props.buttonStyle === 'primary' ? props.theme.colors.primary.DEFAULT : 'transparent'};
+  padding: ${({ theme }) => `${theme.space[2]}px`};
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  background-color: ${({ theme, buttonStyle }) =>
+    buttonStyle === 'primary' ? theme.colors.primary.DEFAULT : 'transparent'};
 `;
 
 const StyledText = styled.Text<ButtonProps>`
-  color: ${(props) => (props.buttonStyle === 'primary' ? 'white' : props.theme.colors.text.dark)};
-  font-weight: bold;
+  color: ${({ theme, buttonStyle }) =>
+    buttonStyle === 'primary' ? theme.colors.background.light : theme.colors.primary.DEFAULT};
+  font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
 
-export const Button: React.FC<ButtonProps> = ({ buttonStyle = 'primary', title }) => {
+export const Button: React.FC<ButtonProps> = ({ buttonStyle = 'primary', title, onPress }) => {
   return (
-    <StyledButton buttonStyle={buttonStyle}>
+    <StyledPressable
+      buttonStyle={buttonStyle}
+      onPress={onPress}
+    >
       <StyledText buttonStyle={buttonStyle}>{title}</StyledText>
-    </StyledButton>
+    </StyledPressable>
   );
 };

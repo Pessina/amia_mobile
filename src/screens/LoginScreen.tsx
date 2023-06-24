@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../components/Button/Button';
+import { FlexContainer } from '../components/Flex/FlexContainer';
 
 const SafeArea = styled.SafeAreaView`
   background-color: white;
@@ -48,7 +49,10 @@ export const LoginScreen = (): JSX.Element => {
           <HeaderText>{t('header')}</HeaderText>
           <SubHeaderText>{t('sub-header')}</SubHeaderText>
         </Container>
-        <Container>
+        <FlexContainer
+          flexDirection="column"
+          gap={4}
+        >
           <Button
             buttonStyle={'primary'}
             title={t('buttons.login')}
@@ -57,7 +61,7 @@ export const LoginScreen = (): JSX.Element => {
             buttonStyle={'transparent'}
             title={t('buttons.signUp')}
           />
-        </Container>
+        </FlexContainer>
       </Container>
     </SafeArea>
   );
