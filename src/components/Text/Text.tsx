@@ -6,17 +6,17 @@ export type TextAlign = 'left' | 'center' | 'right' | 'justify' | 'initial' | 'i
 
 interface TextProps {
   children: string;
-  size: FontSize;
-  color: 'light' | 'DEFAULT' | 'dark';
-  textAlign: TextAlign;
-  fontWeight: FontWeight;
+  size?: FontSize;
+  color?: 'light' | 'DEFAULT' | 'dark';
+  textAlign?: TextAlign;
+  fontWeight?: FontWeight;
 }
 
 const TextStyled = styled.Text<TextProps>`
-  font-size: ${({ theme, size }) => theme.fontSizes[size]}px;
-  color: ${({ theme, color }) => theme.colors.text[color]};
-  text-align: ${(props) => props.textAlign};
-  font-weight: ${({ theme, fontWeight }) => theme.fontWeights[fontWeight]};
+  font-size: ${({ theme, size = 'base' }) => theme.fontSizes[size]}px;
+  color: ${({ theme, color = 'DEFAULT' }) => theme.colors.text[color]};
+  text-align: ${(props) => props.textAlign ?? 'left'};
+  font-weight: ${({ theme, fontWeight = 'normal' }) => theme.fontWeights[fontWeight]};
 `;
 
 const Text: React.FC<TextProps> = ({ children, size, color, textAlign, fontWeight }) => {
