@@ -4,16 +4,7 @@ import { Button } from '../components/Button/Button';
 import { FlexContainer } from '../components/Containers/Flex/FlexContainer';
 import { SpacingContainer } from '../components/Containers/SpacingContainer';
 import Text from '../components/Text/Text';
-
-const SafeArea = styled.SafeAreaView`
-  background-color: white;
-  height: 100%;
-  width: 100%;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
+import { SafeArea } from '../components/Containers/SafeArea';
 
 const StyledImage = styled.Image`
   width: 150px;
