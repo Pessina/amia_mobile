@@ -1,4 +1,5 @@
 import { ThemeProvider } from 'styled-components';
+import { generateArray } from '../utils/array';
 
 export type FontSize =
   | 'xs'
@@ -136,7 +137,7 @@ const theme: Theme = {
     lg: '12px',
     full: '50px',
   },
-  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+  space: generateArray(30, 4, 0),
   breakpoints: ['40em', '52em', '64em'],
 };
 
