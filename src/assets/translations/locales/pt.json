@@ -16,7 +16,7 @@
     "cpf": "CPF",
     "crm": "CRM",
     "specialty": "Especialidade",
-    "disclaimer": "Ao continuar, você aceita nossa <a>Política de Privacidade</a> e <a>Termos de uso</a>",
+    "disclaimer": "Ao continuar, você aceita nossa <a1>Política de Privacidade</a1> e <a2>Termos de uso</a2>",
     "cta": "Continuar"
   },
   "validation": {

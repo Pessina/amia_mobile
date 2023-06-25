@@ -1,5 +1,4 @@
 import React from 'react';
-import { MainContainer } from '../../components/Containers/MainContainer';
 import { SafeArea } from '../../components/Containers/SafeArea';
 import Input from '../../components/Input/Input';
 import { useForm, Controller } from 'react-hook-form';
@@ -8,6 +7,10 @@ import * as yup from 'yup';
 import { Button } from '../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { Form } from './components/Form/Form';
+import { Text } from '../../components/Text/Text';
+import { RegisterMainContainer } from './components/RegisterMainContainer';
+import { replaceTagsInText } from '../../utils/text';
+import { Footer } from './components/Footer';
 
 type FormData = {
   name: string;
@@ -43,7 +46,13 @@ export const RegisterScreen = (): JSX.Element => {
 
   return (
     <SafeArea>
-      <MainContainer>
+      <RegisterMainContainer>
+        <Text
+          size="3xl"
+          color="dark"
+        >
+          {t('title')}
+        </Text>
         <Form>
           <Controller
             name="name"
@@ -105,13 +114,31 @@ export const RegisterScreen = (): JSX.Element => {
               />
             )}
           />
+        </Form>
+        <Footer>
+          <Text textAlign="center">
+            {replaceTagsInText(t('disclaimer'), {
+              a1: (
+                <Text
+                  color="DEFAULT"
+                  underline
+                />
+              ),
+              a2: (
+                <Text
+                  color="DEFAULT"
+                  underline
+                />
+              ),
+            })}
+          </Text>
           <Button
             buttonStyle="primary"
             onPress={handleSubmit(onSubmit)}
             title={t('cta')}
           />
-        </Form>
-      </MainContainer>
+        </Footer>
+      </RegisterMainContainer>
     </SafeArea>
   );
 };

@@ -14,7 +14,7 @@ const replaceTagInText = (
   const parts = text.split(new RegExp(`${openTag}|${closeTag}`, 'g'));
 
   return parts.map((part, index) =>
-    index % 2 === 0 ? part : cloneElement(element, { key: index, children: part })
+    index % 2 === 0 ? part : cloneElement(element, { key: `${tag}-${index}`, children: part })
   );
 };
 
