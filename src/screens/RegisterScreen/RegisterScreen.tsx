@@ -56,7 +56,7 @@ export const RegisterScreen = (): JSX.Element => {
           {t('title')}
         </Text>
         <Icon
-          name="rocket"
+          name="chevron-left"
           color="#00ff00"
         />
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
