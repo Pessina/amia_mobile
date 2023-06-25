@@ -1,23 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // or any other icon library you are using
+import { FontSize } from '../../providers/StyledComponentsThemeProvider';
 
 interface InputProps {
   label?: string;
   value?: string;
+  fontSize?: FontSize;
   onChangeText: (text: string) => void;
   placeholder?: string;
   error?: string;
   isPassword?: boolean;
-  rightIcon?: string;
-  leftIcon?: string;
 }
-
-const StyledIcon = styled.Pressable`
-  width: 24px;
-  height: 24px;
-  margin: 0 10px;
-`;
 
 const InputContainer = styled.View`
   margin-bottom: ${({ theme }) => theme.space[4]}px;
@@ -41,9 +34,11 @@ const FieldContainer = styled.View<{ error?: string }>`
   background-color: ${({ theme }) => theme.colors.background.DEFAULT};
 `;
 
-const StyledInput = styled.TextInput`
+const StyledInput = styled.TextInput<InputProps>`
   flex: 1;
-  font-size: ${({ theme }) => theme.fontSizes.base}px;
+  font-size: ${({ theme, fontSize = 'base' }) => theme.fontSizes[fontSize]}px;
+  line-height: ${({ theme, fontSize = 'base' }) => theme.lineHeights[fontSize]}px;
+  padding: 0;
   font-weight: ${({ theme }) => theme.fontWeights.normal};
   color: ${({ theme }) => theme.colors.text.DEFAULT};
 `;
@@ -62,30 +57,17 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   error,
   isPassword = false,
-  rightIcon,
-  leftIcon,
 }) => {
-  const [secure, setSecure] = useState(isPassword);
-
-  const EyeIcon = secure ? FaEyeSlash : FaEye;
-
   return (
     <InputContainer>
       {label && <Label>{label}</Label>}
       <FieldContainer error={error}>
-        {leftIcon && <StyledIcon>{leftIcon}</StyledIcon>}
         <StyledInput
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
-          secureTextEntry={secure}
+          secureTextEntry={isPassword}
         />
-        {isPassword && (
-          <StyledIcon onPress={() => setSecure(!secure)}>
-            <EyeIcon size={24} />
-          </StyledIcon>
-        )}
-        {rightIcon && <StyledIcon>{rightIcon}</StyledIcon>}
       </FieldContainer>
       {error && <Error>{error}</Error>}
     </InputContainer>

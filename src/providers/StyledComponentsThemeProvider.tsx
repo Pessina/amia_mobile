@@ -59,8 +59,7 @@ export interface Theme {
     [key in FontSize]: number;
   };
   lineHeights: {
-    body: number;
-    heading: number;
+    [key in FontSize]: number;
   };
   fontWeights: {
     [key in FontWeight]: number;
@@ -117,8 +116,19 @@ const theme: Theme = {
     '9xl': 128,
   },
   lineHeights: {
-    body: 1.5,
-    heading: 1.125,
+    xs: 16,
+    sm: 20,
+    base: 24,
+    lg: 28,
+    xl: 28,
+    '2xl': 32,
+    '3xl': 36,
+    '4xl': 40,
+    '5xl': 48,
+    '6xl': 60,
+    '7xl': 72,
+    '8xl': 96,
+    '9xl': 128,
   },
   fontWeights: {
     thin: 100,

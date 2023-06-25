@@ -1,10 +1,6 @@
-import { ReactNode } from 'react';
-import { StyledForm } from './styles';
+import { styled } from 'styled-components/native';
 
-export type FormProps = {
-  children: ReactNode;
-};
-
-export const Form: React.FC<FormProps> = ({ children }) => {
-  return <StyledForm>{children}</StyledForm>;
-};
+export const Form = styled.View`
+  flex-grow: 1;
+  gap: ${({ theme }) => theme.space[2]}px;
+`;

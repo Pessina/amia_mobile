@@ -11,6 +11,7 @@ import { Text } from '../../components/Text/Text';
 import { RegisterMainContainer } from './components/RegisterMainContainer';
 import { replaceTagsInText } from '../../utils/text';
 import { Footer } from './components/Footer';
+import { ScrollView } from 'react-native';
 
 type FormData = {
   name: string;
@@ -53,91 +54,93 @@ export const RegisterScreen = (): JSX.Element => {
         >
           {t('title')}
         </Text>
-        <Form>
-          <Controller
-            name="name"
-            control={control}
-            render={({ field }) => (
-              <Input
-                label={t('name')}
-                onChangeText={field.onChange}
-                value={field.value}
-                error={errors.name?.message}
-              />
-            )}
-          />
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <Input
-                label={t('email')}
-                onChangeText={field.onChange}
-                value={field.value}
-                error={errors.email?.message}
-              />
-            )}
-          />
-          <Controller
-            name="cpf"
-            control={control}
-            render={({ field }) => (
-              <Input
-                label={t('cpf')}
-                onChangeText={field.onChange}
-                value={field.value}
-                error={errors.cpf?.message}
-              />
-            )}
-          />
-          <Controller
-            name="crm"
-            control={control}
-            render={({ field }) => (
-              <Input
-                label={t('crm')}
-                onChangeText={field.onChange}
-                value={field.value}
-                error={errors.crm?.message}
-              />
-            )}
-          />
-          <Controller
-            name="specialty"
-            control={control}
-            render={({ field }) => (
-              <Input
-                label={t('specialty')}
-                onChangeText={field.onChange}
-                value={field.value}
-                error={errors.specialty?.message}
-              />
-            )}
-          />
-        </Form>
-        <Footer>
-          <Text textAlign="center">
-            {replaceTagsInText(t('disclaimer'), {
-              a1: (
-                <Text
-                  color="DEFAULT"
-                  underline
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <Form>
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  label={t('name')}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  error={errors.name?.message}
                 />
-              ),
-              a2: (
-                <Text
-                  color="DEFAULT"
-                  underline
+              )}
+            />
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  label={t('email')}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  error={errors.email?.message}
                 />
-              ),
-            })}
-          </Text>
-          <Button
-            buttonStyle="primary"
-            onPress={handleSubmit(onSubmit)}
-            title={t('cta')}
-          />
-        </Footer>
+              )}
+            />
+            <Controller
+              name="cpf"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  label={t('cpf')}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  error={errors.cpf?.message}
+                />
+              )}
+            />
+            <Controller
+              name="crm"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  label={t('crm')}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  error={errors.crm?.message}
+                />
+              )}
+            />
+            <Controller
+              name="specialty"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  label={t('specialty')}
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  error={errors.specialty?.message}
+                />
+              )}
+            />
+          </Form>
+          <Footer>
+            <Text textAlign="center">
+              {replaceTagsInText(t('disclaimer'), {
+                a1: (
+                  <Text
+                    color="DEFAULT"
+                    underline
+                  />
+                ),
+                a2: (
+                  <Text
+                    color="DEFAULT"
+                    underline
+                  />
+                ),
+              })}
+            </Text>
+            <Button
+              buttonStyle="primary"
+              onPress={handleSubmit(onSubmit)}
+              title={t('cta')}
+            />
+          </Footer>
+        </ScrollView>
       </RegisterMainContainer>
     </SafeArea>
   );
