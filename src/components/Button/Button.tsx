@@ -3,7 +3,7 @@ import { GestureResponderEvent } from 'react-native';
 import styled from 'styled-components/native';
 
 export type ButtonProps = {
-  buttonStyle: 'primary' | 'transparent';
+  buttonStyle?: 'primary' | 'transparent';
   title?: string;
   onPress?: (event: GestureResponderEvent) => void;
 };

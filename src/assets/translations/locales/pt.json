@@ -7,5 +7,20 @@
       "login": "Entrar",
       "signUp": "Criar conta"
     }
+  },
+  "register": {
+    "title": "Criar conta",
+    "name": "Nome",
+    "email": "Email",
+    "password": "Senha",
+    "cpf": "CPF",
+    "crm": "CRM",
+    "specialty": "Especialidade",
+    "disclaimer": "Ao continuar, você aceita nossa <a>Política de Privacidade</a> e <a>Termos de uso</a>",
+    "cta": "Continuar"
+  },
+  "validation": {
+    "required": "Obrigatório",
+    "invalid-email": "Email inválido"
   }
 }
