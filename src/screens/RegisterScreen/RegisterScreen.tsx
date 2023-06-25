@@ -12,7 +12,7 @@ import { RegisterMainContainer } from './components/RegisterMainContainer';
 import { replaceTagsInText } from '../../utils/text';
 import { Footer } from './components/Footer';
 import { ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Icon } from '../../components/Icon/Icon';
 
 type FormData = {
   name: string;
@@ -55,10 +55,7 @@ export const RegisterScreen = (): JSX.Element => {
         >
           {t('title')}
         </Text>
-        <Icon
-          name="chevron-left"
-          color="#00ff00"
-        />
+        <Icon name="chevron-left" />
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <Form>
             <Controller
