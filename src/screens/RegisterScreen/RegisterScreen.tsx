@@ -12,7 +12,9 @@ import { RegisterMainContainer } from './components/RegisterMainContainer';
 import { replaceTagsInText } from '../../utils/text';
 import { Footer } from './components/Footer';
 import { ScrollView } from 'react-native';
-import { Icon } from '../../components/Icon/Icon';
+import { IconButton } from '../../components/Icon/IconButton';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigation } from '../../routes';
 
 type FormData = {
   name: string;
@@ -25,6 +27,7 @@ type FormData = {
 export const RegisterScreen = (): JSX.Element => {
   const { t: tValidation } = useTranslation('', { keyPrefix: 'validation' });
   const { t } = useTranslation('', { keyPrefix: 'register' });
+  const navigate = useNavigation<StackNavigation>();
 
   const schema = yup.object().shape({
     name: yup.string().required(tValidation('required')),
@@ -49,13 +52,16 @@ export const RegisterScreen = (): JSX.Element => {
   return (
     <SafeArea>
       <RegisterMainContainer>
+        <IconButton
+          name="chevron-left"
+          onPress={() => navigate.navigate('Home')}
+        />
         <Text
           size="3xl"
           color="dark"
         >
           {t('title')}
         </Text>
-        <Icon name="chevron-left" />
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <Form>
             <Controller
