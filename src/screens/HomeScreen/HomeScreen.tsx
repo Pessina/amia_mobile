@@ -2,16 +2,15 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '../../components/Button/Button';
 import { Text } from '../../components/Text/Text';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../../index';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { ContentWrapper } from './components/ContentWrapper';
 import { Logo } from './components/Logo/Logo';
 import { SafeArea } from '../../components/Containers/SafeArea';
 import { MainContainer } from '../../components/Containers/MainContainer';
+import { StackNavigation } from '../../routes';
 
-export const LoginScreen = (): JSX.Element => {
+export const HomeScreen = (): JSX.Element => {
   const { t } = useTranslation('', { keyPrefix: 'login' });
-  const navigate = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const navigate = useNavigation<StackNavigation>();
 
   return (
     <SafeArea>

@@ -2,36 +2,14 @@ import React from 'react';
 import 'intl-pluralrules';
 
 import './assets/translations/i18n.config';
-import { NavigationContainer } from '@react-navigation/native';
-import { LoginScreen } from './screens/LoginScreen/LoginScreen';
-import { RegisterScreen } from './screens/RegisterScreen/RegisterScreen';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import { StyledComponentsThemeProvider } from './providers/StyledComponentsThemeProvider';
-
-export type RootStackParamList = {
-  Login: undefined;
-  Register: undefined;
-};
-
-export const Stack = createNativeStackNavigator<RootStackParamList>();
+import { Routes } from './routes';
 
 const App = (): JSX.Element => {
   return (
     <StyledComponentsThemeProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Register">
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Register"
-            component={RegisterScreen}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Routes />
     </StyledComponentsThemeProvider>
   );
 };
