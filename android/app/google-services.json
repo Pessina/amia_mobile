@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "698531480533",
+    "project_id": "amia-eeb5b",
+    "storage_bucket": "amia-eeb5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698531480533:android:46b6c659191aaf4725335c",
+        "android_client_info": {
+          "package_name": "com.amia_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698531480533-j0s70n12ghnps4am5b4n1ilkpqd54ejt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.amia_mobile",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "698531480533-9imlr5uoknuetqrpupat8p1p9od4ugjj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsmI7Npc-6vkVc-ZKhzN5N_UY3qz_aWYk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698531480533-9imlr5uoknuetqrpupat8p1p9od4ugjj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "698531480533-uvjgvo4au40gnff8d3mols6ug2a67oc0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.amia-mobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
