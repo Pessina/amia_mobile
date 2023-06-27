@@ -9,8 +9,18 @@ PODS:
     - React-Core (= 0.71.11)
     - React-jsi (= 0.71.11)
     - ReactCommon/turbomodule/core (= 0.71.11)
+  - Firebase/Auth (10.11.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 10.11.0)
   - Firebase/CoreOnly (10.11.0):
     - FirebaseCore (= 10.11.0)
+  - FirebaseAppCheckInterop (10.11.0)
+  - FirebaseAuth (10.11.0):
+    - FirebaseAppCheckInterop (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - FirebaseCore (10.11.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
@@ -19,11 +29,22 @@ PODS:
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
   - fmt (6.2.1)
   - glog (0.3.5)
+  - GoogleUtilities/AppDelegateSwizzler (7.11.1):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
   - GoogleUtilities/Environment (7.11.1):
     - PromisesObjC (< 3.0, >= 1.2)
   - GoogleUtilities/Logger (7.11.1):
     - GoogleUtilities/Environment
+  - GoogleUtilities/Network (7.11.1):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
   - "GoogleUtilities/NSData+zlib (7.11.1)"
+  - GoogleUtilities/Reachability (7.11.1):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (3.1.1)
   - hermes-engine (0.71.11):
     - hermes-engine/Pre-built (= 0.71.11)
   - hermes-engine/Pre-built (0.71.11)
@@ -373,6 +394,10 @@ PODS:
   - RNFBApp (18.1.0):
     - Firebase/CoreOnly (= 10.11.0)
     - React-Core
+  - RNFBAuth (18.1.0):
+    - Firebase/Auth (= 10.11.0)
+    - React-Core
+    - RNFBApp
   - RNScreens (3.22.0):
     - React-Core
     - React-RCTImage
@@ -416,16 +441,20 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
+  - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - Firebase
+    - FirebaseAppCheckInterop
+    - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreInternal
     - fmt
     - GoogleUtilities
+    - GTMSessionFetcher
     - libevent
     - PromisesObjC
 
@@ -500,6 +529,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
+  RNFBAuth:
+    :path: "../node_modules/@react-native-firebase/auth"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   Yoga:
@@ -511,11 +542,14 @@ SPEC CHECKSUMS:
   FBLazyVector: c511d4cd0210f416cb5c289bd5ae6b36d909b048
   FBReactNativeSpec: a911fb22def57aef1d74215e8b6b8761d25c1c54
   Firebase: 31d9575c124839fb5abc0db6d39511cc1dab1b85
+  FirebaseAppCheckInterop: 255b6c0292fe5da995c8b2df0c02f6a3ca7f61b4
+  FirebaseAuth: 7aabcb00fbf330db49c207c0d645b8b1b62df0e9
   FirebaseCore: 62fd4d549f5e3f3bd52b7998721c5fa0557fb355
   FirebaseCoreInternal: 9e46c82a14a3b3a25be4e1e151ce6d21536b89c0
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
+  GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
   hermes-engine: 34c863b446d0135b85a6536fa5fd89f48196f848
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
@@ -548,6 +582,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 4817d63dbc9d658f8dc0ec56bd9b83ce531129f0
   ReactCommon: 864169d79e7fb2e846ad1257a2afd7ed846d6375
   RNFBApp: fdbde65110240cd843e644270e974e9b455b0fc1
+  RNFBAuth: 557866ac2a86d114034c0bcfd37b540a1f33d44a
   RNScreens: 68fd1060f57dd1023880bf4c05d74784b5392789
   Yoga: f7decafdc5e8c125e6fa0da38a687e35238420fa
 

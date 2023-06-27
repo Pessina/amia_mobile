@@ -9,7 +9,7 @@ interface InputProps {
   onChangeText: (text: string) => void;
   placeholder?: string;
   error?: string;
-  isPassword?: boolean;
+  secureTextEntry?: boolean;
 }
 
 const InputContainer = styled.View`
@@ -56,7 +56,8 @@ const Input: React.FC<InputProps> = ({
   onChangeText,
   placeholder,
   error,
-  isPassword = false,
+
+  secureTextEntry,
 }) => {
   return (
     <InputContainer>
@@ -66,7 +67,7 @@ const Input: React.FC<InputProps> = ({
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
-          secureTextEntry={isPassword}
+          secureTextEntry={secureTextEntry}
         />
       </FieldContainer>
       {error && <Error>{error}</Error>}

@@ -15,10 +15,12 @@ import { ScrollView } from 'react-native';
 import { IconButton } from '../../components/Icon/IconButton';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
+import auth from '@react-native-firebase/auth';
 
 type FormData = {
   name: string;
   email: string;
+  password: string;
   cpf: string;
   crm: string;
   specialty: string;
@@ -32,6 +34,7 @@ export const RegisterScreen = (): JSX.Element => {
   const schema = yup.object().shape({
     name: yup.string().required(tValidation('required')),
     email: yup.string().email(tValidation('invalid-email')).required(tValidation('required')),
+    password: yup.string().required(tValidation('required')),
     cpf: yup.string().required(tValidation('required')),
     crm: yup.string().required(tValidation('required')),
     specialty: yup.string().required(tValidation('required')),
@@ -46,7 +49,7 @@ export const RegisterScreen = (): JSX.Element => {
   });
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
+    auth().createUserWithEmailAndPassword(data.email, '123456');
   };
 
   return (
@@ -88,6 +91,20 @@ export const RegisterScreen = (): JSX.Element => {
                 />
               )}
             />
+            <Controller
+              name="password"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  label={t('password')}
+                  secureTextEntry
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  error={errors.email?.message}
+                />
+              )}
+            />
+
             <Controller
               name="cpf"
               control={control}
