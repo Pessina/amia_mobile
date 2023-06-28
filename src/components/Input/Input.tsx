@@ -1,15 +1,12 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import { TextInputProps } from 'react-native';
 import { FontSize } from '../../providers/StyledComponentsThemeProvider';
 
-interface InputProps {
+interface InputProps extends TextInputProps {
   label?: string;
-  value?: string;
   fontSize?: FontSize;
-  onChangeText: (text: string) => void;
-  placeholder?: string;
   error?: string;
-  secureTextEntry?: boolean;
 }
 
 const InputContainer = styled.View`
@@ -50,25 +47,12 @@ const Error = styled.Text`
   margin-top: ${({ theme }) => theme.space[2]}px;
 `;
 
-const Input: React.FC<InputProps> = ({
-  label,
-  value,
-  onChangeText,
-  placeholder,
-  error,
-
-  secureTextEntry,
-}) => {
+const Input: React.FC<InputProps> = ({ label, error, ...rest }) => {
   return (
     <InputContainer>
       {label && <Label>{label}</Label>}
       <FieldContainer error={error}>
-        <StyledInput
-          value={value}
-          onChangeText={onChangeText}
-          placeholder={placeholder}
-          secureTextEntry={secureTextEntry}
-        />
+        <StyledInput {...rest} />
       </FieldContainer>
       {error && <Error>{error}</Error>}
     </InputContainer>

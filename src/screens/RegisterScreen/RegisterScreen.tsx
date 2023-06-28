@@ -16,7 +16,6 @@ import { IconButton } from '../../components/Icon/IconButton';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { createUser } from '../../auth/createUser';
-import { REACT_APP_BASE_URL } from '@env';
 import { useCreateDoctor } from '../../api/doctor';
 
 type FormData = {
@@ -52,7 +51,6 @@ export const RegisterScreen = (): JSX.Element => {
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log(REACT_APP_BASE_URL);
     const user = await createUser(data);
     if (user) {
       createDoctorMutation.mutate({
@@ -86,6 +84,7 @@ export const RegisterScreen = (): JSX.Element => {
               render={({ field }) => (
                 <Input
                   label={t('name')}
+                  autoCapitalize="words"
                   onChangeText={field.onChange}
                   value={field.value}
                   error={errors.name?.message}
@@ -98,6 +97,9 @@ export const RegisterScreen = (): JSX.Element => {
               render={({ field }) => (
                 <Input
                   label={t('email')}
+                  keyboardType="email-address"
+                  autoComplete="email"
+                  autoCapitalize="none"
                   onChangeText={field.onChange}
                   value={field.value}
                   error={errors.email?.message}
@@ -123,6 +125,7 @@ export const RegisterScreen = (): JSX.Element => {
               render={({ field }) => (
                 <Input
                   label={t('cpf')}
+                  keyboardType="numeric"
                   onChangeText={field.onChange}
                   value={field.value}
                   error={errors.cpf?.message}
@@ -135,6 +138,7 @@ export const RegisterScreen = (): JSX.Element => {
               render={({ field }) => (
                 <Input
                   label={t('crm')}
+                  keyboardType="numeric"
                   onChangeText={field.onChange}
                   value={field.value}
                   error={errors.crm?.message}
@@ -147,6 +151,7 @@ export const RegisterScreen = (): JSX.Element => {
               render={({ field }) => (
                 <Input
                   label={t('specialty')}
+                  autoCapitalize="sentences"
                   onChangeText={field.onChange}
                   value={field.value}
                   error={errors.specialty?.message}
