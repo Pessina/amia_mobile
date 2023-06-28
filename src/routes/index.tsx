@@ -3,6 +3,7 @@ import { HomeScreen } from '../screens/HomeScreen/HomeScreen';
 import { RegisterScreen } from '../screens/RegisterScreen/RegisterScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { LoginScreen } from '../screens/LoginScreen/LoginScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -20,6 +21,11 @@ export const Routes: React.FC = () => {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen

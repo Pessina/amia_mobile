@@ -1,0 +1,50 @@
+import React, { createContext, ReactNode, useEffect, useState } from 'react';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { ActivityIndicator } from 'react-native';
+import { styled } from 'styled-components/native';
+
+interface AuthContextInterface {
+  user: FirebaseAuthTypes.User | null;
+  isLoadingUser?: boolean;
+}
+
+export const AuthContext = createContext<AuthContextInterface>({ user: null });
+
+const LoadingView = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged((user) => {
+      setIsLoadingUser(false);
+      setUser(user);
+    });
+
+    return subscriber;
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user, isLoadingUser }}>
+      {isLoadingUser ? (
+        <LoadingView>
+          <ActivityIndicator
+            size="large"
+            color="#00ff00"
+          />
+        </LoadingView>
+      ) : (
+        children
+      )}
+    </AuthContext.Provider>
+  );
+};

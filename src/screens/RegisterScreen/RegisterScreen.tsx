@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from '../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
-import { Form } from './components/Form/Form';
+import { Form } from './components/Form';
 import { Text } from '../../components/Text/Text';
 import { RegisterMainContainer } from './components/RegisterMainContainer';
 import { replaceTagsInText } from '../../utils/text';
