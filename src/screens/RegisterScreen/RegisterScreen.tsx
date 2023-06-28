@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { createUser } from '../../auth/createUser';
 import { REACT_APP_BASE_URL } from '@env';
+import { useCreateDoctor } from '../../api/doctor';
 
 type FormData = {
   name: string;
@@ -31,6 +32,7 @@ export const RegisterScreen = (): JSX.Element => {
   const { t: tValidation } = useTranslation('', { keyPrefix: 'validation' });
   const { t } = useTranslation('', { keyPrefix: 'register' });
   const navigate = useNavigation<StackNavigation>();
+  const createDoctorMutation = useCreateDoctor();
 
   const schema = yup.object().shape({
     name: yup.string().required(tValidation('required')),
@@ -51,9 +53,15 @@ export const RegisterScreen = (): JSX.Element => {
 
   const onSubmit = async (data: FormData) => {
     console.log(REACT_APP_BASE_URL);
-    const user = createUser(data);
+    const user = await createUser(data);
     if (user) {
-      console.log(user);
+      createDoctorMutation.mutate({
+        name: data.name,
+        email: data.email,
+        cpf: data.cpf,
+        crm: data.crm,
+        specialty: data.specialty,
+      });
     }
   };
 
