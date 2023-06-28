@@ -28,11 +28,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigation<StackNavigation>();
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged((user) => {
+    const subscriber = auth().onAuthStateChanged((currUser) => {
       setIsLoadingUser(false);
-      console.log('User state changed.');
-      setUser(user);
-      if (user) {
+      setUser(currUser);
+      if (currUser) {
         navigate.navigate('PatientList');
       } else {
         navigate.navigate('Home');

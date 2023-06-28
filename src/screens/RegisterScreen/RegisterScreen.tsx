@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { createUser } from '../../auth/createUser';
 import { useCreateDoctor } from '../../api/doctor';
+import { styles } from '../../styles/styles';
 
 type FormData = {
   name: string;
@@ -76,7 +77,7 @@ export const RegisterScreen = (): JSX.Element => {
         >
           {t('title')}
         </Text>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollView contentContainerStyle={styles.full}>
           <Form>
             <Controller
               name="name"

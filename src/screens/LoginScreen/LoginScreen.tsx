@@ -14,6 +14,7 @@ import { IconButton } from '../../components/Icon/IconButton';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { login } from '../../auth/login';
+import { styles } from '../../styles/styles';
 
 type FormData = {
   email: string;
@@ -58,7 +59,7 @@ export const LoginScreen = (): JSX.Element => {
         >
           {t('title')}
         </Text>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollView contentContainerStyle={styles.full}>
           <Form>
             <Controller
               name="email"
