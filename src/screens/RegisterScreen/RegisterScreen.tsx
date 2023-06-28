@@ -15,7 +15,8 @@ import { ScrollView } from 'react-native';
 import { IconButton } from '../../components/Icon/IconButton';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
-import auth from '@react-native-firebase/auth';
+import { createUser } from '../../auth/createUser';
+import { REACT_APP_BASE_URL } from '@env';
 
 type FormData = {
   name: string;
@@ -48,8 +49,12 @@ export const RegisterScreen = (): JSX.Element => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormData) => {
-    auth().createUserWithEmailAndPassword(data.email, '123456');
+  const onSubmit = async (data: FormData) => {
+    console.log(REACT_APP_BASE_URL);
+    const user = createUser(data);
+    if (user) {
+      console.log(user);
+    }
   };
 
   return (
@@ -104,7 +109,6 @@ export const RegisterScreen = (): JSX.Element => {
                 />
               )}
             />
-
             <Controller
               name="cpf"
               control={control}
