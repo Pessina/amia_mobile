@@ -8,16 +8,19 @@ import { StyledComponentsThemeProvider } from './providers/StyledComponentsTheme
 import { Routes } from './routes';
 import { AppQueryClientProvider } from './providers/QueryClientProvider';
 import { AuthProvider } from './providers/AuthProvider';
+import { NavigationProvider } from './providers/NavigationProvider';
 
 const App = (): JSX.Element => {
   return (
-    <AuthProvider>
-      <StyledComponentsThemeProvider>
-        <AppQueryClientProvider>
-          <Routes />
-        </AppQueryClientProvider>
-      </StyledComponentsThemeProvider>
-    </AuthProvider>
+    <NavigationProvider>
+      <AuthProvider>
+        <StyledComponentsThemeProvider>
+          <AppQueryClientProvider>
+            <Routes />
+          </AppQueryClientProvider>
+        </StyledComponentsThemeProvider>
+      </AuthProvider>
+    </NavigationProvider>
   );
 };
 

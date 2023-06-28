@@ -12,7 +12,7 @@ const StyledPressable = styled.Pressable<ButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: ${({ theme }) => `${theme.space[2]}px`};
+  padding: ${({ theme }) => `${theme.space[3]}px`};
   border-radius: ${({ theme }) => theme.borderRadius.full};
   background-color: ${({ theme, buttonStyle }) =>
     buttonStyle === 'primary' ? theme.colors.primary.DEFAULT : 'transparent'};

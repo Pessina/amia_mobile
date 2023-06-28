@@ -9,7 +9,7 @@ import { MainContainer } from '../../components/Containers/MainContainer';
 import { StackNavigation } from '../../routes';
 
 export const HomeScreen = (): JSX.Element => {
-  const { t } = useTranslation('', { keyPrefix: 'login' });
+  const { t } = useTranslation('', { keyPrefix: 'home' });
   const navigate = useNavigation<StackNavigation>();
 
   return (

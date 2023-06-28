@@ -13,7 +13,7 @@ import { ScrollView } from 'react-native';
 import { IconButton } from '../../components/Icon/IconButton';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
-import { loginUser } from '../../auth/loginUser';
+import { login } from '../../auth/login';
 
 type FormData = {
   email: string;
@@ -39,7 +39,7 @@ export const LoginScreen = (): JSX.Element => {
   });
 
   const onSubmit = async (data: FormData) => {
-    const user = await loginUser(data);
+    const user = await login(data);
     if (user) {
       console.log('User logged in successfully.');
     }

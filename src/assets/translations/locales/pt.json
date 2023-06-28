@@ -1,6 +1,6 @@
 {
   "name": "Amia",
-  "login": {
+  "home": {
     "header": "Amia te ajuda a melhorar a eficiência e qualidade das consultas por meio de AI",
     "sub-header": "Otimize o fluxo de trabalho médico, transformando as conversas das consultas em registros precisos e detalhados",
     "buttons": {
@@ -17,6 +17,12 @@
     "crm": "CRM",
     "specialty": "Especialidade",
     "disclaimer": "Ao continuar, você aceita nossa <a1>Política de Privacidade</a1> e <a2>Termos de uso</a2>",
+    "cta": "Continuar"
+  },
+  "login": {
+    "title": "Entrar",
+    "email": "Email",
+    "password": "Senha",
     "cta": "Continuar"
   },
   "validation": {

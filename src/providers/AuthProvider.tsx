@@ -2,6 +2,8 @@ import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { ActivityIndicator } from 'react-native';
 import { styled } from 'styled-components/native';
+import { StackNavigation } from '../routes';
+import { useNavigation } from '@react-navigation/native';
 
 interface AuthContextInterface {
   user: FirebaseAuthTypes.User | null;
@@ -23,15 +25,22 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const navigate = useNavigation<StackNavigation>();
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged((user) => {
       setIsLoadingUser(false);
+      console.log('User state changed.');
       setUser(user);
+      if (user) {
+        navigate.navigate('PatientList');
+      } else {
+        navigate.navigate('Home');
+      }
     });
 
     return subscriber;
-  }, []);
+  }, [navigate]);
 
   return (
     <AuthContext.Provider value={{ user, isLoadingUser }}>
