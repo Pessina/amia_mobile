@@ -7,10 +7,12 @@ import { Logo } from './components/Logo/Logo';
 import { SafeArea } from '../../components/Containers/SafeArea';
 import { MainContainer } from '../../components/Containers/MainContainer';
 import { StackNavigation } from '../../routes';
+import Config from 'react-native-config';
 
 export const HomeScreen = (): JSX.Element => {
   const { t } = useTranslation('', { keyPrefix: 'home' });
   const navigate = useNavigation<StackNavigation>();
+  console.log(Config.REACT_APP_API_URL);
 
   return (
     <SafeArea>

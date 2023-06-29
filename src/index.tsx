@@ -13,13 +13,13 @@ import { NavigationProvider } from './providers/NavigationProvider';
 const App = (): JSX.Element => {
   return (
     <NavigationProvider>
-      <AuthProvider>
-        <StyledComponentsThemeProvider>
-          <AppQueryClientProvider>
+      <AppQueryClientProvider>
+        <AuthProvider>
+          <StyledComponentsThemeProvider>
             <Routes />
-          </AppQueryClientProvider>
-        </StyledComponentsThemeProvider>
-      </AuthProvider>
+          </StyledComponentsThemeProvider>
+        </AuthProvider>
+      </AppQueryClientProvider>
     </NavigationProvider>
   );
 };

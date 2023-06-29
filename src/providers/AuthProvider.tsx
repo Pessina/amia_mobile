@@ -4,6 +4,7 @@ import { ActivityIndicator } from 'react-native';
 import { styled } from 'styled-components/native';
 import { StackNavigation } from '../routes';
 import { useNavigation } from '@react-navigation/native';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface AuthContextInterface {
   user: FirebaseAuthTypes.User | null;
@@ -26,11 +27,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const navigate = useNavigation<StackNavigation>();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged((currUser) => {
       setIsLoadingUser(false);
       setUser(currUser);
+      queryClient.invalidateQueries();
 
       if (currUser) {
         navigate.navigate('PatientList');
@@ -40,7 +43,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     });
 
     return subscriber;
-  }, [navigate]);
+  }, [navigate, queryClient]);
 
   return (
     <AuthContext.Provider value={{ user, isLoadingUser }}>
