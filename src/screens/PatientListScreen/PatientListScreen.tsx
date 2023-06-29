@@ -10,6 +10,7 @@ import { PatientListMainContainer } from './components/PatientListMainContainer'
 import { PatientList } from './components/PatientList';
 import { AddPatientButton } from './components/AddPatientButton';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
+import { Menu } from '../../components/Menu/Menu';
 
 export const PatientListScreen: React.FC = () => {
   const { t } = useTranslation('', { keyPrefix: 'patientList' });
@@ -21,6 +22,7 @@ export const PatientListScreen: React.FC = () => {
   return (
     <SafeArea>
       <PatientListMainContainer>
+        <Menu />
         <Text size="3xl">{t('title')}</Text>
         <Input
           onChangeText={(value) => {

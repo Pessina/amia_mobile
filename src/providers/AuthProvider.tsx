@@ -31,6 +31,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const subscriber = auth().onAuthStateChanged((currUser) => {
       setIsLoadingUser(false);
       setUser(currUser);
+
       if (currUser) {
         navigate.navigate('PatientList');
       } else {

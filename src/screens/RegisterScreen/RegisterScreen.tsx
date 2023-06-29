@@ -53,6 +53,7 @@ export const RegisterScreen = (): JSX.Element => {
 
   const onSubmit = async (data: FormData) => {
     const user = await createUser(data);
+
     if (user) {
       createDoctorMutation.mutate({
         name: data.name,

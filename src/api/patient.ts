@@ -1,4 +1,4 @@
-import { REACT_APP_BASE_URL } from '@env';
+import Config from 'react-native-config';
 import axios from 'axios';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 
@@ -9,7 +9,7 @@ export type Patient = {
 
 export const useCreatePatient = (queryClient: QueryClient) => {
   return useMutation(
-    (data: Patient) => axios.post<Patient>(`${REACT_APP_BASE_URL}/patient`, data),
+    (data: Patient) => axios.post<Patient>(`${Config.REACT_APP_API_URL}/patient`, data),
     {
       onError: (error) => {
         console.error(JSON.stringify(error));
@@ -24,7 +24,7 @@ export const useCreatePatient = (queryClient: QueryClient) => {
 export const useSearchPatients = (id: string, name: string) => {
   return useQuery(
     ['patients', id, name],
-    () => axios.get<Patient[]>(`${REACT_APP_BASE_URL}/patient/search?&id=${id}&name=${name}`),
+    () => axios.get<Patient[]>(`${Config.REACT_APP_API_URL}/patient/search?&id=${id}&name=${name}`),
     {
       onError: (error) => {
         console.error(JSON.stringify(error));
