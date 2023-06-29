@@ -14,7 +14,7 @@ export const Menu: React.FC = () => {
         onPress={() => setIsVisible((prev) => !prev)}
       />
       {isVisible && (
-        <FloatingMenu options={[{ label: 'Logout', icon: 'logout', onPress: logout }]} />
+        <FloatingMenu options={[{ label: 'Logout', icon: 'log-out', onPress: logout }]} />
       )}
     </View>
   );
