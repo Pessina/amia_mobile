@@ -44,6 +44,7 @@ export const AddPatientModal: React.FC<Props> = ({ visible, onRequestClose }) =>
 
   return (
     <Modal
+      transparent
       visible={visible}
       onRequestClose={onRequestClose}
       title="Add Patient"
