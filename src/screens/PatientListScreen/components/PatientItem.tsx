@@ -23,4 +23,5 @@ const PatientContainer = styled(View)`
   border: 1px solid ${({ theme }) => theme.colors.text.dark};
   padding: ${({ theme }) => theme.space[2]}px;
   gap: ${({ theme }) => theme.space[2]}px;
+  margin-bottom: ${({ theme }) => theme.space[2]}px;
 `;

@@ -8,6 +8,7 @@ import Input from '../../../components/Input/Input';
 import { Modal } from '../../../components/Modal/Modal';
 import { Button } from '../../../components/Button/Button';
 import { useCreatePatient } from '../../../api/patient';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface PatientData {
   name: string;
@@ -22,6 +23,7 @@ interface Props {
 export const AddPatientModal: React.FC<Props> = ({ visible, onRequestClose }) => {
   const { t } = useTranslation('', { keyPrefix: 'patientList.addPatient' });
   const { t: tValidation } = useTranslation('', { keyPrefix: 'validation' });
+  const queryClient = useQueryClient();
 
   const schema = yup.object().shape({
     name: yup.string().required(tValidation('required')),
@@ -31,15 +33,17 @@ export const AddPatientModal: React.FC<Props> = ({ visible, onRequestClose }) =>
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<PatientData>({
     resolver: yupResolver(schema),
   });
 
-  const createPatientMutation = useCreatePatient();
+  const createPatientMutation = useCreatePatient(queryClient);
 
   const onSubmit = (data: PatientData) => {
     createPatientMutation.mutate(data);
     onRequestClose();
+    reset();
   };
 
   return (
