@@ -54,6 +54,7 @@ export interface Theme {
     error: string;
     warning: string;
     success: string;
+    overlay: string;
   };
   fontSizes: {
     [key in FontSize]: number;
@@ -99,6 +100,7 @@ const theme: Theme = {
     error: '#FF0000',
     warning: '#FFA500',
     success: '#008000',
+    overlay: 'rgba(0, 0, 0, 0.5)',
   },
   fontSizes: {
     xs: 12,

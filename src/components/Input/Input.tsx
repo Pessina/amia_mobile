@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import { TextInputProps } from 'react-native';
 import { FontSize } from '../../providers/StyledComponentsThemeProvider';
 
-interface InputProps extends TextInputProps {
+export interface InputProps extends TextInputProps {
   label?: string;
   fontSize?: FontSize;
   error?: string;
@@ -29,6 +29,7 @@ const FieldContainer = styled.View<{ error?: string }>`
   border-radius: ${({ theme }) => theme.borderRadius.md};
   padding: ${({ theme }) => theme.space[3]}px;
   background-color: ${({ theme }) => theme.colors.background.DEFAULT};
+  width: 100%;
 `;
 
 const StyledInput = styled.TextInput<InputProps>`

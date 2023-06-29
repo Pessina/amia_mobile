@@ -36,7 +36,7 @@ export const RegisterScreen = (): JSX.Element => {
 
   const schema = yup.object().shape({
     name: yup.string().required(tValidation('required')),
-    email: yup.string().email(tValidation('invalid-email')).required(tValidation('required')),
+    email: yup.string().email(tValidation('invalidEmail')).required(tValidation('required')),
     password: yup.string().required(tValidation('required')),
     cpf: yup.string().required(tValidation('required')),
     crm: yup.string().required(tValidation('required')),

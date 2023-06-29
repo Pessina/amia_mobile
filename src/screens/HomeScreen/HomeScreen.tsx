@@ -25,7 +25,7 @@ export const HomeScreen = (): JSX.Element => {
           >
             {t('header')}
           </Text>
-          <Text textAlign="center">{t('sub-header')}</Text>
+          <Text textAlign="center">{t('subHeader')}</Text>
           <Button
             onPress={() => navigate.navigate('Login')}
             buttonStyle={'primary'}

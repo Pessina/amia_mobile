@@ -2,7 +2,7 @@
   "name": "Amia",
   "home": {
     "header": "Amia te ajuda a melhorar a eficiência e qualidade das consultas por meio de AI",
-    "sub-header": "Otimize o fluxo de trabalho médico, transformando as conversas das consultas em registros precisos e detalhados",
+    "subHeader": "Otimize o fluxo de trabalho médico, transformando as conversas das consultas em registros precisos e detalhados",
     "buttons": {
       "login": "Entrar",
       "signUp": "Criar conta"
@@ -25,8 +25,27 @@
     "password": "Senha",
     "cta": "Continuar"
   },
+  "patientList": {
+    "title": "Pacientes",
+    "searchPlaceholder": "Buscar paciente ou ID",
+    "empty": "Nenhum paciente",
+    "addPatient": {
+      "addCTA": "Novo paciente",
+      "title": "Novo paciente",
+      "name": {
+        "label": "Nome",
+        "placeholder": "Nome do paciente"
+      },
+      "ID": {
+        "label": "ID",
+        "placeholder": "ID do paciente",
+        "hint": "Campo opcional"
+      },
+      "submitCTA": "Adicionar paciente"
+    }
+  },
   "validation": {
     "required": "Obrigatório",
-    "invalid-email": "Email inválido"
+    "invalidEmail": "Email inválido"
   }
 }

@@ -27,7 +27,7 @@ export const LoginScreen = (): JSX.Element => {
   const navigate = useNavigation<StackNavigation>();
 
   const schema = yup.object().shape({
-    email: yup.string().email(tValidation('invalid-email')).required(tValidation('required')),
+    email: yup.string().email(tValidation('invalidEmail')).required(tValidation('required')),
     password: yup.string().required(tValidation('required')),
   });
 
@@ -40,9 +40,10 @@ export const LoginScreen = (): JSX.Element => {
   });
 
   const onSubmit = async (data: FormData) => {
-    const user = await login(data);
-    if (user) {
-      console.log('User logged in successfully.');
+    try {
+      await login(data);
+    } catch (error) {
+      console.error(error);
     }
   };
 

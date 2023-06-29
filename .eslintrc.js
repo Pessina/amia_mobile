@@ -6,7 +6,6 @@ module.exports = {
     semi: ['error', 'always'],
     quotes: ['error', 'single'],
     '@typescript-eslint/no-unused-vars': ['error'],
-    'func-style': ['error', 'expression'],
     'no-var': 'error',
     eqeqeq: 'error',
     'no-eval': 'error',
