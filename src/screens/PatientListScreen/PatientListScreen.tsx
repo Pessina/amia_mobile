@@ -12,6 +12,7 @@ import { AddPatientButton } from './components/AddPatientButton';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
 import { FloatingMenu } from '../../components/FloatingMenu/FloatingMenu';
 import { logout } from '../../auth/logout';
+import { Header } from '../../components/Header/Header';
 
 export const PatientListScreen: React.FC = () => {
   const { t } = useTranslation('', { keyPrefix: 'patientList' });
@@ -23,7 +24,7 @@ export const PatientListScreen: React.FC = () => {
   return (
     <SafeArea>
       <PatientListMainContainer>
-        <FloatingMenu options={[{ label: 'Logout', icon: 'log-out', onPress: logout }]} />
+        <Header right={<FloatingMenu options={[{ label: 'Logout', onPress: logout }]} />} />
         <Text size="3xl">{t('title')}</Text>
         <Input
           onChangeText={(value) => {

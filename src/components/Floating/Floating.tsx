@@ -1,9 +1,10 @@
 import { View } from 'react-native';
-import { useFloating, shift, Placement, offset, flip } from '@floating-ui/react-native';
+import { useFloating, Placement, offset, autoPlacement } from '@floating-ui/react-native';
 import { ReactNode } from 'react';
 import { Overlay } from '../Overlay/Overlay';
 import styled from 'styled-components/native';
 
+// TODO: re-check the z-index
 const Wrapper = styled.View`
   z-index: ${({ theme }) => theme.zIndex[1]};
 `;
@@ -22,6 +23,7 @@ type FloatingProps = {
   isOpen?: boolean;
   onClose: () => void;
   placement?: Placement;
+  floatingOffset?: number;
 };
 
 export const Floating: React.FC<FloatingProps> = ({
@@ -30,10 +32,11 @@ export const Floating: React.FC<FloatingProps> = ({
   isOpen,
   onClose,
   placement = 'bottom-start',
+  floatingOffset = 4,
 }) => {
   const { refs, floatingStyles } = useFloating({
     placement,
-    middleware: [shift(), offset(4), flip()],
+    middleware: [offset(floatingOffset), autoPlacement()],
   });
 
   return (
@@ -47,10 +50,7 @@ export const Floating: React.FC<FloatingProps> = ({
       {isOpen && (
         <Overlay
           color="transparent"
-          onPress={() => {
-            console.log('onPress');
-            isOpen ? onClose() : undefined;
-          }}
+          onPress={() => (isOpen ? onClose() : undefined)}
         >
           <FloatingWrapper
             ref={refs.setFloating}

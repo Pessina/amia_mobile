@@ -27,20 +27,6 @@ export type FontWeight =
   | 'extrabold'
   | 'black';
 
-type Shadows = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'inner' | 'none';
-
-export const fontWeightMap: Record<FontWeight, number> = {
-  thin: 100,
-  extralight: 200,
-  light: 300,
-  normal: 400,
-  medium: 500,
-  semibold: 600,
-  bold: 700,
-  extrabold: 800,
-  black: 900,
-};
-
 interface Color {
   light: string;
   DEFAULT: string;
@@ -78,9 +64,6 @@ export interface Theme {
   space: number[];
   zIndex: number[];
   breakpoints: string[];
-  shadows: {
-    [key in Shadows]: string;
-  };
 }
 
 const theme: Theme = {
@@ -162,15 +145,6 @@ const theme: Theme = {
   space: generateArray(30, 4, 0),
   zIndex: generateArray(30, 1, 1),
   breakpoints: ['40em', '52em', '64em'],
-  shadows: {
-    sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-    md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-    lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-    xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-    '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-    inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-    none: 'none',
-  },
 };
 
 export type ThemeProviderProps = {

@@ -7,11 +7,10 @@ import { useState } from 'react';
 const MenuItem = styled.Pressable`
   flex-direction: row;
   align-items: center;
-  gap: ${({ theme }) => theme.space[2]}px;
 `;
 
 type FloatingMenuProps = {
-  options: { label: string; icon: string; onPress: () => void }[];
+  options: { label: string; icon?: string; onPress: () => void }[];
   children?: never;
 };
 

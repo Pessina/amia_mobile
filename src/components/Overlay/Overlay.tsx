@@ -1,10 +1,11 @@
-import { Dimensions, TouchableOpacityProps } from 'react-native';
+import { Dimensions, PressableProps } from 'react-native';
 import styled from 'styled-components/native';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
-export interface OverlayProps extends TouchableOpacityProps {
+// TODO: overlay it's not taking the full screen
+export interface OverlayProps extends PressableProps {
   color: 'overlay' | 'transparent';
 }
 
