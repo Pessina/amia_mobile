@@ -20,10 +20,12 @@ export const FloatingMenu: React.FC<FloatingMenuProps> = ({ options }) => {
   return (
     <Floating
       isOpen={isMenuOpen}
-      onClose={() => setIsMenuOpen(false)}
       floating={options.map((option) => (
         <MenuItem
-          onPress={option.onPress}
+          onPress={() => {
+            setIsMenuOpen(false);
+            option.onPress();
+          }}
           key={option.label}
         >
           {option.icon && <IconButton name={option.icon} />}
