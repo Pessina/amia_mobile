@@ -51,6 +51,8 @@ export const RegisterScreen = (): JSX.Element => {
     resolver: yupResolver(schema),
   });
 
+  // TODO: Before create user validate if it's possible to add on Firebase and on Database
+  // Eg. A user can have a unique e-mail but the CPF already exists on database, so it will fail
   const onSubmit = async (data: FormData) => {
     const user = await createUser(data);
 

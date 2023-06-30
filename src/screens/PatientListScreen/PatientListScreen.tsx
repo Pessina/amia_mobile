@@ -5,24 +5,25 @@ import { SafeArea } from '../../components/Containers/SafeArea';
 import { useTranslation } from 'react-i18next';
 import { Patient, useSearchPatients } from '../../api/patient';
 import { PatientItem } from './components/PatientItem';
-import { AddPatientModal } from './components/AddPatientModa';
+import { AddPatientModal } from './components/AddPatientModal';
 import { PatientListMainContainer } from './components/PatientListMainContainer';
 import { PatientList } from './components/PatientList';
 import { AddPatientButton } from './components/AddPatientButton';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
-import { Menu } from '../../components/Menu/Menu';
+import { FloatingMenu } from '../../components/FloatingMenu/FloatingMenu';
+import { logout } from '../../auth/logout';
 
 export const PatientListScreen: React.FC = () => {
   const { t } = useTranslation('', { keyPrefix: 'patientList' });
   const [search, setSearch] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const data = useSearchPatients(search, search);
+  const searchPatientsQuery = useSearchPatients(search, search);
 
   return (
     <SafeArea>
       <PatientListMainContainer>
-        <Menu />
+        <FloatingMenu options={[{ label: 'Logout', icon: 'log-out', onPress: logout }]} />
         <Text size="3xl">{t('title')}</Text>
         <Input
           onChangeText={(value) => {
@@ -30,9 +31,9 @@ export const PatientListScreen: React.FC = () => {
           }}
           placeholder={t('searchPlaceholder')}
         />
-        {data.data ? (
+        {(searchPatientsQuery.data?.data.length ?? 0) > 0 ? (
           <PatientList
-            data={data.data.data ?? []}
+            data={searchPatientsQuery.data?.data ?? []}
             keyExtractor={(item: Patient, index: number) =>
               item.assignedId?.toString() ?? index.toString()
             }

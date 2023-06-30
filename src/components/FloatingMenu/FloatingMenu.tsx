@@ -1,16 +1,8 @@
 import { styled } from 'styled-components/native';
 import { IconButton } from '../Icon/IconButton';
 import { Text } from '../Text/Text';
-
-// FloatingMenu component
-const FloatingMenuContainer = styled.View`
-  position: absolute;
-  right: 0;
-  top: 0;
-  background-color: ${({ theme }) => theme.colors.background.DEFAULT};
-  padding: ${({ theme }) => theme.space[2]}px;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-`;
+import { Floating } from '../Floating/Floating';
+import { useState } from 'react';
 
 const MenuItem = styled.Pressable`
   flex-direction: row;
@@ -20,12 +12,17 @@ const MenuItem = styled.Pressable`
 
 type FloatingMenuProps = {
   options: { label: string; icon: string; onPress: () => void }[];
+  children?: never;
 };
 
 export const FloatingMenu: React.FC<FloatingMenuProps> = ({ options }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <FloatingMenuContainer>
-      {options.map((option) => (
+    <Floating
+      isOpen={isMenuOpen}
+      onClose={() => setIsMenuOpen(false)}
+      floating={options.map((option) => (
         <MenuItem
           onPress={option.onPress}
           key={option.label}
@@ -34,6 +31,11 @@ export const FloatingMenu: React.FC<FloatingMenuProps> = ({ options }) => {
           <Text>{option.label}</Text>
         </MenuItem>
       ))}
-    </FloatingMenuContainer>
+    >
+      <IconButton
+        name="more-horizontal"
+        onPress={() => setIsMenuOpen((prev) => !prev)}
+      />
+    </Floating>
   );
 };

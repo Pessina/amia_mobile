@@ -1,6 +1,6 @@
 import Config from 'react-native-config';
 import axios from 'axios';
-import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { isNil, isEmpty } from 'lodash';
 import qs from 'qs';
 
@@ -15,7 +15,9 @@ export enum PatientQueryStrings {
   PATIENTS = 'PATIENTS',
 }
 
-export const useCreatePatient = (queryClient: QueryClient) => {
+export const useCreatePatient = () => {
+  const queryClient = useQueryClient();
+
   return useMutation((data: Patient) => axios.post<Patient>(`${BASE_URL}/patient`, data), {
     onError: (error) => {
       console.error(JSON.stringify(error));
