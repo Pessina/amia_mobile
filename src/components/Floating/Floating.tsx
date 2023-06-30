@@ -3,6 +3,7 @@ import { useFloating, Placement, offset, autoPlacement } from '@floating-ui/reac
 import { ReactNode } from 'react';
 import styled from 'styled-components/native';
 
+// TODO: remove min-width and use the content width
 const FloatingWrapper = styled.View`
   background-color: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.text.light};
