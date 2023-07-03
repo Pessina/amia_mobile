@@ -13,11 +13,14 @@ import { EmptyState } from '../../components/EmptyState/EmptyState';
 import { FloatingMenu } from '../../components/FloatingMenu/FloatingMenu';
 import { logout } from '../../auth/logout';
 import { Header } from '../../components/Header/Header';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigation } from '../../routes';
 
 export const PatientListScreen: React.FC = () => {
   const { t } = useTranslation('', { keyPrefix: 'patientList' });
   const [search, setSearch] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const navigate = useNavigation<StackNavigation>();
 
   const searchPatientsQuery = useSearchPatients(search, search);
 
@@ -40,6 +43,7 @@ export const PatientListScreen: React.FC = () => {
             }
             renderItem={({ item }: { item: Patient }) => (
               <PatientItem
+                onPress={() => navigate.navigate('Visit')}
                 name={item.name}
                 id={item.assignedId ?? ''}
               />

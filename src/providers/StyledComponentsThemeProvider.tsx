@@ -142,6 +142,7 @@ const theme: Theme = {
     lg: '12px',
     full: '50px',
   },
+  // TODO: Replace with lodash
   space: generateArray(30, 4, 0),
   zIndex: generateArray(30, 1, 1),
   breakpoints: ['40em', '52em', '64em'],
