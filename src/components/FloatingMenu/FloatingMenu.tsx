@@ -1,5 +1,5 @@
 import { styled } from 'styled-components/native';
-import { IconButton } from '../Icon/IconButton';
+import { Icon } from '../Icon/Icon';
 import { Text } from '../Text/Text';
 import { Floating } from '../Floating/Floating';
 import { useState } from 'react';
@@ -28,13 +28,13 @@ export const FloatingMenu: React.FC<FloatingMenuProps> = ({ options }) => {
           }}
           key={option.label}
         >
-          {option.icon && <IconButton name={option.icon} />}
+          {option.icon && <Icon name={option.icon} />}
           <Text>{option.label}</Text>
         </MenuItem>
       ))}
     >
-      <IconButton
-        name="more-horizontal"
+      <Icon
+        name="more-line"
         onPress={() => setIsMenuOpen((prev) => !prev)}
       />
     </Floating>

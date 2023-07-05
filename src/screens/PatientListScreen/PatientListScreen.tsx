@@ -27,7 +27,11 @@ export const PatientListScreen: React.FC = () => {
   return (
     <SafeArea>
       <PatientListMainContainer>
-        <Header right={<FloatingMenu options={[{ label: 'Logout', onPress: logout }]} />} />
+        <Header
+          right={
+            <FloatingMenu options={[{ label: 'Logout', onPress: logout, icon: 'logout-box' }]} />
+          }
+        />
         <Text size="3xl">{t('title')}</Text>
         <Input
           onChangeText={(value) => {

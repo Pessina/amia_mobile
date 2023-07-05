@@ -10,7 +10,7 @@ import { Form } from './components/Form';
 import { Text } from '../../components/Text/Text';
 import { LoginMainContainer } from './components/LoginMainContainer';
 import { ScrollView } from 'react-native';
-import { IconButton } from '../../components/Icon/IconButton';
+import { Icon } from '../../components/Icon/Icon';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { login } from '../../auth/login';
@@ -50,8 +50,8 @@ export const LoginScreen = (): JSX.Element => {
   return (
     <SafeArea>
       <LoginMainContainer>
-        <IconButton
-          name="chevron-left"
+        <Icon
+          name="arrow-left-s-line"
           onPress={() => navigate.navigate('Home')}
         />
         <Text

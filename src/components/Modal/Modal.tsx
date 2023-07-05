@@ -3,7 +3,7 @@ import { Modal as NativeModal, ModalProps as NativeModalProps, View } from 'reac
 import { SafeArea } from '../Containers/SafeArea';
 import styled from 'styled-components/native';
 import { Text } from '../Text/Text';
-import { IconButton } from '../Icon/IconButton';
+import { Icon } from '../Icon/Icon';
 
 interface Props extends NativeModalProps {
   title?: string;
@@ -20,8 +20,8 @@ export const Modal: React.FC<Props> = ({ children, title, ...props }) => {
         <Content>
           <Header>
             <Text size="2xl">{title}</Text>
-            <IconButton
-              name="x-circle"
+            <Icon
+              name="close-circle-fill"
               onPress={props.onRequestClose}
             />
           </Header>

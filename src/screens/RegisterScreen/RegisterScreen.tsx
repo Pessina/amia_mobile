@@ -12,7 +12,7 @@ import { RegisterMainContainer } from './components/RegisterMainContainer';
 import { replaceTagsInText } from '../../utils/text';
 import { Footer } from './components/Footer';
 import { ScrollView } from 'react-native';
-import { IconButton } from '../../components/Icon/IconButton';
+import { Icon } from '../../components/Icon/Icon';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { createUser } from '../../auth/createUser';
@@ -70,8 +70,8 @@ export const RegisterScreen = (): JSX.Element => {
   return (
     <SafeArea>
       <RegisterMainContainer>
-        <IconButton
-          name="chevron-left"
+        <Icon
+          name="arrow-left-s-line"
           onPress={() => navigate.navigate('Home')}
         />
         <Text
