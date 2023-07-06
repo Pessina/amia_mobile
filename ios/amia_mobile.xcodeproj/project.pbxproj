@@ -14,6 +14,10 @@
 		4560E9490987EBEBA2A8C310 /* Pods_amia_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B14FC389A469129ADB8E579 /* Pods_amia_mobile.framework */; };
 		5D5927E6E4CC94831ABFDBC2 /* Pods_amia_mobile_amia_mobileTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BEAB934C8CDB79DBEA63C3 /* Pods_amia_mobile_amia_mobileTests.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		DD566B882A55BF4C009C4335 /* RCTAudioModule.m in Sources */ = {isa = PBXBuildFile; fileRef = DD566B872A55BF4C009C4335 /* RCTAudioModule.m */; };
+		DD566B892A55BF4C009C4335 /* RCTAudioModule.m in Sources */ = {isa = PBXBuildFile; fileRef = DD566B872A55BF4C009C4335 /* RCTAudioModule.m */; };
+		DD566B8C2A55E44E009C4335 /* RTCAudioModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD566B8B2A55E44E009C4335 /* RTCAudioModule.swift */; };
+		DD566B8D2A55E44E009C4335 /* RTCAudioModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD566B8B2A55E44E009C4335 /* RTCAudioModule.swift */; };
 		DDF03C122A4B2BFE00760290 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDF03C112A4B2BFE00760290 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +48,11 @@
 		7B14FC389A469129ADB8E579 /* Pods_amia_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_amia_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = amia_mobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-amia_mobile-amia_mobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-amia_mobile-amia_mobileTests.release.xcconfig"; path = "Target Support Files/Pods-amia_mobile-amia_mobileTests/Pods-amia_mobile-amia_mobileTests.release.xcconfig"; sourceTree = "<group>"; };
+		DD566B872A55BF4C009C4335 /* RCTAudioModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTAudioModule.m; sourceTree = "<group>"; };
+		DD566B8A2A55E44D009C4335 /* amia_mobileTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "amia_mobileTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		DD566B8B2A55E44E009C4335 /* RTCAudioModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCAudioModule.swift; sourceTree = "<group>"; };
 		DDF03C112A4B2BFE00760290 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DDF8276C2A553EB400389F75 /* amia_mobile-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "amia_mobile-Bridging-Header.h"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -118,6 +126,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				DD566B8B2A55E44E009C4335 /* RTCAudioModule.swift */,
+				DD566B872A55BF4C009C4335 /* RCTAudioModule.m */,
 				DDF03C112A4B2BFE00760290 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* amia_mobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -125,6 +135,8 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				DDF8276C2A553EB400389F75 /* amia_mobile-Bridging-Header.h */,
+				DD566B8A2A55E44D009C4335 /* amia_mobileTests-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -208,10 +220,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 1430;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -422,6 +435,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD566B892A55BF4C009C4335 /* RCTAudioModule.m in Sources */,
+				DD566B8D2A55E44E009C4335 /* RTCAudioModule.swift in Sources */,
 				00E356F31AD99517003FC87E /* amia_mobileTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,8 +445,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD566B8C2A55E44E009C4335 /* RTCAudioModule.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				DD566B882A55BF4C009C4335 /* RCTAudioModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,7 +467,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-amia_mobile-amia_mobileTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 4K55V5C7P3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -470,6 +489,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "amia_mobileTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/amia_mobile.app/amia_mobile";
 			};
 			name = Debug;
@@ -478,7 +500,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-amia_mobile-amia_mobileTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 4K55V5C7P3;
 				INFOPLIST_FILE = amia_mobileTests/Info.plist;
@@ -495,6 +519,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "amia_mobileTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/amia_mobile.app/amia_mobile";
 			};
 			name = Release;
@@ -521,6 +547,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = amia_mobile;
+				SWIFT_OBJC_BRIDGING_HEADER = "amia_mobile-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -548,6 +575,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = amia_mobile;
+				SWIFT_OBJC_BRIDGING_HEADER = "amia_mobile-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
