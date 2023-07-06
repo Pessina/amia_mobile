@@ -13,7 +13,9 @@ export const Microphone: React.FC = () => {
       <Button
         title={'Start'}
         onPress={() => {
-          AudioModule.logAudio('testName', 'testLocation');
+          AudioModule.logAudio('name', 'location').then((message: string) => {
+            console.log(message);
+          });
         }}
       />
     </View>
