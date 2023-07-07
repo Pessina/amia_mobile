@@ -5,9 +5,9 @@ export const processAudio = async (audioUri: string) => {
   const formData = new FormData();
 
   const audio = {
-    uri: audioUri,
-    type: 'audio/mp4',
-    name: 'audio.mp4',
+    uri: 'file:///' + audioUri,
+    type: 'audio/mp3',
+    name: 'audio.mp3',
   };
 
   formData.append('audio', audio);

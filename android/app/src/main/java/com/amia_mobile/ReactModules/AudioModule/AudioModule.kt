@@ -3,6 +3,7 @@ package com.amia_mobile
 import android.media.MediaRecorder
 import com.facebook.react.bridge.*
 import java.io.IOException
+import java.io.File
 
 class AudioModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
@@ -15,12 +16,12 @@ class AudioModule(private val reactContext: ReactApplicationContext) : ReactCont
 
     @ReactMethod
     fun startRecording(promise: Promise) {
-        currentFilePath = "${reactContext.filesDir.absolutePath}/audioRecording_${System.currentTimeMillis()}.mp4"
+        currentFilePath = "${reactContext.filesDir.absolutePath}/audioRecording_${System.currentTimeMillis()}.mp3"
 
         recorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
             setOutputFile(currentFilePath)
             try {
                 prepare()
@@ -41,6 +42,14 @@ class AudioModule(private val reactContext: ReactApplicationContext) : ReactCont
                 release()
             }
             recorder = null
+
+             // Check if the file exists
+            val file = File(currentFilePath)
+            if (!file.exists()) {
+                promise.reject("STOP_RECORDING_FAILED", "File not found at path: $currentFilePath")
+                return
+            }
+
             promise.resolve(currentFilePath)
         } catch (e: RuntimeException) {
             promise.reject("STOP_RECORDING_FAILED", e)
