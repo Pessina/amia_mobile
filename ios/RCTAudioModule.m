@@ -1,10 +1,11 @@
 #import <Foundation/Foundation.h>
-
-//  RCTAudioModuleBridge.m
 #import <React/RCTBridgeModule.h>
 
 @interface RCT_EXTERN_MODULE(RCTAudioModule, NSObject)
 
-RCT_EXTERN_METHOD(logAudio:(NSString *)name location:(NSString *)location)
+RCT_EXTERN_METHOD(startRecording:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(stopRecording:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(pauseRecording:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(resumeRecording:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 
 @end

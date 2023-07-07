@@ -15,9 +15,7 @@
 		5D5927E6E4CC94831ABFDBC2 /* Pods_amia_mobile_amia_mobileTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BEAB934C8CDB79DBEA63C3 /* Pods_amia_mobile_amia_mobileTests.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		DD566B882A55BF4C009C4335 /* RCTAudioModule.m in Sources */ = {isa = PBXBuildFile; fileRef = DD566B872A55BF4C009C4335 /* RCTAudioModule.m */; };
-		DD566B892A55BF4C009C4335 /* RCTAudioModule.m in Sources */ = {isa = PBXBuildFile; fileRef = DD566B872A55BF4C009C4335 /* RCTAudioModule.m */; };
 		DD566B8C2A55E44E009C4335 /* RTCAudioModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD566B8B2A55E44E009C4335 /* RTCAudioModule.swift */; };
-		DD566B8D2A55E44E009C4335 /* RTCAudioModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD566B8B2A55E44E009C4335 /* RTCAudioModule.swift */; };
 		DDF03C122A4B2BFE00760290 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DDF03C112A4B2BFE00760290 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -126,8 +124,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				DD566B8B2A55E44E009C4335 /* RTCAudioModule.swift */,
 				DD566B872A55BF4C009C4335 /* RCTAudioModule.m */,
+				DD566B8B2A55E44E009C4335 /* RTCAudioModule.swift */,
 				DDF03C112A4B2BFE00760290 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* amia_mobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -435,8 +433,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD566B892A55BF4C009C4335 /* RCTAudioModule.m in Sources */,
-				DD566B8D2A55E44E009C4335 /* RTCAudioModule.swift in Sources */,
 				00E356F31AD99517003FC87E /* amia_mobileTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

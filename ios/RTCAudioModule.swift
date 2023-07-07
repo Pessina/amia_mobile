@@ -1,35 +1,107 @@
-//
-//  RCTAudioModule.swift
-//  amia_mobile
-//
-//  Created by Felipe Sousa Pessina on 7/5/23.
-//
-
 import Foundation
-import UIKit
+import AVFoundation
 
 @objc(RCTAudioModule)
 class RCTAudioModule: NSObject, RCTBridgeModule {
+  var recorder: AVAudioRecorder?
+  var audioFileName: URL?
+  
   @objc static func requiresMainQueueSetup() -> Bool { return true }
   
   static func moduleName() -> String! {
     return "RCTAudioModule"
   }
+
+  // Configure the audio recording settings
+  func setupRecorder() {
+    let recordingSession = AVAudioSession.sharedInstance()
+
+    do {
+        try recordingSession.setCategory(.playAndRecord, mode: .default)
+        try recordingSession.setActive(true)
+        
+        let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
+        
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
+        
+        recorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+        self.audioFileName = audioFilename
+    } catch {
+        // handle error
+    }
+  }
   
-  @objc(logAudio:location:)
-  func logAudio(_ name: String, location: String) {
-    let message = "Pretending to create an event \(name) at \(location) running on swift this one"
-    DispatchQueue.main.async { [weak self] in
-      let alert = UIAlertController(title: "Log Info", message: message, preferredStyle: .alert)
-      let okayAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-      alert.addAction(okayAction)
-      
-      if var topController = UIApplication.shared.keyWindow?.rootViewController {
-        while let presentedViewController = topController.presentedViewController {
-          topController = presentedViewController
-        }
-        topController.present(alert, animated: true, completion: nil)
-      }
+  func getDocumentsDirectory() -> URL {
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    return paths[0]
+  }
+
+  @objc(startRecording:rejecter:)
+  func startRecording(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    self.setupRecorder()
+    guard let recorder = self.recorder else {
+      let error = NSError(domain: "", code: 200, userInfo: [NSLocalizedDescriptionKey : "Failed to set up the recorder"])
+      reject("NO_RECORDER", "Recorder not found", error)
+      return
+    }
+
+    recorder.record()
+    resolve(true)
+  }
+
+  @objc(stopRecording:rejecter:)
+  func stopRecording(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    guard let recorder = self.recorder else {
+      let error = NSError(domain: "", code: 200, userInfo: [NSLocalizedDescriptionKey : "Failed to set up the recorder"])
+      reject("NO_RECORDER", "Recorder not found", error)
+      return
+    }
+
+    recorder.stop()
+    if let audioFileName = self.audioFileName {
+      resolve(audioFileName.absoluteString)
+    } else {
+      let error = NSError(domain: "", code: 200, userInfo: [NSLocalizedDescriptionKey : "No audio file found"])
+      reject("NO_AUDIO_FILE", "Audio file not found", error)
+    }
+  }
+
+  @objc(pauseRecording:rejecter:)
+  func pauseRecording(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    guard let recorder = self.recorder else {
+      let error = NSError(domain: "", code: 200, userInfo: [NSLocalizedDescriptionKey : "Failed to set up the recorder"])
+      reject("NO_RECORDER", "Recorder not found", error)
+      return
+    }
+
+    if recorder.isRecording {
+      recorder.pause()
+      resolve(true)
+    } else {
+      let error = NSError(domain: "", code: 200, userInfo: [NSLocalizedDescriptionKey : "Recorder is not recording"])
+      reject("NOT_RECORDING", "Recorder is not recording", error)
+    }
+  }
+
+  @objc(resumeRecording:rejecter:)
+  func resumeRecording(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    guard let recorder = self.recorder else {
+      let error = NSError(domain: "", code: 200, userInfo: [NSLocalizedDescriptionKey : "Failed to set up the recorder"])
+      reject("NO_RECORDER", "Recorder not found", error)
+      return
+    }
+
+    if !recorder.isRecording {
+      recorder.record()
+      resolve(true)
+    } else {
+      let error = NSError(domain: "", code: 200, userInfo: [NSLocalizedDescriptionKey : "Recorder is already recording"])
+      reject("ALREADY_RECORDING", "Recorder is already recording", error)
     }
   }
 }
