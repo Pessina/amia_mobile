@@ -43,14 +43,7 @@ class AudioModule(private val reactContext: ReactApplicationContext) : ReactCont
             }
             recorder = null
 
-             // Check if the file exists
-            val file = File(currentFilePath)
-            if (!file.exists()) {
-                promise.reject("STOP_RECORDING_FAILED", "File not found at path: $currentFilePath")
-                return
-            }
-
-            promise.resolve(currentFilePath)
+            promise.resolve("file:///$currentFilePath")
         } catch (e: RuntimeException) {
             promise.reject("STOP_RECORDING_FAILED", e)
         }
