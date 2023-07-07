@@ -1,27 +1,23 @@
 import axios from 'axios';
 import Config from 'react-native-config';
 
-export const processAudio = async (audioUri: string) => {
+const BASE_URL = Config.REACT_APP_API_URL;
+
+export const processAudio = async (uri: string) => {
   const formData = new FormData();
 
-  const audio = {
-    uri: audioUri,
+  formData.append('audio', {
+    uri,
     type: 'audio/mp3',
-    name: 'audio.mp3',
-  };
-
-  formData.append('audio', audio);
+    name: uri.substring(uri.lastIndexOf('/') + 1),
+  });
 
   try {
-    const res = await axios.post<{ text: string }>(
-      `${Config.REACT_APP_API_URL}/visit/process-audio`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
+    const res = await axios.post<{ text: string }>(`${BASE_URL}/visit/process-audio`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
 
     return res.data.text;
   } catch (e) {

@@ -29,8 +29,6 @@ export const useCreatePatient = () => {
 };
 
 export const useSearchPatients = (id?: string, name?: string) => {
-  const ENDPOINT = '/patient/search';
-
   return useQuery(
     [PatientQueryStrings.PATIENTS, id, name],
     () => {
@@ -39,7 +37,7 @@ export const useSearchPatients = (id?: string, name?: string) => {
         name: !isNil(name) && !isEmpty(name) ? encodeURIComponent(name) : undefined,
       });
 
-      return axios.get<Patient[]>(`${BASE_URL}${ENDPOINT}?${params}`);
+      return axios.get<Patient[]>(`${BASE_URL}/patient/search?${params}`);
     },
     {
       onError: (error) => {

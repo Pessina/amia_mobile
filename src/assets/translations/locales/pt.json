@@ -47,5 +47,16 @@
   "validation": {
     "required": "Obrigatório",
     "invalidEmail": "Email inválido"
+  },
+  "permissions": {
+    "audio": {
+      "title": "Permissão para Gravar Áudio",
+      "message": "O aplicativo precisa acessar o seu microfone",
+      "buttonNeutral": "Perguntar mais Tarde"
+    }
+  },
+  "general": {
+    "cancel": "Cancelar",
+    "ok": "OK"
   }
 }
