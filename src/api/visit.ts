@@ -3,10 +3,11 @@ import Config from 'react-native-config';
 
 export const processAudio = async (audioUri: string) => {
   const formData = new FormData();
+
   const audio = {
     uri: audioUri,
-    type: 'audio/m4a',
-    name: 'audio.m4a',
+    type: 'audio/mp4',
+    name: 'audio.mp4',
   };
 
   formData.append('audio', audio);
