@@ -5,11 +5,17 @@ import { Microphone } from './Microphone';
 export type MicrophoneModalProps = {
   visible: boolean;
   onRequestClose: () => void;
+  title?: string;
 };
 
-export const MicrophoneModal: React.FC<MicrophoneModalProps> = ({ visible, onRequestClose }) => {
+export const MicrophoneModal: React.FC<MicrophoneModalProps> = ({
+  visible,
+  onRequestClose,
+  title,
+}) => {
   return (
     <BottomSheet
+      title={title}
       visible={visible}
       onRequestClose={onRequestClose}
     >

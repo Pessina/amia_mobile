@@ -17,7 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 
 export const PatientListScreen: React.FC = () => {
-  const { t } = useTranslation('', { keyPrefix: 'patientList' });
+  const { t } = useTranslation('', { keyPrefix: 'screen.patientList' });
   const [search, setSearch] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigation<StackNavigation>();

@@ -30,7 +30,7 @@ type FormData = {
 
 export const RegisterScreen = (): JSX.Element => {
   const { t: tValidation } = useTranslation('', { keyPrefix: 'validation' });
-  const { t } = useTranslation('', { keyPrefix: 'register' });
+  const { t } = useTranslation('', { keyPrefix: 'screen.register' });
   const navigate = useNavigation<StackNavigation>();
   const createDoctorMutation = useCreateDoctor();
 

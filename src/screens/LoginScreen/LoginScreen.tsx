@@ -23,7 +23,7 @@ type FormData = {
 
 export const LoginScreen = (): JSX.Element => {
   const { t: tValidation } = useTranslation('', { keyPrefix: 'validation' });
-  const { t } = useTranslation('', { keyPrefix: 'login' });
+  const { t } = useTranslation('', { keyPrefix: 'screen.login' });
   const navigate = useNavigation<StackNavigation>();
 
   const schema = yup.object().shape({

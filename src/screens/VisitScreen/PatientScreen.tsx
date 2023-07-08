@@ -8,6 +8,7 @@ import { Text } from '../../components/Text/Text';
 import { View } from 'react-native';
 import { MicrophoneModal } from './components/MicrophoneModal';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface PatientScreenProps {
   route: RouteProp<RootStackParamList, 'Patient'>;
@@ -17,6 +18,7 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
   const { patientId } = route.params;
   const navigate = useNavigation<StackNavigation>();
   const [isModalVisible, setIsModalVisible] = useState(true);
+  const { t } = useTranslation('', { keyPrefix: 'screen.patient' });
 
   const patientQuery = useGetPatient(patientId);
 
@@ -31,6 +33,7 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
           <Text size="3xl">{patientQuery.data?.data.name}</Text>
         </View>
         <MicrophoneModal
+          title={t('newVisit')}
           visible={isModalVisible}
           onRequestClose={() => setIsModalVisible(false)}
         />

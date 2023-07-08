@@ -5,8 +5,10 @@ import styled from 'styled-components/native';
 import { Icon } from '../../../components/Icon/Icon';
 import { formatTime } from '../../../utils/time';
 import { Text } from '../../../components/Text/Text';
+import { useTranslation } from 'react-i18next';
+import { Button } from '../../../components/Button/Button';
 
-const Button = styled.TouchableOpacity<{ isRecording: boolean }>`
+const MicrophoneButton = styled.TouchableOpacity<{ isRecording: boolean }>`
   width: 100px;
   height: 100px;
   border-radius: 50px;
@@ -24,11 +26,12 @@ const MicrophoneContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  gap: ${({ theme }) => theme.space[2]};
+  gap: ${({ theme }) => theme.space[8]}px;
 `;
 
 export const Microphone: React.FC = () => {
   const { isRecording, startRecording, stopRecording, recordingTime } = useAudioRecording();
+  const { t } = useTranslation('', { keyPrefix: 'screen.patient' });
 
   const handlePress = () => {
     if (isRecording) {
@@ -41,12 +44,12 @@ export const Microphone: React.FC = () => {
   return (
     <MicrophoneContainer>
       <Text
-        fontWeight="medium"
-        size="lg"
+        fontWeight="bold"
+        size="xl"
       >
         {formatTime(recordingTime)}
       </Text>
-      <Button
+      <MicrophoneButton
         isRecording={isRecording}
         onPress={handlePress}
       >
@@ -65,7 +68,17 @@ export const Microphone: React.FC = () => {
             />
           )}
         </IconContainer>
-      </Button>
+      </MicrophoneButton>
+      <Text
+        fontWeight="medium"
+        size="sm"
+      >
+        {isRecording ? t('pauseRecord') : t('resumeRecord')}
+      </Text>
+      <Button
+        title={t('finishVisit')}
+        buttonStyle="outlined"
+      />
     </MicrophoneContainer>
   );
 };
