@@ -10,13 +10,11 @@ export const useAudioRecording = () => {
   const { requestAudioPermissionAndroid } = useRequestAudioPermissionAndroid();
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: NodeJS.Timeout | null = null;
     if (isRecording) {
       interval = setInterval(() => {
         setRecordingTime((prevTime) => prevTime + 1);
       }, 1000);
-    } else {
-      setRecordingTime(0);
     }
     return () => {
       if (interval) {
@@ -40,6 +38,7 @@ export const useAudioRecording = () => {
     try {
       const uri = await AudioModule.stopRecording();
       setIsRecording(false);
+      setRecordingTime(0); // reset time only when recording is stopped
       const text = await processAudio(uri);
       console.log(text);
     } catch (e) {
@@ -47,5 +46,31 @@ export const useAudioRecording = () => {
     }
   };
 
-  return { isRecording, recordingTime, startRecording, stopRecording };
+  const pauseRecording = async () => {
+    try {
+      await AudioModule.pauseRecording();
+      setIsRecording(false);
+    } catch (e) {
+      console.error('pauseRecordingError', e);
+    }
+  };
+
+  const resumeRecording = async () => {
+    try {
+      await AudioModule.resumeRecording();
+      setIsRecording(true);
+    } catch (e) {
+      console.error('resumeRecordingError', e);
+    }
+  };
+
+  return {
+    isRecording,
+    recordingTime,
+    startRecording,
+    stopRecording,
+    pauseRecording,
+    resumeRecording,
+    hasStartedRecording: recordingTime > 0,
+  };
 };

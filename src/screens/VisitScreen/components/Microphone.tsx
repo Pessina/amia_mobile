@@ -30,16 +30,16 @@ const MicrophoneContainer = styled.View`
 `;
 
 export const Microphone: React.FC = () => {
-  const { isRecording, startRecording, stopRecording, recordingTime } = useAudioRecording();
+  const {
+    isRecording,
+    startRecording,
+    stopRecording,
+    recordingTime,
+    pauseRecording,
+    resumeRecording,
+    hasStartedRecording,
+  } = useAudioRecording();
   const { t } = useTranslation('', { keyPrefix: 'screen.patient' });
-
-  const handlePress = () => {
-    if (isRecording) {
-      stopRecording();
-    } else {
-      startRecording();
-    }
-  };
 
   return (
     <MicrophoneContainer>
@@ -51,7 +51,17 @@ export const Microphone: React.FC = () => {
       </Text>
       <MicrophoneButton
         isRecording={isRecording}
-        onPress={handlePress}
+        onPress={() => {
+          if (hasStartedRecording) {
+            if (isRecording) {
+              pauseRecording();
+            } else {
+              resumeRecording();
+            }
+          } else {
+            startRecording();
+          }
+        }}
       >
         <IconContainer pointerEvents="none">
           {isRecording ? (
@@ -78,6 +88,7 @@ export const Microphone: React.FC = () => {
       <Button
         title={t('finishVisit')}
         buttonStyle="outlined"
+        onPress={() => stopRecording()}
       />
     </MicrophoneContainer>
   );
