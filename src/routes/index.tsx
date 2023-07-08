@@ -4,14 +4,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LoginScreen } from '../screens/LoginScreen/LoginScreen';
 import { PatientListScreen } from '../screens/PatientListScreen/PatientListScreen';
-import { VisitScreen } from '../screens/VisitScreen/VisitScreen';
+import { PatientScreen } from '../screens/VisitScreen/PatientScreen';
 
 export type RootStackParamList = {
   Home: undefined;
   Login: undefined;
   Register: undefined;
   PatientList: undefined;
-  Visit: undefined;
+  Patient: { patientId: string };
 };
 export type StackNavigation = StackNavigationProp<RootStackParamList>;
 
@@ -19,7 +19,7 @@ export const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const Routes: React.FC = () => {
   return (
-    <Stack.Navigator initialRouteName="Visit">
+    <Stack.Navigator initialRouteName="PatientList">
       <Stack.Screen
         name="Home"
         component={HomeScreen}
@@ -41,8 +41,8 @@ export const Routes: React.FC = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Visit"
-        component={VisitScreen}
+        name="Patient"
+        component={PatientScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

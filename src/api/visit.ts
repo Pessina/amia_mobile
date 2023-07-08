@@ -6,10 +6,12 @@ const BASE_URL = Config.REACT_APP_API_URL;
 export const processAudio = async (uri: string) => {
   const formData = new FormData();
 
+  const type = uri.substring(uri.lastIndexOf('.') + 1);
+
   formData.append('audio', {
     uri,
-    type: `audio/${uri.substring(uri.lastIndexOf('.') + 1)}`,
-    name: uri.substring(uri.lastIndexOf('/') + 1),
+    type: `audio/${type}`,
+    name: `audio.${type}`,
   });
 
   try {

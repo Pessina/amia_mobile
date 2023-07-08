@@ -1,50 +1,71 @@
-import { View } from 'react-native';
-import { Button } from '../../../components/Button/Button';
-import React, { useState } from 'react';
-import { NativeModules } from 'react-native';
-import { processAudio } from '../../../api/visit';
-import { useRequestAudioPermissionAndroid } from '../../../permissions/android/permissions';
+// components/Microphone.tsx
+import React from 'react';
+import { useAudioRecording } from '../hooks/useAudioRecording';
+import styled from 'styled-components/native';
+import { Icon } from '../../../components/Icon/Icon';
+import { formatTime } from '../../../utils/time';
+import { Text } from '../../../components/Text/Text';
+
+const Button = styled.TouchableOpacity<{ isRecording: boolean }>`
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ isRecording }) => (isRecording ? 'black' : 'blue')};
+`;
+
+const IconContainer = styled.View`
+  width: 40px;
+  height: 40px;
+`;
+
+const MicrophoneContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  gap: ${({ theme }) => theme.space[2]};
+`;
 
 export const Microphone: React.FC = () => {
-  const { AudioModule } = NativeModules;
-  const [isRecording, setIsRecording] = useState(false);
-  const { requestAudioPermissionAndroid } = useRequestAudioPermissionAndroid();
+  const { isRecording, startRecording, stopRecording, recordingTime } = useAudioRecording();
 
-  const onStartRecording = async () => {
-    setIsRecording(true);
-    try {
-      if (await requestAudioPermissionAndroid()) {
-        AudioModule.startRecording();
-      }
-    } catch (e) {
-      console.log('startRecordingError', e);
-    }
-  };
-
-  const onStopRecording = async () => {
-    setIsRecording(false);
-    try {
-      const uri = await AudioModule.stopRecording();
-      console.log(uri);
-      const text = await processAudio(uri);
-      console.log(text);
-    } catch (e) {
-      console.log('stopRecordingError', e);
+  const handlePress = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
     }
   };
 
   return (
-    <View>
+    <MicrophoneContainer>
+      <Text
+        fontWeight="medium"
+        size="lg"
+      >
+        {formatTime(recordingTime)}
+      </Text>
       <Button
-        title={isRecording ? 'Stop' : 'Start'}
-        onPress={() => {
-          if (isRecording) {
-            onStopRecording();
-          } else {
-            onStartRecording();
-          }
-        }}
-      />
-    </View>
+        isRecording={isRecording}
+        onPress={handlePress}
+      >
+        <IconContainer pointerEvents="none">
+          {isRecording ? (
+            <Icon
+              name="ri-pause-line"
+              colorCode="light"
+              size={40}
+            />
+          ) : (
+            <Icon
+              name="ri-mic-fill"
+              colorCode="light"
+              size={40}
+            />
+          )}
+        </IconContainer>
+      </Button>
+    </MicrophoneContainer>
   );
 };

@@ -7,12 +7,14 @@ import qs from 'qs';
 const BASE_URL = Config.REACT_APP_API_URL;
 
 export type Patient = {
+  id: string;
   name: string;
   assignedId?: string;
 };
 
 export enum PatientQueryStrings {
   PATIENTS = 'PATIENTS',
+  PATIENT = 'PATIENT',
 }
 
 export const useCreatePatient = () => {
@@ -33,12 +35,24 @@ export const useSearchPatients = (id?: string, name?: string) => {
     [PatientQueryStrings.PATIENTS, id, name],
     () => {
       const params = qs.stringify({
-        id: !isNil(id) && !isEmpty(id) ? encodeURIComponent(id) : undefined,
+        assignedId: !isNil(id) && !isEmpty(id) ? encodeURIComponent(id) : undefined,
         name: !isNil(name) && !isEmpty(name) ? encodeURIComponent(name) : undefined,
       });
 
       return axios.get<Patient[]>(`${BASE_URL}/patient/search?${params}`);
     },
+    {
+      onError: (error) => {
+        console.error(JSON.stringify(error));
+      },
+    }
+  );
+};
+
+export const useGetPatient = (id?: string) => {
+  return useQuery(
+    [PatientQueryStrings.PATIENT, id],
+    () => axios.get<Patient>(`${BASE_URL}/patient/${id}`),
     {
       onError: (error) => {
         console.error(JSON.stringify(error));
