@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal as NativeModal, ModalProps as NativeModalProps } from 'react-native';
-import { View } from 'react-native';
 import styled from 'styled-components/native';
 import { Text } from '../Text/Text';
 import { Icon } from '../Icon/Icon';
@@ -19,11 +18,12 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({ children, title, ...pr
       <Overlay>
         <Content>
           <Header>
-            <View />
+            <IconPlaceholder />
             <Title size="lg">{title}</Title>
             <Icon
               name="close-circle-fill"
               onPress={props.onRequestClose}
+              size={24}
             />
           </Header>
           {children}
@@ -59,4 +59,8 @@ const Header = styled.View`
 
 const Title = styled(Text)`
   text-align: center;
+`;
+
+const IconPlaceholder = styled.View`
+  width: 24px;
 `;

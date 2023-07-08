@@ -8,13 +8,14 @@ import { PatientItem } from './components/PatientItem';
 import { AddPatientModal } from './components/AddPatientModal';
 import { PatientListMainContainer } from './components/PatientListMainContainer';
 import { PatientList } from './components/PatientList';
-import { AddPatientButton } from './components/AddPatientButton';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
 import { FloatingMenu } from '../../components/FloatingMenu/FloatingMenu';
 import { logout } from '../../auth/logout';
 import { Header } from '../../components/Header/Header';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
+import { Button } from '../../components/Button/Button';
+import { Icon } from '../../components/Icon/Icon';
 
 export const PatientListScreen: React.FC = () => {
   const { t } = useTranslation('', { keyPrefix: 'screen.patientList' });
@@ -56,10 +57,18 @@ export const PatientListScreen: React.FC = () => {
         ) : (
           <EmptyState text={t('empty')} />
         )}
-        <AddPatientButton
-          onPress={() => setIsModalVisible(true)}
+        <Button
+          alignment="flex-end"
+          left={
+            <Icon
+              name="ri-add-line"
+              colorCode="light"
+            />
+          }
           title={t('addPatient.addCTA')}
+          onPress={() => setIsModalVisible(true)}
         />
+
         <AddPatientModal
           visible={isModalVisible}
           onRequestClose={() => setIsModalVisible(false)}

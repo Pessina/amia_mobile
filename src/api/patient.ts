@@ -20,14 +20,17 @@ export enum PatientQueryStrings {
 export const useCreatePatient = () => {
   const queryClient = useQueryClient();
 
-  return useMutation((data: Patient) => axios.post<Patient>(`${BASE_URL}/patient`, data), {
-    onError: (error) => {
-      console.error(JSON.stringify(error));
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries([PatientQueryStrings.PATIENTS]);
-    },
-  });
+  return useMutation(
+    (data: Omit<Patient, 'id'>) => axios.post<Patient>(`${BASE_URL}/patient`, data),
+    {
+      onError: (error) => {
+        console.error(JSON.stringify(error));
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries([PatientQueryStrings.PATIENTS]);
+      },
+    }
+  );
 };
 
 export const useSearchPatients = (id?: string, name?: string) => {

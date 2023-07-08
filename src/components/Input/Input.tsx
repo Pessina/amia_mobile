@@ -24,7 +24,7 @@ const Label = styled.Text`
 const FieldContainer = styled.View<{ error?: string }>`
   flex-direction: row;
   align-items: center;
-  border-color: ${({ error, theme }) => (error ? theme.colors.error : theme.colors.text.light)};
+  border-color: ${({ error, theme }) => (error ? theme.colors.error : theme.colors.secondary.dark)};
   border-width: 1px;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   padding: ${({ theme }) => theme.space[3]}px;

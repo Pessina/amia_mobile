@@ -84,9 +84,9 @@ const theme: Theme = {
       dark: '#e1e5e9',
     },
     text: {
-      light: '#767676',
-      DEFAULT: '#4a4a4a',
-      dark: '#1a1a1a',
+      light: '#ffffff',
+      DEFAULT: '#767676',
+      dark: '#4a4a4a',
     },
     error: '#FF0000',
     warning: '#FFA500',

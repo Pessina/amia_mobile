@@ -20,7 +20,7 @@ interface Props {
 }
 
 export const AddPatientModal: React.FC<Props> = ({ visible, onRequestClose }) => {
-  const { t } = useTranslation('', { keyPrefix: 'patientList.addPatient' });
+  const { t } = useTranslation('', { keyPrefix: 'screen.patientList.addPatient' });
   const { t: tValidation } = useTranslation('', { keyPrefix: 'validation' });
 
   const schema = yup.object().shape({
