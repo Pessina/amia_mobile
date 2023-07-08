@@ -63,8 +63,6 @@ export const Microphone: React.FC = () => {
     }
   }, [hasStartedRecording, isRecording, pauseRecording, resumeRecording, startRecording, t]);
 
-  console.log({ buttonAction, buttonLabel });
-
   return (
     <MicrophoneContainer>
       <Text

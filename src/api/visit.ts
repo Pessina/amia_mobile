@@ -21,7 +21,7 @@ export const processAudio = async (uri: string) => {
       },
     });
 
-    return res.data.text;
+    return res.data;
   } catch (e) {
     console.error(JSON.stringify(e));
   }

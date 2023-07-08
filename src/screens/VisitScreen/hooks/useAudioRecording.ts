@@ -38,7 +38,7 @@ export const useAudioRecording = () => {
     try {
       const uri = await AudioModule.stopRecording();
       setIsRecording(false);
-      setRecordingTime(0); // reset time only when recording is stopped
+      setRecordingTime(0);
       const text = await processAudio(uri);
       console.log(text);
     } catch (e) {
