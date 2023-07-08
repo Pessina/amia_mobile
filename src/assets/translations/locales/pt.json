@@ -46,9 +46,10 @@
       }
     },
     "patient": {
-      "newVisit": "Nova Consulta",
-      "resumeRecord": "Continuar Gravação",
-      "pauseRecord": "Pausar Gravação",
+      "newVisit": "Nova consulta",
+      "startRecord": "Iniciar gravação",
+      "resumeRecord": "Continuar gravação",
+      "pauseRecord": "Pausar gravação",
       "finishVisit": "Finalizar consulta"
     }
   },

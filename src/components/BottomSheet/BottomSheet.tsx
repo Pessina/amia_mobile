@@ -19,7 +19,13 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({ children, title, ...pr
         <Content>
           <Header>
             <IconPlaceholder />
-            <Title size="lg">{title}</Title>
+            <Title
+              size="lg"
+              color="dark"
+              fontWeight="bold"
+            >
+              {title}
+            </Title>
             <Icon
               name="close-circle-fill"
               onPress={props.onRequestClose}

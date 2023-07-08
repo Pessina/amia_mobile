@@ -13,7 +13,7 @@ export type ButtonProps = {
   left?: ReactNode;
 };
 
-const StyledPressable = styled.Pressable<ButtonProps>`
+const StyledPressable = styled.TouchableOpacity<ButtonProps>`
   flex-direction: row;
   justify-content: center;
   align-items: center;

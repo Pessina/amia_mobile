@@ -1,5 +1,5 @@
 // components/Microphone.tsx
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useAudioRecording } from '../hooks/useAudioRecording';
 import styled from 'styled-components/native';
 import { Icon } from '../../../components/Icon/Icon';
@@ -24,7 +24,8 @@ const IconContainer = styled.View`
 
 const MicrophoneContainer = styled.View`
   flex: 1;
-  justify-content: center;
+  padding-top: ${({ theme }) => theme.space[8]}px;
+  justify-content: flex-start;
   align-items: center;
   gap: ${({ theme }) => theme.space[8]}px;
 `;
@@ -41,6 +42,29 @@ export const Microphone: React.FC = () => {
   } = useAudioRecording();
   const { t } = useTranslation('', { keyPrefix: 'screen.patient' });
 
+  const { buttonAction, buttonLabel } = useMemo(() => {
+    if (hasStartedRecording) {
+      if (isRecording) {
+        return {
+          buttonAction: pauseRecording,
+          buttonLabel: t('pauseRecord'),
+        };
+      } else {
+        return {
+          buttonAction: resumeRecording,
+          buttonLabel: t('resumeRecord'),
+        };
+      }
+    } else {
+      return {
+        buttonAction: startRecording,
+        buttonLabel: t('startRecord'),
+      };
+    }
+  }, [hasStartedRecording, isRecording, pauseRecording, resumeRecording, startRecording, t]);
+
+  console.log({ buttonAction, buttonLabel });
+
   return (
     <MicrophoneContainer>
       <Text
@@ -51,17 +75,7 @@ export const Microphone: React.FC = () => {
       </Text>
       <MicrophoneButton
         isRecording={isRecording}
-        onPress={() => {
-          if (hasStartedRecording) {
-            if (isRecording) {
-              pauseRecording();
-            } else {
-              resumeRecording();
-            }
-          } else {
-            startRecording();
-          }
-        }}
+        onPress={buttonAction}
       >
         <IconContainer pointerEvents="none">
           {isRecording ? (
@@ -83,13 +97,15 @@ export const Microphone: React.FC = () => {
         fontWeight="medium"
         size="sm"
       >
-        {isRecording ? t('pauseRecord') : t('resumeRecord')}
+        {buttonLabel}
       </Text>
-      <Button
-        title={t('finishVisit')}
-        buttonStyle="outlined"
-        onPress={() => stopRecording()}
-      />
+      {hasStartedRecording && (
+        <Button
+          title={t('finishVisit')}
+          buttonStyle="outlined"
+          onPress={() => stopRecording()}
+        />
+      )}
     </MicrophoneContainer>
   );
 };
