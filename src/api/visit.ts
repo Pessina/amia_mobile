@@ -15,7 +15,7 @@ export const processAudio = async (uri: string) => {
   });
 
   try {
-    const res = await axios.post<{ text: string }>(`${BASE_URL}/visit/process-audio`, formData, {
+    const res = await axios.post<string>(`${BASE_URL}/visit/process-audio`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
