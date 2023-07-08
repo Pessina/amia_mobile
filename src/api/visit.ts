@@ -8,7 +8,7 @@ export const processAudio = async (uri: string) => {
 
   formData.append('audio', {
     uri,
-    type: 'audio/mp3',
+    type: `audio/${uri.substring(uri.lastIndexOf('.') + 1)}`,
     name: uri.substring(uri.lastIndexOf('/') + 1),
   });
 
