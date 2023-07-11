@@ -52,3 +52,20 @@ export const replaceTagsInText = (
 ): (string | ReactElement)[] => {
   return replaceTagsInTextRecursive([text], tagMapping);
 };
+
+export const formatCPF = (value: string) => {
+  value = value.replace(/\D/g, '');
+
+  if (value.length >= 3) {
+    value = value.replace(/^(\d{3})(\d)/, '$1.$2');
+
+    if (value.length >= 7) {
+      value = value.replace(/^(\d{3}\.\d{3})(\d)/, '$1.$2');
+
+      if (value.length >= 11) {
+        value = value.replace(/^(\d{3}\.\d{3}\.\d{3})(\d{1,2})/, '$1-$2').substr(0, 14);
+      }
+    }
+  }
+  return value;
+};

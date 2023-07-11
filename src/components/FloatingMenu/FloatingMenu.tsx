@@ -10,7 +10,7 @@ const MenuItem = styled.Pressable`
 `;
 
 type FloatingMenuProps = {
-  options: { label: string; icon?: string; onPress: () => void }[];
+  options: { label?: string; icon?: string; onPress: () => void }[];
   children?: never;
 };
 
@@ -20,16 +20,16 @@ export const FloatingMenu: React.FC<FloatingMenuProps> = ({ options }) => {
   return (
     <Floating
       isOpen={isMenuOpen}
-      floating={options.map((option) => (
+      floating={options.map((option, index) => (
         <MenuItem
           onPress={() => {
             setIsMenuOpen(false);
             option.onPress();
           }}
-          key={option.label}
+          key={index}
         >
           {option.icon && <Icon name={option.icon} />}
-          <Text>{option.label}</Text>
+          {option.label && <Text>{option.label}</Text>}
         </MenuItem>
       ))}
     >

@@ -23,18 +23,13 @@ export const PatientListScreen: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigation<StackNavigation>();
 
-  // TODO: Bug this is being called wrongly, it's fetching patients for other doctors
   const searchPatientsQuery = useSearchPatients(search, search);
 
   return (
     <SafeArea>
       <PatientListMainContainer>
         <Header
-          right={
-            <FloatingMenu
-              options={[{ label: 'Logout', onPress: logout, icon: 'ri-logout-box-line' }]}
-            />
-          }
+          right={<FloatingMenu options={[{ onPress: logout, icon: 'ri-logout-box-line' }]} />}
         />
         <Text size="3xl">{t('title')}</Text>
         {/* TODO: Debounce it to avoid unnecessary calls */}

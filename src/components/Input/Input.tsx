@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { TextInputProps } from 'react-native';
 import { FontSize } from '../../providers/StyledComponentsThemeProvider';
+import { Error } from '../Error/Error';
+import { Label } from '../Label/Label';
 
 export interface InputProps extends TextInputProps {
   label?: string;
@@ -12,13 +14,6 @@ export interface InputProps extends TextInputProps {
 const InputContainer = styled.View`
   margin-bottom: ${({ theme }) => theme.space[4]}px;
   width: 100%;
-`;
-
-const Label = styled.Text`
-  color: ${({ theme }) => theme.colors.text.DEFAULT};
-  font-size: ${({ theme }) => theme.fontSizes.sm}px;
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
-  margin-bottom: ${({ theme }) => theme.space[2]}px;
 `;
 
 const FieldContainer = styled.View<{ error?: string }>`
@@ -39,13 +34,6 @@ const StyledInput = styled.TextInput<InputProps>`
   padding: 0;
   font-weight: ${({ theme }) => theme.fontWeights.normal};
   color: ${({ theme }) => theme.colors.text.DEFAULT};
-`;
-
-const Error = styled.Text`
-  color: ${({ theme }) => theme.colors.error};
-  font-size: ${({ theme }) => theme.fontSizes.sm}px;
-  font-weight: ${({ theme }) => theme.fontWeights.normal};
-  margin-top: ${({ theme }) => theme.space[2]}px;
 `;
 
 const Input: React.FC<InputProps> = ({ label, error, ...rest }) => {
