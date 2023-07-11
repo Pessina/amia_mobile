@@ -34,6 +34,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsLoadingUser(false);
       setUser(currUser);
       queryClient.invalidateQueries();
+      queryClient.clear();
 
       if (currUser) {
         navigate.navigate('PatientList');

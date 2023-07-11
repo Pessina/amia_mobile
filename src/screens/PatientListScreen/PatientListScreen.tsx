@@ -16,14 +16,16 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { Button } from '../../components/Button/Button';
 import { Icon } from '../../components/Icon/Icon';
+import { useDebounce } from '../../hooks/useDebounce';
 
 export const PatientListScreen: React.FC = () => {
   const { t } = useTranslation('', { keyPrefix: 'screen.patientList' });
   const [search, setSearch] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigation<StackNavigation>();
+  const debouncedSearch = useDebounce(search, 500);
 
-  const searchPatientsQuery = useSearchPatients(search, search);
+  const searchPatientsQuery = useSearchPatients(debouncedSearch, debouncedSearch);
 
   return (
     <SafeArea>
@@ -32,7 +34,6 @@ export const PatientListScreen: React.FC = () => {
           right={<FloatingMenu options={[{ onPress: logout, icon: 'ri-logout-box-line' }]} />}
         />
         <Text size="3xl">{t('title')}</Text>
-        {/* TODO: Debounce it to avoid unnecessary calls */}
         <Input
           onChangeText={(value) => {
             setSearch(value);
