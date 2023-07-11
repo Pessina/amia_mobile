@@ -16,7 +16,7 @@ import { Icon } from '../../components/Icon/Icon';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { createUser } from '../../auth/createUser';
-import { useCreateDoctor } from '../../api/doctor';
+import { existDoctor, useCreateDoctor } from '../../api/doctor';
 import { styles } from '../../styles/styles';
 
 type FormData = {
@@ -51,19 +51,20 @@ export const RegisterScreen = (): JSX.Element => {
     resolver: yupResolver(schema),
   });
 
-  // TODO: Before create user validate if it's possible to add on Firebase and on Database
-  // Eg. A user can have a unique e-mail but the CPF already exists on database, so it will fail
   const onSubmit = async (data: FormData) => {
-    const user = await createUser(data);
+    if (!(await existDoctor(data)).data) {
+      const user = await createUser(data);
 
-    if (user) {
-      createDoctorMutation.mutate({
-        name: data.name,
-        email: data.email,
-        cpf: data.cpf,
-        crm: data.crm,
-        specialty: data.specialty,
-      });
+      if (user) {
+        createDoctorMutation.mutate({
+          firebaseUserUID: user.user.uid,
+          name: data.name,
+          email: data.email,
+          cpf: data.cpf,
+          crm: data.crm,
+          specialty: data.specialty,
+        });
+      }
     }
   };
 

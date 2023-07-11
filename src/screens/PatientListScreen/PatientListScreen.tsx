@@ -31,7 +31,9 @@ export const PatientListScreen: React.FC = () => {
       <PatientListMainContainer>
         <Header
           right={
-            <FloatingMenu options={[{ label: 'Logout', onPress: logout, icon: 'logout-box' }]} />
+            <FloatingMenu
+              options={[{ label: 'Logout', onPress: logout, icon: 'ri-logout-box-line' }]}
+            />
           }
         />
         <Text size="3xl">{t('title')}</Text>
