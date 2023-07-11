@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "ENVFILE=.env.android react-native run-android",
-    "ios": "ENVFILE=.env.ios react-native run-ios --simulator='iPhone 14 Pro (16.0)'",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios --simulator='iPhone 14 Pro (16.0)'",
+    "local": "ENVFILE=.env.android npm run android && ENVFILE=.env.ios npm run ios",
+    "prod": "ENVFILE=.env.prod npm run android && ENVFILE=.env.prod npm run ios",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",

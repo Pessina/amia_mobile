@@ -23,6 +23,7 @@ export const PatientListScreen: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigation<StackNavigation>();
 
+  // TODO: Bug this is being called wrongly, it's fetching patients for other doctors
   const searchPatientsQuery = useSearchPatients(search, search);
 
   return (
@@ -34,6 +35,7 @@ export const PatientListScreen: React.FC = () => {
           }
         />
         <Text size="3xl">{t('title')}</Text>
+        {/* TODO: Debounce it to avoid unnecessary calls */}
         <Input
           onChangeText={(value) => {
             setSearch(value);

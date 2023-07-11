@@ -15,7 +15,7 @@ const InputContainer = styled.View`
 `;
 
 const Label = styled.Text`
-  color: ${({ theme }) => theme.colors.text.light};
+  color: ${({ theme }) => theme.colors.text.DEFAULT};
   font-size: ${({ theme }) => theme.fontSizes.sm}px;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   margin-bottom: ${({ theme }) => theme.space[2]}px;

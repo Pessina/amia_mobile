@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { NativeModules } from 'react-native';
-import { processAudio } from '../../../api/visit';
 import { useRequestAudioPermissionAndroid } from '../../../permissions/android/permissions';
 
+// TODO: Fix error when Android randomly crashes when recording, it's probably on native code
 export const useAudioRecording = () => {
   const { AudioModule } = NativeModules;
   const [isRecording, setIsRecording] = useState(false);
@@ -39,8 +39,7 @@ export const useAudioRecording = () => {
       const uri = await AudioModule.stopRecording();
       setIsRecording(false);
       setRecordingTime(0);
-      const text = await processAudio(uri);
-      console.log(text);
+      return uri;
     } catch (e) {
       console.error('stopRecordingError', e);
     }

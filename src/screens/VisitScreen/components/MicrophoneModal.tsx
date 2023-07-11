@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { BottomSheet } from '../../../components/BottomSheet/BottomSheet';
 import { Microphone } from './Microphone';
+import { processAudio } from '../../../api/visit';
 
 export type MicrophoneModalProps = {
   visible: boolean;
@@ -13,6 +14,11 @@ export const MicrophoneModal: React.FC<MicrophoneModalProps> = ({
   onRequestClose,
   title,
 }) => {
+  const onStopRecording = async (uri: string) => {
+    const text = await processAudio(uri);
+    console.log(text);
+  };
+
   return (
     <BottomSheet
       title={title}
@@ -20,7 +26,7 @@ export const MicrophoneModal: React.FC<MicrophoneModalProps> = ({
       onRequestClose={onRequestClose}
     >
       <Content>
-        <Microphone />
+        <Microphone onStopRecording={onStopRecording} />
       </Content>
     </BottomSheet>
   );

@@ -30,7 +30,11 @@ const MicrophoneContainer = styled.View`
   gap: ${({ theme }) => theme.space[8]}px;
 `;
 
-export const Microphone: React.FC = () => {
+export type MicrophoneProps = {
+  onStopRecording: (uri: string) => Promise<void>;
+};
+
+export const Microphone: React.FC<MicrophoneProps> = ({ onStopRecording }) => {
   const {
     isRecording,
     startRecording,
@@ -101,7 +105,7 @@ export const Microphone: React.FC = () => {
         <Button
           title={t('finishVisit')}
           buttonStyle="outlined"
-          onPress={() => stopRecording()}
+          onPress={async () => onStopRecording(await stopRecording())}
         />
       )}
     </MicrophoneContainer>
