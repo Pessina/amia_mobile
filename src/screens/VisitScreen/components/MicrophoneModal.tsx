@@ -1,32 +1,20 @@
 import styled from 'styled-components/native';
 import { BottomSheet } from '../../../components/BottomSheet/BottomSheet';
 import { Microphone } from './Microphone';
-import { processAudio } from '../../../api/visit';
 
 export type MicrophoneModalProps = {
   visible: boolean;
   onRequestClose: () => void;
   title?: string;
-  onFinishProcessingAudio: (text: string) => void;
+  onStopRecording: (uri: string) => Promise<void>;
 };
 
 export const MicrophoneModal: React.FC<MicrophoneModalProps> = ({
   visible,
   onRequestClose,
   title,
-  onFinishProcessingAudio,
+  onStopRecording,
 }) => {
-  const onStopRecording = async (uri: string) => {
-    // TODO: Implement re-try mechanism in case it fails
-    try {
-      const text = await processAudio(uri);
-      onFinishProcessingAudio(text ?? '');
-      onRequestClose();
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   return (
     <BottomSheet
       title={title}
