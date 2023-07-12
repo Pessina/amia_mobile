@@ -6,7 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios --simulator='iPhone 14 Pro (16.0)'",
     "dev": "ENVFILE=.env.android npm run android && ENVFILE=.env.ios npm run ios",
-    "prod": "ENVFILE=.env.prod npm run android && ENVFILE=.env.prod npm run ios",
+    "prod": "ENVFILE=.env npm run android && ENVFILE=.env npm run ios",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
