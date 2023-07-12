@@ -30,7 +30,7 @@ const FieldContainer = styled.View<{ error?: string }>`
 const StyledInput = styled.TextInput<InputProps>`
   flex: 1;
   font-size: ${({ theme, fontSize = 'base' }) => theme.fontSizes[fontSize]}px;
-  line-height: ${({ theme, fontSize = 'base' }) => theme.lineHeights[fontSize]}px;
+  height: ${({ theme, fontSize = 'base' }) => theme.fontSizes[fontSize] * 1.5}px;
   padding: 0;
   font-weight: ${({ theme }) => theme.fontWeights.normal};
   color: ${({ theme }) => theme.colors.text.DEFAULT};

@@ -5,11 +5,12 @@ import { Icon } from '../../components/Icon/Icon';
 import { RootStackParamList, StackNavigation } from '../../routes';
 import { useGetPatient } from '../../api/patient';
 import { Text } from '../../components/Text/Text';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { MicrophoneModal } from './components/MicrophoneModal';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../../components/Button/Button';
+import { styles } from '../../styles/styles';
 
 interface PatientScreenProps {
   route: RouteProp<RootStackParamList, 'Patient'>;
@@ -20,6 +21,7 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
   const navigate = useNavigation<StackNavigation>();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { t } = useTranslation('', { keyPrefix: 'screen.patient' });
+  const [parsedText, setParsedText] = useState('');
 
   const patientQuery = useGetPatient(patientId);
 
@@ -33,6 +35,9 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
           />
           <Text size="3xl">{patientQuery.data?.data.name}</Text>
         </View>
+        <ScrollView contentContainerStyle={styles.full}>
+          <Text>{parsedText}</Text>
+        </ScrollView>
         <Button
           alignment="flex-end"
           left={
@@ -48,6 +53,9 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
           title={t('newVisit')}
           visible={isModalVisible}
           onRequestClose={() => setIsModalVisible(false)}
+          onFinishProcessingAudio={(text) => {
+            setParsedText(text);
+          }}
         />
       </PatientMainContainer>
     </SafeArea>

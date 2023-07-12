@@ -9,9 +9,7 @@ import { AddPatientModal } from './components/AddPatientModal';
 import { PatientListMainContainer } from './components/PatientListMainContainer';
 import { PatientList } from './components/PatientList';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
-import { FloatingMenu } from '../../components/FloatingMenu/FloatingMenu';
 import { logout } from '../../auth/logout';
-import { Header } from '../../components/Header/Header';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { Button } from '../../components/Button/Button';
@@ -30,8 +28,9 @@ export const PatientListScreen: React.FC = () => {
   return (
     <SafeArea>
       <PatientListMainContainer>
-        <Header
-          right={<FloatingMenu options={[{ onPress: logout, icon: 'ri-logout-box-line' }]} />}
+        <Icon
+          name={'ri-logout-box-line'}
+          onPress={logout}
         />
         <Text size="3xl">{t('title')}</Text>
         <Input

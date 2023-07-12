@@ -7,16 +7,24 @@ export type MicrophoneModalProps = {
   visible: boolean;
   onRequestClose: () => void;
   title?: string;
+  onFinishProcessingAudio: (text: string) => void;
 };
 
 export const MicrophoneModal: React.FC<MicrophoneModalProps> = ({
   visible,
   onRequestClose,
   title,
+  onFinishProcessingAudio,
 }) => {
   const onStopRecording = async (uri: string) => {
-    const text = await processAudio(uri);
-    console.log(text);
+    // TODO: Implement re-try mechanism in case it fails
+    try {
+      const text = await processAudio(uri);
+      onFinishProcessingAudio(text ?? '');
+      onRequestClose();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

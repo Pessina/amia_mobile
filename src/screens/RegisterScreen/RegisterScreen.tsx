@@ -74,23 +74,23 @@ export const RegisterScreen = (): JSX.Element => {
 
   return (
     <SafeArea>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.full}
-      >
-        <RegisterMainContainer>
-          <Icon
-            name="arrow-left-s-line"
-            onPress={() => navigate.navigate('Home')}
-          />
-          <Text
-            size="3xl"
-            color="dark"
-          >
-            {t('title')}
-          </Text>
-          <ScrollView contentContainerStyle={styles.full}>
-            <Form>
+      <RegisterMainContainer>
+        <Icon
+          name="arrow-left-s-line"
+          onPress={() => navigate.navigate('Home')}
+        />
+        <Text
+          size="3xl"
+          color="dark"
+        >
+          {t('title')}
+        </Text>
+        <ScrollView contentContainerStyle={styles.full}>
+          <Form>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+              style={styles.full}
+            >
               <Controller
                 name="name"
                 control={control}
@@ -172,33 +172,33 @@ export const RegisterScreen = (): JSX.Element => {
                 )}
               />
               <Error>{error}</Error>
-            </Form>
-            <Footer>
-              <Text textAlign="center">
-                {replaceTagsInText(t('disclaimer'), {
-                  a1: (
-                    <Text
-                      color="DEFAULT"
-                      underline
-                    />
-                  ),
-                  a2: (
-                    <Text
-                      color="DEFAULT"
-                      underline
-                    />
-                  ),
-                })}
-              </Text>
-              <Button
-                buttonStyle="primary"
-                onPress={handleSubmit(onSubmit)}
-                title={t('cta')}
-              />
-            </Footer>
-          </ScrollView>
-        </RegisterMainContainer>
-      </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
+          </Form>
+          <Footer>
+            <Text textAlign="center">
+              {replaceTagsInText(t('disclaimer'), {
+                a1: (
+                  <Text
+                    color="DEFAULT"
+                    underline
+                  />
+                ),
+                a2: (
+                  <Text
+                    color="DEFAULT"
+                    underline
+                  />
+                ),
+              })}
+            </Text>
+            <Button
+              buttonStyle="primary"
+              onPress={handleSubmit(onSubmit)}
+              title={t('cta')}
+            />
+          </Footer>
+        </ScrollView>
+      </RegisterMainContainer>
     </SafeArea>
   );
 };

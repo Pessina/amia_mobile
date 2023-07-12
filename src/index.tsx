@@ -9,6 +9,7 @@ import { Routes } from './routes';
 import { AppQueryClientProvider } from './providers/QueryClientProvider';
 import { AuthProvider } from './providers/AuthProvider';
 import { NavigationProvider } from './providers/NavigationProvider';
+import { StatusBar } from 'react-native';
 
 const App = (): JSX.Element => {
   return (
@@ -16,6 +17,7 @@ const App = (): JSX.Element => {
       <AppQueryClientProvider>
         <AuthProvider>
           <StyledComponentsThemeProvider>
+            <StatusBar barStyle="dark-content" />
             <Routes />
           </StyledComponentsThemeProvider>
         </AuthProvider>
