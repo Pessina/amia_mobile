@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { login } from '../../auth/login';
 import { styles } from '../../styles/styles';
+import { KeyboardAvoidingView } from '../../components/KeyboardAvoidingView/KeyboardAvoidingView';
 
 type FormData = {
   email: string;
@@ -60,43 +61,45 @@ export const LoginScreen = (): JSX.Element => {
         >
           {t('title')}
         </Text>
-        <ScrollView contentContainerStyle={styles.full}>
-          <Form>
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  label={t('email')}
-                  keyboardType="email-address"
-                  autoComplete="email"
-                  autoCapitalize="none"
-                  onChangeText={field.onChange}
-                  value={field.value}
-                  error={errors.email?.message}
-                />
-              )}
+        <KeyboardAvoidingView>
+          <ScrollView contentContainerStyle={styles.full}>
+            <Form>
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    label={t('email')}
+                    keyboardType="email-address"
+                    autoComplete="email"
+                    autoCapitalize="none"
+                    onChangeText={field.onChange}
+                    value={field.value}
+                    error={errors.email?.message}
+                  />
+                )}
+              />
+              <Controller
+                name="password"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    label={t('password')}
+                    secureTextEntry
+                    onChangeText={field.onChange}
+                    value={field.value}
+                    error={errors.password?.message}
+                  />
+                )}
+              />
+            </Form>
+            <Button
+              buttonStyle="primary"
+              onPress={handleSubmit(onSubmit)}
+              title={t('cta')}
             />
-            <Controller
-              name="password"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  label={t('password')}
-                  secureTextEntry
-                  onChangeText={field.onChange}
-                  value={field.value}
-                  error={errors.password?.message}
-                />
-              )}
-            />
-          </Form>
-          <Button
-            buttonStyle="primary"
-            onPress={handleSubmit(onSubmit)}
-            title={t('cta')}
-          />
-        </ScrollView>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </LoginMainContainer>
     </SafeArea>
   );

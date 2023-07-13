@@ -11,14 +11,15 @@ import { Text } from '../../components/Text/Text';
 import { RegisterMainContainer } from './components/RegisterMainContainer';
 import { formatCPF, replaceTagsInText } from '../../utils/text';
 import { Footer } from './components/Footer';
-import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { Icon } from '../../components/Icon/Icon';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { createUser } from '../../auth/createUser';
 import { existDoctor, useCreateDoctor } from '../../api/doctor';
-import { styles } from '../../styles/styles';
 import { Error } from '../../components/Error/Error';
+import { KeyboardAvoidingView } from '../../components/KeyboardAvoidingView/KeyboardAvoidingView';
+import { styles } from '../../styles/styles';
 
 type FormData = {
   name: string;
@@ -85,12 +86,9 @@ export const RegisterScreen = (): JSX.Element => {
         >
           {t('title')}
         </Text>
-        <ScrollView contentContainerStyle={styles.full}>
-          <Form>
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-              style={styles.full}
-            >
+        <KeyboardAvoidingView>
+          <ScrollView contentContainerStyle={styles.full}>
+            <Form>
               <Controller
                 name="name"
                 control={control}
@@ -172,32 +170,32 @@ export const RegisterScreen = (): JSX.Element => {
                 )}
               />
               <Error>{error}</Error>
-            </KeyboardAvoidingView>
-          </Form>
-          <Footer>
-            <Text textAlign="center">
-              {replaceTagsInText(t('disclaimer'), {
-                a1: (
-                  <Text
-                    color="DEFAULT"
-                    underline
-                  />
-                ),
-                a2: (
-                  <Text
-                    color="DEFAULT"
-                    underline
-                  />
-                ),
-              })}
-            </Text>
-            <Button
-              buttonStyle="primary"
-              onPress={handleSubmit(onSubmit)}
-              title={t('cta')}
-            />
-          </Footer>
-        </ScrollView>
+            </Form>
+            <Footer>
+              <Text textAlign="center">
+                {replaceTagsInText(t('disclaimer'), {
+                  a1: (
+                    <Text
+                      color="DEFAULT"
+                      underline
+                    />
+                  ),
+                  a2: (
+                    <Text
+                      color="DEFAULT"
+                      underline
+                    />
+                  ),
+                })}
+              </Text>
+              <Button
+                buttonStyle="primary"
+                onPress={handleSubmit(onSubmit)}
+                title={t('cta')}
+              />
+            </Footer>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </RegisterMainContainer>
     </SafeArea>
   );
