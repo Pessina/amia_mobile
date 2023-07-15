@@ -8,6 +8,8 @@ import Input from '../../../components/Input/Input';
 import { Modal } from '../../../components/Modal/Modal';
 import { Button } from '../../../components/Button/Button';
 import { useCreatePatient } from '../../../api/patient';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigation } from '../../../routes';
 
 interface PatientData {
   name: string;
@@ -22,6 +24,7 @@ interface Props {
 export const AddPatientModal: React.FC<Props> = ({ visible, onRequestClose }) => {
   const { t } = useTranslation('', { keyPrefix: 'screen.patientList.addPatient' });
   const { t: tValidation } = useTranslation('', { keyPrefix: 'validation' });
+  const navigate = useNavigation<StackNavigation>();
 
   const schema = yup.object().shape({
     name: yup.string().required(tValidation('required')),
@@ -30,6 +33,7 @@ export const AddPatientModal: React.FC<Props> = ({ visible, onRequestClose }) =>
   const {
     control,
     handleSubmit,
+    setError,
     formState: { errors },
     reset,
   } = useForm<PatientData>({
@@ -39,9 +43,21 @@ export const AddPatientModal: React.FC<Props> = ({ visible, onRequestClose }) =>
   const createPatientMutation = useCreatePatient();
 
   const onSubmit = (data: PatientData) => {
-    createPatientMutation.mutate(data);
-    onRequestClose();
-    reset();
+    createPatientMutation.mutate(data, {
+      onSuccess: (res) => {
+        onRequestClose();
+        reset();
+        navigate.navigate('Patient', { patientId: res.data.id });
+      },
+      onError: (error) => {
+        if (error.response?.data?.meta.target.includes('assignedId')) {
+          setError('assignedId', {
+            type: 'manual',
+            message: tValidation('exist', { field: t('ID.label') }),
+          });
+        }
+      },
+    });
   };
 
   return (
@@ -71,7 +87,7 @@ export const AddPatientModal: React.FC<Props> = ({ visible, onRequestClose }) =>
             label={t('ID.label')}
             onChangeText={field.onChange}
             value={field.value}
-            error={errors.name?.message}
+            error={errors.assignedId?.message}
           />
         )}
       />

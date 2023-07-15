@@ -67,7 +67,6 @@ export const PatientListScreen: React.FC = () => {
           title={t('addPatient.addCTA')}
           onPress={() => setIsModalVisible(true)}
         />
-
         <AddPatientModal
           visible={isModalVisible}
           onRequestClose={() => setIsModalVisible(false)}

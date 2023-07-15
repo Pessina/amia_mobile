@@ -1,8 +1,9 @@
 import Config from 'react-native-config';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { isNil, isEmpty } from 'lodash';
 import qs from 'qs';
+import { AppAxiosError } from './axios.config';
 
 const BASE_URL = Config.REACT_APP_API_URL;
 
@@ -20,12 +21,9 @@ export enum PatientQueryStrings {
 export const useCreatePatient = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(
-    (data: Omit<Patient, 'id'>) => axios.post<Patient>(`${BASE_URL}/patient`, data),
+  return useMutation<AxiosResponse<Patient>, AppAxiosError, Omit<Patient, 'id'>>(
+    (data) => axios.post(`${BASE_URL}/patient`, data),
     {
-      onError: (error) => {
-        console.error(JSON.stringify(error));
-      },
       onSuccess: () => {
         queryClient.invalidateQueries([PatientQueryStrings.PATIENTS]);
       },

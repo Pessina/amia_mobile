@@ -1,9 +1,11 @@
-import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
+import axios, { AxiosResponse } from 'axios';
 import Config from 'react-native-config';
+import { AppAxiosError } from './axios.config';
 
 const BASE_URL = Config.REACT_APP_API_URL;
 
-export const processAudio = async (uri: string) => {
+export const createAudioFileFormData = (uri: string): FormData => {
   const formData = new FormData();
 
   const type = uri.substring(uri.lastIndexOf('.') + 1);
@@ -14,15 +16,21 @@ export const processAudio = async (uri: string) => {
     name: `audio.${type}`,
   });
 
-  try {
-    const res = await axios.post<string>(`${BASE_URL}/visit/process-audio`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+  return formData;
+};
 
-    return res.data;
-  } catch (e) {
-    console.error(JSON.stringify(e));
-  }
+export const useProcessAudio = () => {
+  return useMutation<AxiosResponse<string>, AppAxiosError, FormData>(
+    (formData) =>
+      axios.post(`${BASE_URL}/visit/process-audio`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }),
+    {
+      onError: (error) => {
+        console.error(JSON.stringify(error));
+      },
+    }
+  );
 };

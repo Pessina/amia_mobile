@@ -54,9 +54,10 @@
     }
   },
   "validation": {
-    "required": "Obrigatório",
-    "invalid": "Inválido",
-    "doctorExist": "Médico já registrado. Verifique o e-mail, CPF e CRM."
+    "required": "Campo obrigatório.",
+    "invalid": "Entrada inválida.",
+    "exist": "{{field}} já existente.",
+    "doctorExist": "Este médico já está registrado. Por favor, verifique o e-mail, CPF e CRM."
   },
   "permissions": {
     "audio": {
