@@ -143,13 +143,15 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
               </Text>
             </>
           )}
-          <Button
-            isLoading={isLoading}
-            left={hasError && <Icon name="ri-error-warning-fill" />}
-            title={isLoading ? t('loading') : hasError ? t('retry') : t('finishVisit')}
-            buttonStyle="outlined"
-            onPress={onPressCTA}
-          />
+          {(hasStartedRecording || isLoading || hasError) && (
+            <Button
+              isLoading={isLoading}
+              left={hasError && <Icon name="ri-error-warning-fill" />}
+              title={isLoading ? t('loading') : hasError ? t('retry') : t('finishVisit')}
+              buttonStyle="outlined"
+              onPress={onPressCTA}
+            />
+          )}
         </MicrophoneContainer>
       </Content>
     </BottomSheet>
