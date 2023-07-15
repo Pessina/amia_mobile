@@ -12,21 +12,21 @@ class RCTAudioModule: NSObject, RCTBridgeModule {
     return "RCTAudioModule"
   }
 
-  // Configure the audio recording settings
+  
   func setupRecorder() {
     let recordingSession = AVAudioSession.sharedInstance()
 
     do {
-        try recordingSession.setCategory(.playAndRecord, mode: .default)
+        try recordingSession.setCategory(.playAndRecord, mode: .voiceChat, options: .defaultToSpeaker) // .voiceChat enables built-in echo cancellation
         try recordingSession.setActive(true)
         
         let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
         
         let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
-            AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            AVFormatIDKey: Int(kAudioFormatAppleLossless),
+            AVSampleRateKey: 48000,    
+            AVNumberOfChannelsKey: 1,  
+            AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
         ]
         
         recorder = try AVAudioRecorder(url: audioFilename, settings: settings)
@@ -35,6 +35,7 @@ class RCTAudioModule: NSObject, RCTBridgeModule {
         // handle error
     }
   }
+
   
   func getDocumentsDirectory() -> URL {
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
