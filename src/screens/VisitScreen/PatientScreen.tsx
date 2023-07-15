@@ -55,7 +55,6 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
           onRequestClose={() => setIsModalVisible(false)}
           onProcessAudioSuccess={(text) => {
             setAudioText(text);
-            setIsModalVisible(false);
           }}
         />
       </PatientMainContainer>
