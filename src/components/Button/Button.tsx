@@ -1,16 +1,18 @@
 import React, { ReactNode } from 'react';
-import { GestureResponderEvent } from 'react-native';
+import { Animated, GestureResponderEvent } from 'react-native';
 import styled from 'styled-components/native';
+import { useSpinAnimation } from '../../styles/animations/useSpinAnimation';
+import { Icon } from '../Icon/Icon';
 type ButtonStyle = 'primary' | 'transparent' | 'outlined';
 
 export type ButtonProps = {
   buttonStyle?: ButtonStyle;
   title?: ReactNode;
   onPress?: (event: GestureResponderEvent) => void;
-  width?: 'full' | 'auto';
   alignment?: 'stretch' | 'flex-start' | 'flex-end';
   right?: ReactNode;
   left?: ReactNode;
+  isLoading?: boolean;
 };
 
 const StyledPressable = styled.TouchableOpacity<ButtonProps>`
@@ -45,19 +47,26 @@ export const Button: React.FC<ButtonProps> = ({
   buttonStyle = 'primary',
   title,
   onPress,
-  width = 'auto',
   alignment = 'stretch',
   left,
   right,
+  isLoading,
 }) => {
+  const spinStyle = useSpinAnimation();
+
   return (
     <StyledPressable
       buttonStyle={buttonStyle}
       onPress={onPress}
-      width={width}
       alignment={alignment}
     >
-      {left}
+      {isLoading ? (
+        <Animated.View style={spinStyle}>
+          <Icon name="ri-loader-4-line" />
+        </Animated.View>
+      ) : (
+        left
+      )}
       <StyledText buttonStyle={buttonStyle}>{title}</StyledText>
       {right}
     </StyledPressable>
