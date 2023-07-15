@@ -1,19 +1,22 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 import { TextInputProps } from 'react-native';
 import { FontSize } from '../../providers/StyledComponentsThemeProvider';
 import { Error } from '../Error/Error';
 import { Label } from '../Label/Label';
+import { Text } from '../Text/Text';
 
 export interface InputProps extends TextInputProps {
   label?: string;
   fontSize?: FontSize;
   error?: string;
+  hint?: string; // This is your new prop
 }
 
 const InputContainer = styled.View`
   margin-bottom: ${({ theme }) => theme.space[4]}px;
   width: 100%;
+  gap: ${({ theme }) => theme.space[2]}px;
 `;
 
 const FieldContainer = styled.View<{ error?: string }>`
@@ -36,14 +39,19 @@ const StyledInput = styled.TextInput<InputProps>`
   color: ${({ theme }) => theme.colors.text.DEFAULT};
 `;
 
-const Input: React.FC<InputProps> = ({ label, error, ...rest }) => {
+const Input: React.FC<InputProps> = ({ label, error, hint, ...rest }) => {
+  const theme = useTheme();
+
   return (
     <InputContainer>
       {label && <Label>{label}</Label>}
       <FieldContainer error={error}>
-        <StyledInput {...rest} />
+        <StyledInput
+          {...rest}
+          placeholderTextColor={theme.colors.text.DEFAULT}
+        />
       </FieldContainer>
-      {error && <Error>{error}</Error>}
+      {error ? <Error>{error}</Error> : hint && <Text>{hint}</Text>}
     </InputContainer>
   );
 };

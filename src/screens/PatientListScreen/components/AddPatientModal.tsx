@@ -85,6 +85,7 @@ export const AddPatientModal: React.FC<Props> = ({ visible, onRequestClose }) =>
         render={({ field }) => (
           <Input
             label={t('ID.label')}
+            hint={t('ID.hint')}
             onChangeText={field.onChange}
             value={field.value}
             error={errors.assignedId?.message}

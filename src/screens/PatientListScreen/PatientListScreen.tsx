@@ -3,7 +3,7 @@ import { Text } from '../../components/Text/Text';
 import Input from '../../components/Input/Input';
 import { SafeArea } from '../../components/Containers/SafeArea';
 import { useTranslation } from 'react-i18next';
-import { Patient, useSearchPatients } from '../../api/patient';
+import { useSearchPatients } from '../../api/patient';
 import { PatientItem } from './components/PatientItem';
 import { AddPatientModal } from './components/AddPatientModal';
 import { PatientListMainContainer } from './components/PatientListMainContainer';
@@ -42,10 +42,8 @@ export const PatientListScreen: React.FC = () => {
         {(searchPatientsQuery.data?.data.length ?? 0) > 0 ? (
           <PatientList
             data={searchPatientsQuery.data?.data ?? []}
-            keyExtractor={(item: Patient, index: number) =>
-              item.assignedId?.toString() ?? index.toString()
-            }
-            renderItem={({ item }: { item: Patient }) => (
+            keyExtractor={(item) => item.id?.toString()}
+            renderItem={({ item }) => (
               <PatientItem
                 onPress={() => navigate.navigate('Patient', { patientId: item.id })}
                 name={item.name}
