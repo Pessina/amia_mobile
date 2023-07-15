@@ -1,19 +1,13 @@
-import { useTheme } from 'styled-components';
-import styled from 'styled-components/native';
-
-const StyledActivityIndicator = styled.ActivityIndicator`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
+import { Animated } from 'react-native';
+import { useSpinAnimation } from '../../styles/animations/useSpinAnimation';
+import { Icon } from '../Icon/Icon';
 
 export const Loader = () => {
-  const theme = useTheme();
+  const spinStyle = useSpinAnimation();
 
   return (
-    <StyledActivityIndicator
-      size="large"
-      color={theme.colors.secondary.DEFAULT}
-    />
+    <Animated.View style={spinStyle}>
+      <Icon name="ri-loader-4-line" />
+    </Animated.View>
   );
 };

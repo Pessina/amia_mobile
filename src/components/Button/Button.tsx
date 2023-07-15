@@ -1,8 +1,7 @@
 import React, { ReactNode } from 'react';
-import { Animated, GestureResponderEvent } from 'react-native';
+import { GestureResponderEvent } from 'react-native';
 import styled from 'styled-components/native';
-import { useSpinAnimation } from '../../styles/animations/useSpinAnimation';
-import { Icon } from '../Icon/Icon';
+import { Loader } from '../Loader/Loader';
 type ButtonStyle = 'primary' | 'transparent' | 'outlined';
 
 export type ButtonProps = {
@@ -52,21 +51,13 @@ export const Button: React.FC<ButtonProps> = ({
   right,
   isLoading,
 }) => {
-  const spinStyle = useSpinAnimation();
-
   return (
     <StyledPressable
       buttonStyle={buttonStyle}
       onPress={onPress}
       alignment={alignment}
     >
-      {isLoading ? (
-        <Animated.View style={spinStyle}>
-          <Icon name="ri-loader-4-line" />
-        </Animated.View>
-      ) : (
-        left
-      )}
+      {isLoading ? <Loader /> : left}
       <StyledText buttonStyle={buttonStyle}>{title}</StyledText>
       {right}
     </StyledPressable>

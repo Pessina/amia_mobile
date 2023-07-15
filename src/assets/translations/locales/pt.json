@@ -55,8 +55,9 @@
   },
   "validation": {
     "required": "Campo obrigatório.",
-    "invalid": "Entrada inválida.",
+    "invalid": "Campo inválido.",
     "exist": "{{field}} já existente.",
+    "invalidCredentials": "O email ou a senha inseridos estão incorretos.",
     "doctorExist": "Este médico já está registrado. Por favor, verifique o e-mail, CPF e CRM."
   },
   "permissions": {

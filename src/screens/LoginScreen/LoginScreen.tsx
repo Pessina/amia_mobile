@@ -28,13 +28,14 @@ export const LoginScreen = (): JSX.Element => {
   const navigate = useNavigation<StackNavigation>();
 
   const schema = yup.object().shape({
-    email: yup.string().email(tValidation('invalidEmail')).required(tValidation('required')),
+    email: yup.string().email(tValidation('invalid')).required(tValidation('required')),
     password: yup.string().required(tValidation('required')),
   });
 
   const {
     control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
@@ -44,7 +45,10 @@ export const LoginScreen = (): JSX.Element => {
     try {
       await login(data);
     } catch (error) {
-      console.error(error);
+      setError('password', {
+        type: 'manual',
+        message: tValidation('invalidCredentials'),
+      });
     }
   };
 

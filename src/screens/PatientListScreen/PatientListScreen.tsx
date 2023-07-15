@@ -15,6 +15,7 @@ import { StackNavigation } from '../../routes';
 import { Button } from '../../components/Button/Button';
 import { Icon } from '../../components/Icon/Icon';
 import { useDebounce } from '../../hooks/useDebounce';
+import { KeyboardAvoidingView } from '../../components/KeyboardAvoidingView/KeyboardAvoidingView';
 
 export const PatientListScreen: React.FC = () => {
   const { t } = useTranslation('', { keyPrefix: 'screen.patientList' });
@@ -33,40 +34,42 @@ export const PatientListScreen: React.FC = () => {
           onPress={logout}
         />
         <Text size="3xl">{t('title')}</Text>
-        <Input
-          onChangeText={(value) => {
-            setSearch(value);
-          }}
-          placeholder={t('searchPlaceholder')}
-        />
-        {(searchPatientsQuery.data?.data.length ?? 0) > 0 ? (
-          <PatientList
-            data={searchPatientsQuery.data?.data ?? []}
-            keyExtractor={(item: Patient, index: number) =>
-              item.assignedId?.toString() ?? index.toString()
-            }
-            renderItem={({ item }: { item: Patient }) => (
-              <PatientItem
-                onPress={() => navigate.navigate('Patient', { patientId: item.id })}
-                name={item.name}
-                id={item.assignedId ?? ''}
-              />
-            )}
+        <KeyboardAvoidingView>
+          <Input
+            onChangeText={(value) => {
+              setSearch(value);
+            }}
+            placeholder={t('searchPlaceholder')}
           />
-        ) : (
-          <EmptyState text={t('empty')} />
-        )}
-        <Button
-          alignment="flex-end"
-          left={
-            <Icon
-              name="ri-add-line"
-              colorCode="light"
+          {(searchPatientsQuery.data?.data.length ?? 0) > 0 ? (
+            <PatientList
+              data={searchPatientsQuery.data?.data ?? []}
+              keyExtractor={(item: Patient, index: number) =>
+                item.assignedId?.toString() ?? index.toString()
+              }
+              renderItem={({ item }: { item: Patient }) => (
+                <PatientItem
+                  onPress={() => navigate.navigate('Patient', { patientId: item.id })}
+                  name={item.name}
+                  id={item.assignedId ?? ''}
+                />
+              )}
             />
-          }
-          title={t('addPatient.addCTA')}
-          onPress={() => setIsModalVisible(true)}
-        />
+          ) : (
+            <EmptyState text={t('empty')} />
+          )}
+          <Button
+            alignment="flex-end"
+            left={
+              <Icon
+                name="ri-add-line"
+                colorCode="light"
+              />
+            }
+            title={t('addPatient.addCTA')}
+            onPress={() => setIsModalVisible(true)}
+          />
+        </KeyboardAvoidingView>
         <AddPatientModal
           visible={isModalVisible}
           onRequestClose={() => setIsModalVisible(false)}
