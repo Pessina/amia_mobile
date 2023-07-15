@@ -50,7 +50,8 @@
       "startRecord": "Iniciar gravação",
       "resumeRecord": "Continuar gravação",
       "pauseRecord": "Pausar gravação",
-      "finishVisit": "Finalizar consulta"
+      "finishVisit": "Finalizar consulta",
+      "processingMessage": "Sua consulta está sendo processada e em breve um resumo será enviado para o seu email"
     }
   },
   "validation": {

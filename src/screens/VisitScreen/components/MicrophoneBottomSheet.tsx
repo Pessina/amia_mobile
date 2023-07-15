@@ -1,27 +1,14 @@
 import styled from 'styled-components/native';
 import { BottomSheet } from '../../../components/BottomSheet/BottomSheet';
-import { useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Icon } from '../../../components/Icon/Icon';
 import { formatTime } from '../../../utils/time';
 import { useAudioRecording } from '../hooks/useAudioRecording';
 import { Text } from '../../../components/Text/Text';
 import { Button } from '../../../components/Button/Button';
 import { createAudioFileFormData, useProcessAudio } from '../../../api/visit';
-
-const MicrophoneButton = styled.TouchableOpacity<{ isRecording: boolean }>`
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
-  justify-content: center;
-  align-items: center;
-  background-color: ${({ isRecording }) => (isRecording ? 'black' : 'blue')};
-`;
-
-const IconContainer = styled.View`
-  width: 40px;
-  height: 40px;
-`;
+import { RecordButton } from './RecordButton';
+import { AuthContext } from '../../../providers/AuthProvider';
 
 const MicrophoneContainer = styled.View`
   flex: 1;
@@ -61,7 +48,9 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
   } = useAudioRecording();
   const { t } = useTranslation('', { keyPrefix: 'screen.patient' });
   const [isLoading, setIsLoading] = useState(false);
+  const [hasFinished, setHasFinished] = useState(false);
   const processAudio = useProcessAudio();
+  const user = useContext(AuthContext);
 
   const { buttonAction, buttonLabel } = useMemo(() => {
     if (hasStartedRecording) {
@@ -84,52 +73,55 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
     }
   }, [hasStartedRecording, isRecording, pauseRecording, resumeRecording, startRecording, t]);
 
+  const onClose = () => {
+    if (isRecording) {
+      stopRecording();
+    }
+    setIsLoading(false);
+    setHasFinished(false);
+    onRequestClose();
+  };
+
   return (
     <BottomSheet
       title={title}
       visible={visible}
-      onRequestClose={onRequestClose}
+      onRequestClose={onClose}
     >
       <Content>
         <MicrophoneContainer>
-          <Text
-            fontWeight="bold"
-            size="xl"
-          >
-            {formatTime(recordingTime)}
-          </Text>
-          <MicrophoneButton
-            isRecording={isRecording}
-            onPress={buttonAction}
-          >
-            <IconContainer pointerEvents="none">
-              {isRecording ? (
-                <Icon
-                  name="ri-pause-line"
-                  colorCode="light"
-                  size={40}
-                />
-              ) : (
-                <Icon
-                  name="ri-mic-fill"
-                  colorCode="light"
-                  size={40}
-                />
-              )}
-            </IconContainer>
-          </MicrophoneButton>
-          <Text
-            fontWeight="medium"
-            size="sm"
-          >
-            {buttonLabel}
-          </Text>
+          {hasFinished ? (
+            <>
+              <Text textAlign="center">{t('processingMessage')}</Text>
+              <Text fontWeight="bold">{user.user?.email}</Text>
+            </>
+          ) : (
+            <>
+              <Text
+                fontWeight="bold"
+                size="xl"
+              >
+                {formatTime(recordingTime)}
+              </Text>
+              <RecordButton
+                onPress={buttonAction}
+                isRecording={isRecording}
+              />
+              <Text
+                fontWeight="medium"
+                size="sm"
+              >
+                {buttonLabel}
+              </Text>
+            </>
+          )}
           <Button
             isLoading={isLoading}
             title={t('finishVisit')}
             buttonStyle="outlined"
             onPress={async () => {
               setIsLoading(true);
+              setHasFinished(true);
               const uri = await stopRecording();
               // TODO: Implement re-try mechanism in case of failure
               processAudio.mutate(createAudioFileFormData(uri), {
