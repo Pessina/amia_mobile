@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { GestureResponderEvent } from 'react-native';
+import { GestureResponderEvent, StyleProp, ViewStyle } from 'react-native';
 import styled from 'styled-components/native';
 import { Loader } from '../Loader/Loader';
 type ButtonStyle = 'primary' | 'transparent' | 'outlined';
@@ -12,6 +12,7 @@ export type ButtonProps = {
   right?: ReactNode;
   left?: ReactNode;
   isLoading?: boolean;
+  style?: StyleProp<ViewStyle>;
 };
 
 const StyledPressable = styled.TouchableOpacity<ButtonProps>`
@@ -50,12 +51,14 @@ export const Button: React.FC<ButtonProps> = ({
   left,
   right,
   isLoading,
+  style,
 }) => {
   return (
     <StyledPressable
       buttonStyle={buttonStyle}
       onPress={onPress}
       alignment={alignment}
+      style={style}
     >
       {isLoading ? <Loader /> : left}
       <StyledText buttonStyle={buttonStyle}>{title}</StyledText>
