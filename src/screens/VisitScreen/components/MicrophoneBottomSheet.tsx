@@ -49,7 +49,6 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
   } = useAudioRecording();
   const { t } = useTranslation('', { keyPrefix: 'screen.patient' });
   const [isLoading, setIsLoading] = useState(false);
-  const [hasFinished, setHasFinished] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [fileUri, setFileUri] = useState<string | undefined>(undefined);
   const processAudio = useProcessAudio();
@@ -81,53 +80,35 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
       stopRecording();
     }
     setIsLoading(false);
-    setHasFinished(false);
     setHasError(false);
     setFileUri(undefined);
     onRequestClose();
   }, [isRecording, onRequestClose, stopRecording]);
 
-  const onPressCTA = useMemo(() => {
-    if (hasError && fileUri) {
-      return () => {
-        setIsLoading(true);
-        setHasFinished(true);
-        setHasError(false);
-        processAudio.mutate(createAudioFileFormData(fileUri), {
-          onSuccess: (res) => {
-            onProcessAudioSuccess(res.data);
-            onClose();
-          },
-          onSettled: () => {
-            setIsLoading(false);
-          },
-          onError: () => {
-            setHasError(true);
-          },
-        });
-      };
-    } else {
-      return async () => {
-        setIsLoading(true);
-        setHasFinished(true);
-        setHasError(false);
-        const uri = await stopRecording();
-        setFileUri(uri);
-        processAudio.mutate(createAudioFileFormData(uri), {
-          onSuccess: (res) => {
-            onProcessAudioSuccess(res.data);
-            onClose();
-          },
-          onSettled: () => {
-            setIsLoading(false);
-          },
-          onError: () => {
-            setHasError(true);
-          },
-        });
-      };
-    }
-  }, [fileUri, hasError, onClose, onProcessAudioSuccess, processAudio, stopRecording]);
+  const onProcessAudio = useCallback(
+    (uri: string) => {
+      processAudio.mutate(createAudioFileFormData(uri), {
+        onSuccess: (res) => {
+          onProcessAudioSuccess(res.data);
+          onClose();
+        },
+        onSettled: () => {
+          setIsLoading(false);
+        },
+        onError: () => {
+          setHasError(true);
+        },
+      });
+    },
+    [onClose, onProcessAudioSuccess, processAudio]
+  );
+
+  const onPressCTA = useCallback(async () => {
+    setIsLoading(true);
+    const uri = fileUri ?? (await stopRecording());
+    setFileUri(uri);
+    onProcessAudio(uri);
+  }, [fileUri, onProcessAudio, stopRecording]);
 
   return (
     <BottomSheet
@@ -137,7 +118,7 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
     >
       <Content>
         <MicrophoneContainer>
-          {hasFinished ? (
+          {fileUri ? (
             <>
               <Text textAlign="center">{t('processingMessage')}</Text>
               <Text fontWeight="bold">{user.user?.email}</Text>
@@ -165,7 +146,7 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
           <Button
             isLoading={isLoading}
             left={hasError && <Icon name="ri-error-warning-fill" />}
-            title={hasError ? t('retry') : isLoading ? t('loading') : t('finishVisit')}
+            title={isLoading ? t('loading') : hasError ? t('retry') : t('finishVisit')}
             buttonStyle="outlined"
             onPress={onPressCTA}
           />
