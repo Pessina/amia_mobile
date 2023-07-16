@@ -38,6 +38,7 @@ export const useAudioRecording = () => {
   const stopRecording = async () => {
     try {
       const uri = await AudioModule.stopRecording();
+      console.log('uri', uri);
       setIsRecording(false);
       setHasStartedRecording(false);
       setRecordingTime(0);
