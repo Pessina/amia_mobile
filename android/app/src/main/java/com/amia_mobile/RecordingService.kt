@@ -34,7 +34,7 @@ public class RecordingService : Service() {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
             setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC)
-            setAudioSamplingRate(48000)
+            setAudioSamplingRate(16000)
             setOutputFile(currentFilePath)
             try {
                 prepare()

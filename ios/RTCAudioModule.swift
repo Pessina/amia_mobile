@@ -24,7 +24,7 @@ class RCTAudioModule: NSObject, RCTBridgeModule {
         
         let settings = [
             AVFormatIDKey: Int(kAudioFormatAppleLossless),
-            AVSampleRateKey: 48000,    
+            AVSampleRateKey: 16000,    
             AVNumberOfChannelsKey: 1,  
             AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
         ]
