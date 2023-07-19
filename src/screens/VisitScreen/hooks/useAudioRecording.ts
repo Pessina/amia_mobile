@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { NativeModules } from 'react-native';
 import { useRequestAudioPermissionAndroid } from '../../../permissions/android/permissions';
 
+// TODO: optimize file size after recording
 export const useAudioRecording = () => {
   const { AudioModule } = NativeModules;
   const [isRecording, setIsRecording] = useState(false);

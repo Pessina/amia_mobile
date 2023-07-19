@@ -9,7 +9,7 @@ import { AddPatientModal } from './components/AddPatientModal';
 import { PatientListMainContainer } from './components/PatientListMainContainer';
 import { PatientList } from './components/PatientList';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
-import { logout } from '../../auth/logout';
+import { useLogout } from '../../auth/useLogout';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { Icon } from '../../components/Icon/Icon';
@@ -22,6 +22,7 @@ export const PatientListScreen: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigation<StackNavigation>();
   const debouncedSearch = useDebounce(search, 500);
+  const logoutMutation = useLogout();
 
   const searchPatientsQuery = useSearchPatients(debouncedSearch, debouncedSearch);
 
@@ -30,7 +31,7 @@ export const PatientListScreen: React.FC = () => {
       <PatientListMainContainer>
         <Icon
           name={'ri-logout-box-line'}
-          onPress={logout}
+          onPress={() => logoutMutation.mutate()}
         />
         <Text size="3xl">{t('title')}</Text>
         <Input

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import RNFS from 'react-native-fs';
 import { BottomSheet } from '../../../components/BottomSheet/BottomSheet';
 import { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -90,6 +91,7 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
       processAudio.mutate(createAudioFileFormData(uri), {
         onSuccess: (res) => {
           onProcessAudioSuccess(res.data);
+          RNFS.unlink(uri);
           onClose();
         },
         onSettled: () => {
