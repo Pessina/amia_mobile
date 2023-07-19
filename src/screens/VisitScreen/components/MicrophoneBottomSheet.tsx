@@ -31,6 +31,7 @@ export type MicrophoneBottomSheetProps = {
   onRequestClose: () => void;
   title?: string;
   onProcessAudioSuccess: (text: string) => void;
+  patientName?: string;
 };
 
 export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
@@ -38,6 +39,7 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
   onRequestClose,
   title,
   onProcessAudioSuccess,
+  patientName,
 }) => {
   const {
     isRecording,
@@ -86,9 +88,13 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
     onRequestClose();
   }, [isRecording, onRequestClose, stopRecording]);
 
+  // TODO: Improve error handling, if the file can't be processed allow the user to download it
   const onProcessAudio = useCallback(
     (uri: string) => {
-      processAudio.mutate(createAudioFileFormData(uri), {
+      const formData = createAudioFileFormData(uri);
+      formData.append('patientName', patientName ?? '');
+      formData.append('requestTimestamp', new Date().toISOString());
+      processAudio.mutate(formData, {
         onSuccess: (res) => {
           onProcessAudioSuccess(res.data);
           RNFS.unlink(uri);
@@ -102,7 +108,7 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
         },
       });
     },
-    [onClose, onProcessAudioSuccess, processAudio]
+    [onClose, onProcessAudioSuccess, patientName, processAudio]
   );
 
   const onPressCTA = useCallback(async () => {
