@@ -23,7 +23,6 @@ class AudioModule(private val reactContext: ReactApplicationContext) : ReactCont
         filePathReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 currentFilePath = intent.getStringExtra("filePath")
-                Log.d("AudioModule", "onReceive 1 called $currentFilePath")
             }
         }
         reactContext.registerReceiver(filePathReceiver, IntentFilter("com.amia_mobile.RECORDING_STOPPED"))
@@ -42,10 +41,8 @@ class AudioModule(private val reactContext: ReactApplicationContext) : ReactCont
     fun startRecording(promise: Promise) {
         val intent = Intent(reactContext, RecordingService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Log.d("AudioModule", "Build.VERSION.SDK_INT")
             reactContext.startForegroundService(intent)
         } else {
-            Log.d("AudioModule", "Build.VERSION_CODES.O")
             reactContext.startService(intent)
         }
         promise.resolve(null)
@@ -56,7 +53,6 @@ class AudioModule(private val reactContext: ReactApplicationContext) : ReactCont
         val filePathReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 val filePath = intent.getStringExtra("filePath")
-                Log.d("AudioModule", "onReceive called $filePath")
                 promise.resolve("file:///$filePath")
                 reactContext.unregisterReceiver(this)
             }
@@ -66,7 +62,6 @@ class AudioModule(private val reactContext: ReactApplicationContext) : ReactCont
             IntentFilter("com.amia_mobile.RECORDING_STOPPED")
         )
 
-        Log.d("AudioModule", "stopRecording called")
 
         val intent = Intent(reactContext, RecordingService::class.java)
         reactContext.stopService(intent)

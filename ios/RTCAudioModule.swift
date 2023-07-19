@@ -17,22 +17,22 @@ class RCTAudioModule: NSObject, RCTBridgeModule {
     let recordingSession = AVAudioSession.sharedInstance()
 
     do {
-        try recordingSession.setCategory(.playAndRecord, mode: .voiceChat, options: .defaultToSpeaker) // .voiceChat enables built-in echo cancellation
+        try recordingSession.setCategory(.playAndRecord, mode: .voiceChat, options: .defaultToSpeaker) 
         try recordingSession.setActive(true)
         
         let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
         
         let settings = [
-            AVFormatIDKey: Int(kAudioFormatAppleLossless),
-            AVSampleRateKey: 16000,    
-            AVNumberOfChannelsKey: 1,  
-            AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
+          AVFormatIDKey: Int(kAudioFormatAppleLossless),
+          AVSampleRateKey: 16000,    
+          AVNumberOfChannelsKey: 1,  
+          AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
         ]
         
         recorder = try AVAudioRecorder(url: audioFilename, settings: settings)
         self.audioFileName = audioFilename
     } catch {
-        // handle error
+        
     }
   }
 

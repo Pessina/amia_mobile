@@ -22,7 +22,6 @@ public class RecordingService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         createNotificationChannel()
-        Log.d("RecordingService", "onStartCommand called")
         val notification = Notification.Builder(this, CHANNEL_ID)
             .setContentTitle("Recording Service")
             .setContentText("Recording audio...")
@@ -54,7 +53,6 @@ public class RecordingService : Service() {
             reset()
             release()
         }
-        Log.d("RecordingService", "onDestroy called")
         recorder = null
         val intent = Intent("com.amia_mobile.RECORDING_STOPPED")
         intent.putExtra("filePath", currentFilePath)
