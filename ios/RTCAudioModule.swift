@@ -23,10 +23,11 @@ class RCTAudioModule: NSObject, RCTBridgeModule {
         let audioFilename = getDocumentsDirectory().appendingPathComponent("recording.m4a")
         
         let settings = [
-          AVFormatIDKey: Int(kAudioFormatAppleLossless),
+          // TODO: Using kAudioFormatAppleLossless the size increase a lot, we can but we need compression
+          AVFormatIDKey: Int(kAudioFormatMPEG4AAC), 
           AVSampleRateKey: 16000,    
-          AVNumberOfChannelsKey: 1,  
-          AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
+          AVNumberOfChannelsKey: 1,
+          AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue,
         ]
         
         recorder = try AVAudioRecorder(url: audioFilename, settings: settings)
