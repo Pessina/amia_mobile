@@ -28,12 +28,13 @@ public class RecordingService : Service() {
             .build()
         startForeground(1, notification)
 
-        currentFilePath = "${getFilesDir().absolutePath}/audioRecording_${System.currentTimeMillis()}.m4a"
+        currentFilePath = "${getFilesDir().absolutePath}/recording.m4a"
         recorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
             setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC)
             setAudioSamplingRate(16000)
+            setAudioEncodingBitRate(256000)
             setOutputFile(currentFilePath)
             try {
                 prepare()
