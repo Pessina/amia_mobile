@@ -31,6 +31,7 @@ export const useProcessAudio = () => {
       onError: (error) => {
         console.error(JSON.stringify(error));
       },
+      retry: 3,
     }
   );
 };

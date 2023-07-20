@@ -32,7 +32,7 @@ export const useCreatePatient = () => {
 };
 
 export const useSearchPatients = (id?: string, name?: string) => {
-  return useQuery(
+  return useQuery<AxiosResponse<Patient[]>, AppAxiosError>(
     [PatientQueryStrings.PATIENTS, id, name],
     () => {
       const params = qs.stringify({
@@ -40,7 +40,7 @@ export const useSearchPatients = (id?: string, name?: string) => {
         name: !isNil(name) && !isEmpty(name) ? encodeURIComponent(name) : undefined,
       });
 
-      return axios.get<Patient[]>(`${BASE_URL}/patient/search?${params}`);
+      return axios.get(`${BASE_URL}/patient/search?${params}`);
     },
     {
       onError: (error) => {

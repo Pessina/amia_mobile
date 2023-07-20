@@ -3,7 +3,7 @@ import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { ActivityIndicator } from 'react-native';
 import { styled } from 'styled-components/native';
 import { StackNavigation } from '../routes';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { useQueryClient } from '@tanstack/react-query';
 
 interface AuthContextInterface {
@@ -26,7 +26,7 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
-  const navigate = useNavigation<StackNavigation>();
+  const navigation = useNavigation<StackNavigation>();
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -34,17 +34,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsLoadingUser(false);
       setUser(currUser);
       queryClient.invalidateQueries();
-      queryClient.clear();
 
       if (currUser) {
-        navigate.navigate('PatientList');
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'PatientList' }],
+          })
+        );
       } else {
-        navigate.navigate('Home');
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
+          })
+        );
       }
     });
 
     return subscriber;
-  }, [navigate, queryClient]);
+  }, [navigation, queryClient]);
 
   return (
     <AuthContext.Provider value={{ user, isLoadingUser }}>
