@@ -50,7 +50,6 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
           onPress={() => setIsModalVisible(true)}
         />
         <MicrophoneBottomSheet
-          patientName={patientQuery.data?.data.name}
           title={t('newVisit')}
           visible={isModalVisible}
           onRequestClose={() => setIsModalVisible(false)}
