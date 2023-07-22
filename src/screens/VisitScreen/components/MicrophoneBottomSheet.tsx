@@ -7,10 +7,12 @@ import { formatTime } from '../../../utils/time';
 import { useAudioRecording } from '../hooks/useAudioRecording';
 import { Text } from '../../../components/Text/Text';
 import { Button } from '../../../components/Button/Button';
-import { createAudioFileFormData, useProcessAudio } from '../../../api/visit';
+import { createAudioFileFormData, useProcessVisitRecording } from '../../../api/visit';
 import { RecordButton } from './RecordButton';
 import { AuthContext } from '../../../providers/AuthProvider';
 import { Icon } from '../../../components/Icon/Icon';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from '../../../routes';
 
 const MicrophoneContainer = styled.View`
   flex: 1;
@@ -31,7 +33,6 @@ export type MicrophoneBottomSheetProps = {
   onRequestClose: () => void;
   title?: string;
   onProcessAudioSuccess: (text: string) => void;
-  patientName?: string;
 };
 
 export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
@@ -39,7 +40,6 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
   onRequestClose,
   title,
   onProcessAudioSuccess,
-  patientName,
 }) => {
   const {
     isRecording,
@@ -54,8 +54,10 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [fileUri, setFileUri] = useState<string | undefined>(undefined);
-  const processAudio = useProcessAudio();
+  const processVisitRecording = useProcessVisitRecording();
   const user = useContext(AuthContext);
+  const route = useRoute<RouteProp<RootStackParamList, 'Patient'>>();
+  const { patientId } = route.params;
 
   const { buttonAction, buttonLabel } = useMemo(() => {
     if (hasStartedRecording) {
@@ -89,12 +91,12 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
   }, [isRecording, onRequestClose, stopRecording]);
 
   // TODO: Improve error handling, if the file can't be processed allow the user to download it
-  const onProcessAudio = useCallback(
+  const onProcessVisitRecording = useCallback(
     (uri: string) => {
       const formData = createAudioFileFormData(uri);
-      formData.append('patientName', patientName ?? '');
+      formData.append('patientId', patientId ?? '');
       formData.append('requestTimestamp', new Date().toISOString());
-      processAudio.mutate(formData, {
+      processVisitRecording.mutate(formData, {
         onSuccess: (res) => {
           onProcessAudioSuccess(res.data);
           RNFS.unlink(uri);
@@ -108,15 +110,15 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
         },
       });
     },
-    [onClose, onProcessAudioSuccess, patientName, processAudio]
+    [onClose, onProcessAudioSuccess, patientId, processVisitRecording]
   );
 
   const onPressCTA = useCallback(async () => {
     setIsLoading(true);
     const uri = fileUri ?? (await stopRecording());
     setFileUri(uri);
-    onProcessAudio(uri);
-  }, [fileUri, onProcessAudio, stopRecording]);
+    onProcessVisitRecording(uri);
+  }, [fileUri, onProcessVisitRecording, stopRecording]);
 
   return (
     <BottomSheet

@@ -50,7 +50,7 @@ export const AddPatientModal: React.FC<Props> = ({ visible, onRequestClose }) =>
         navigate.navigate('Patient', { patientId: res.data.id });
       },
       onError: (error) => {
-        if (error.response?.data?.meta.target.includes('assignedId')) {
+        if (error.response?.data?.code === 'PATIENT_ASSIGNED_ID_DUPLICATE') {
           setError('assignedId', {
             type: 'manual',
             message: tValidation('exist', { field: t('ID.label') }),

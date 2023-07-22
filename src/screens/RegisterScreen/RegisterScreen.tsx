@@ -55,6 +55,9 @@ export const RegisterScreen = (): JSX.Element => {
   });
 
   const onSubmit = async (data: FormData) => {
+    setError(null);
+    data.cpf = data.cpf.replace(/\D/g, '');
+
     if (!(await existDoctor(data)).data) {
       const user = await createUser(data);
 
@@ -63,7 +66,7 @@ export const RegisterScreen = (): JSX.Element => {
           firebaseUserUID: user.user.uid,
           name: data.name,
           email: data.email,
-          cpf: data.cpf.replace(/\D/g, ''),
+          cpf: data.cpf,
           crm: data.crm,
           specialty: data.specialty,
         });
@@ -126,7 +129,7 @@ export const RegisterScreen = (): JSX.Element => {
                     secureTextEntry
                     onChangeText={field.onChange}
                     value={field.value}
-                    error={errors.email?.message}
+                    error={errors.password?.message}
                   />
                 )}
               />
