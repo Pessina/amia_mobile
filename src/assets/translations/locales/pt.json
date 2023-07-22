@@ -24,7 +24,13 @@
       "title": "Entrar",
       "email": "Email",
       "password": "Senha",
-      "cta": "Continuar"
+      "cta": "Continuar",
+      "resetPassword": "Esqueceu a senha?"
+    },
+    "resetPassword": {
+      "title": "Redefinir senha",
+      "email": "Email",
+      "cta": "Enviar e-mail"
     },
     "patientList": {
       "title": "Pacientes",

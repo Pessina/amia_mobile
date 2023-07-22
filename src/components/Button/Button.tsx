@@ -2,7 +2,8 @@ import React, { ReactNode } from 'react';
 import { GestureResponderEvent, StyleProp, ViewStyle } from 'react-native';
 import styled from 'styled-components/native';
 import { Loader } from '../Loader/Loader';
-type ButtonStyle = 'primary' | 'transparent' | 'outlined';
+
+type ButtonStyle = 'primary' | 'transparent' | 'outlined' | 'link';
 
 export type ButtonProps = {
   buttonStyle?: ButtonStyle;
@@ -26,6 +27,8 @@ const StyledPressable = styled.TouchableOpacity<ButtonProps>`
       ? theme.colors.primary.DEFAULT
       : buttonStyle === 'outlined'
       ? theme.colors.background.light
+      : buttonStyle === 'link'
+      ? 'transparent'
       : 'transparent'};
   border: ${({ buttonStyle, theme }) =>
     buttonStyle === 'outlined' ? `1px solid ${theme.colors.text.DEFAULT}` : 'none'};
@@ -40,7 +43,8 @@ const StyledText = styled.Text<{ buttonStyle: ButtonStyle }>`
       : buttonStyle === 'outlined'
       ? theme.colors.text.dark
       : theme.colors.primary.DEFAULT};
-  font-weight: ${({ theme }) => theme.fontWeights.bold};
+  font-weight: ${({ theme, buttonStyle }) =>
+    buttonStyle === 'link' ? theme.fontWeights.normal : theme.fontWeights.bold};
 `;
 
 export const Button: React.FC<ButtonProps> = ({

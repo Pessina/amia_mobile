@@ -5,11 +5,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { LoginScreen } from '../screens/LoginScreen/LoginScreen';
 import { PatientListScreen } from '../screens/PatientListScreen/PatientListScreen';
 import { PatientScreen } from '../screens/VisitScreen/PatientScreen';
+import { ResetPasswordScreen } from '../screens/ResetPasswordScreen/ResetPasswordScreen';
 
 export type RootStackParamList = {
   Home: undefined;
   Login: undefined;
   Register: undefined;
+  ResetPassword: undefined;
   PatientList: undefined;
   Patient: { patientId: string };
 };
@@ -28,6 +30,11 @@ export const Routes: React.FC = () => {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ResetPassword"
+        component={ResetPasswordScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

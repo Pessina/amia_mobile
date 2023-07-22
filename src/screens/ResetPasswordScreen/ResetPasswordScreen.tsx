@@ -6,58 +6,51 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from '../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
-import { Form } from './components/Form';
+
 import { Text } from '../../components/Text/Text';
-import { LoginMainContainer } from './components/LoginMainContainer';
 import { ScrollView } from 'react-native';
 import { Icon } from '../../components/Icon/Icon';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
-import { login } from '../../auth/login';
 import { styles } from '../../styles/styles';
 import { KeyboardAvoidingView } from '../../components/KeyboardAvoidingView/KeyboardAvoidingView';
+import { ResetPasswordMainContainer } from './components/ResetPasswordMainContainer';
+import { Form } from './components/Form';
+import { sendPasswordResetEmail } from '../../auth/resetPassword';
 
 type FormData = {
   email: string;
-  password: string;
 };
 
-export const LoginScreen = (): JSX.Element => {
+export const ResetPasswordScreen = (): JSX.Element => {
   const { t: tValidation } = useTranslation('', { keyPrefix: 'validation' });
-  const { t } = useTranslation('', { keyPrefix: 'screen.login' });
+  const { t } = useTranslation('', { keyPrefix: 'screen.resetPassword' });
   const navigate = useNavigation<StackNavigation>();
 
   const schema = yup.object().shape({
     email: yup.string().email(tValidation('invalid')).required(tValidation('required')),
-    password: yup.string().required(tValidation('required')),
   });
 
   const {
     control,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = async (data: FormData) => {
-    try {
-      await login(data);
-    } catch (error) {
-      setError('password', {
-        type: 'manual',
-        message: tValidation('invalidCredentials'),
-      });
+    if (await sendPasswordResetEmail(data.email)) {
+      navigate.navigate('Home');
     }
   };
 
   return (
     <SafeArea>
-      <LoginMainContainer>
+      <ResetPasswordMainContainer>
         <Icon
           name="arrow-left-s-line"
-          onPress={() => navigate.navigate('Home')}
+          onPress={() => navigate.navigate('Login')}
         />
         <Text
           size="3xl"
@@ -83,25 +76,8 @@ export const LoginScreen = (): JSX.Element => {
                   />
                 )}
               />
-              <Controller
-                name="password"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    label={t('password')}
-                    secureTextEntry
-                    onChangeText={field.onChange}
-                    value={field.value}
-                    error={errors.password?.message}
-                  />
-                )}
-              />
             </Form>
-            <Button
-              buttonStyle="link"
-              title={t('resetPassword')}
-              onPress={() => navigate.navigate('ResetPassword')}
-            />
+
             <Button
               buttonStyle="primary"
               onPress={handleSubmit(onSubmit)}
@@ -109,7 +85,7 @@ export const LoginScreen = (): JSX.Element => {
             />
           </ScrollView>
         </KeyboardAvoidingView>
-      </LoginMainContainer>
+      </ResetPasswordMainContainer>
     </SafeArea>
   );
 };
