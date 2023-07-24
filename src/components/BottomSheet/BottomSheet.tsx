@@ -53,7 +53,6 @@ const Content = styled.View`
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   width: 100%;
-  min-height: 50%;
 `;
 
 const Header = styled.View`

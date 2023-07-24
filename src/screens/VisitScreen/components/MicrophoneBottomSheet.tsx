@@ -15,7 +15,6 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../routes';
 
 const MicrophoneContainer = styled.View`
-  flex: 1;
   padding-top: ${({ theme }) => theme.space[8]}px;
   justify-content: flex-start;
   align-items: center;
@@ -23,7 +22,6 @@ const MicrophoneContainer = styled.View`
 `;
 
 const Content = styled.View`
-  flex: 1;
   justify-content: center;
   align-items: center;
 `;
