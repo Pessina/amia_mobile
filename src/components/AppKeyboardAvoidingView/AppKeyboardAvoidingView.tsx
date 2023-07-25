@@ -5,13 +5,14 @@ import styled from 'styled-components/native';
 const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
   flex: 1;
   justify-content: center;
+  width: 100%;
 `;
 
 type KeyboardAvoidingViewProps = {
   children: ReactNode;
 };
 
-export const KeyboardAvoidingView: React.FC<KeyboardAvoidingViewProps> = ({ children }) => {
+export const AppKeyboardAvoidingView: React.FC<KeyboardAvoidingViewProps> = ({ children }) => {
   return (
     <StyledKeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

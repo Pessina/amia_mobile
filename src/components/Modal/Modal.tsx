@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  Modal as NativeModal,
-  ModalProps as NativeModalProps,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import { Modal as NativeModal, ModalProps as NativeModalProps, ScrollView } from 'react-native';
 import { SafeArea } from '../Containers/SafeArea';
 import styled from 'styled-components/native';
 import { Text } from '../Text/Text';
 import { Icon } from '../Icon/Icon';
-import { styles } from '../../styles/styles';
+import { AppKeyboardAvoidingView } from '../AppKeyboardAvoidingView/AppKeyboardAvoidingView';
 
 interface Props extends NativeModalProps {
   title?: string;
@@ -23,21 +18,20 @@ export const Modal: React.FC<Props> = ({ children, title, ...props }) => {
       {...props}
     >
       <Overlay>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={styles.fullCenter}
-        >
+        <AppKeyboardAvoidingView>
           <Content>
-            <Header>
-              <Text size="2xl">{title}</Text>
-              <Icon
-                name="close-circle-fill"
-                onPress={props.onRequestClose}
-              />
-            </Header>
-            {children}
+            <ScrollView>
+              <Header>
+                <Text size="2xl">{title}</Text>
+                <Icon
+                  name="close-circle-fill"
+                  onPress={props.onRequestClose}
+                />
+              </Header>
+              {children}
+            </ScrollView>
           </Content>
-        </KeyboardAvoidingView>
+        </AppKeyboardAvoidingView>
       </Overlay>
     </NativeModal>
   );

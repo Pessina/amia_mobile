@@ -18,7 +18,7 @@ import { StackNavigation } from '../../routes';
 import { createUser } from '../../auth/createUser';
 import { existDoctor, useCreateDoctor } from '../../api/doctor';
 import { Error } from '../../components/Error/Error';
-import { KeyboardAvoidingView } from '../../components/KeyboardAvoidingView/KeyboardAvoidingView';
+import { KeyboardAvoidingView } from '../../components/AppKeyboardAvoidingView/AppKeyboardAvoidingView';
 import { styles } from '../../styles/styles';
 
 type FormData = {

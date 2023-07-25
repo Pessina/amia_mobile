@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { login } from '../../auth/login';
 import { styles } from '../../styles/styles';
-import { KeyboardAvoidingView } from '../../components/KeyboardAvoidingView/KeyboardAvoidingView';
+import { KeyboardAvoidingView } from '../../components/AppKeyboardAvoidingView/AppKeyboardAvoidingView';
 
 type FormData = {
   email: string;
