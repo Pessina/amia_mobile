@@ -53,9 +53,8 @@ const Overlay = styled(SafeArea)`
 const Content = styled.View`
   background-color: ${({ theme }) => theme.colors.background.DEFAULT};
   padding: ${({ theme }) => theme.space[4]}px;
+  margin: ${({ theme }) => theme.space[4]}px;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  max-width: 80%;
-  max-height: 90%;
   min-width: 200px;
 `;
 
