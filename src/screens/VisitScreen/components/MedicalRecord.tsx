@@ -4,6 +4,9 @@ import Card from '../../../components/Card/Card';
 import { Text } from '../../../components/Text/Text';
 import styled from 'styled-components/native';
 import { useTranslation } from 'react-i18next';
+import Spacing from '../../../components/Spacing/Spacing';
+
+const ItemSeparatorComponent = () => <Spacing size={4} />;
 
 const TopicCardContainer = styled.View`
   gap: ${({ theme }) => theme.space[2]}px;
@@ -17,7 +20,7 @@ const TopicCard: React.FC<{ title: string; content: string }> = ({ title, conten
     >
       {title}
     </Text>
-    <Card>
+    <Card bgColor="dark">
       <Text>{content}</Text>
     </Card>
   </TopicCardContainer>
@@ -25,10 +28,6 @@ const TopicCard: React.FC<{ title: string; content: string }> = ({ title, conten
 
 const Container = styled.View`
   padding-bottom: ${({ theme }) => theme.space[16]}px;
-`;
-
-const SpacingItem = styled.View`
-  height: ${({ theme }) => theme.space[4]}px;
 `;
 
 type MedicalRecordProps = {
@@ -39,8 +38,6 @@ type MedicalRecordProps = {
   visible: boolean;
   onRequestClose: () => void;
 };
-
-type TopicItem = { title: string; content: string };
 
 export const MedicalRecord: React.FC<MedicalRecordProps> = ({
   transcription,
@@ -57,7 +54,7 @@ export const MedicalRecord: React.FC<MedicalRecordProps> = ({
       title={t('title')}
     >
       <Container>
-        <FlatList<TopicItem>
+        <FlatList
           data={[...medicalRecord.topics, { title: t('transcription'), content: transcription }]}
           keyExtractor={(item) => item.title}
           renderItem={({ item: { title, content } }) => (
@@ -66,7 +63,7 @@ export const MedicalRecord: React.FC<MedicalRecordProps> = ({
               content={content}
             />
           )}
-          ItemSeparatorComponent={() => <SpacingItem />}
+          ItemSeparatorComponent={ItemSeparatorComponent}
         />
       </Container>
     </BottomSheet>

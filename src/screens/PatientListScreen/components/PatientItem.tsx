@@ -1,8 +1,7 @@
 import React from 'react';
-import styled from 'styled-components/native';
 
-import { Pressable } from 'react-native';
 import { Text } from '../../../components/Text/Text';
+import Card from '../../../components/Card/Card';
 
 interface Props {
   id: string;
@@ -12,17 +11,12 @@ interface Props {
 
 export const PatientItem: React.FC<Props> = ({ id, name, onPress }) => {
   return (
-    <PatientContainer onPress={onPress}>
+    <Card
+      variant="outline"
+      onPress={onPress}
+    >
       <Text>{name}</Text>
       <Text>{id}</Text>
-    </PatientContainer>
+    </Card>
   );
 };
-
-const PatientContainer = styled(Pressable)`
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  border: 1px solid ${({ theme }) => theme.colors.text.dark};
-  padding: ${({ theme }) => theme.space[2]}px;
-  gap: ${({ theme }) => theme.space[2]}px;
-  margin-bottom: ${({ theme }) => theme.space[2]}px;
-`;

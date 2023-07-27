@@ -5,6 +5,10 @@ import { AppAxiosError } from './axios.config';
 
 const BASE_URL = Config.REACT_APP_API_URL;
 
+export enum VisitQueryStrings {
+  VISITS = 'VISITS',
+}
+
 export const createAudioFileFormData = (uri: string): FormData => {
   const formData = new FormData();
 
@@ -65,7 +69,7 @@ export const useCreateVisit = () => {
       }),
     {
       onSuccess: (_, variables) => {
-        queryClient.invalidateQueries(['visits', variables.patientId]);
+        queryClient.invalidateQueries([VisitQueryStrings.VISITS, variables.patientId]);
       },
       onError: (error) => {
         console.error(JSON.stringify(error));
@@ -77,7 +81,7 @@ export const useCreateVisit = () => {
 
 export const useGetAllVisitsForPatient = (patientId: string) => {
   return useQuery<AxiosResponse<VisitResponse[]>, AppAxiosError>(
-    ['visits', patientId],
+    [VisitQueryStrings.VISITS, patientId],
     () => axios.get(`${BASE_URL}/visit/patient/${patientId}`),
     {
       onError: (error) => {

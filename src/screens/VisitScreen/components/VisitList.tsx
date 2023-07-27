@@ -5,6 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
 import { FlatList } from 'react-native';
 import { styles } from '../../../styles/styles';
+import Card from '../../../components/Card/Card';
+import Spacing from '../../../components/Spacing/Spacing';
+
+const ItemSeparatorComponent = () => <Spacing size={2} />;
 
 interface VisitListProps {
   visits: { visitDate: string; id: number }[];
@@ -14,19 +18,11 @@ const VisitItem: React.FC<{ visitDate: string }> = ({ visitDate }) => {
   const formattedDate = format(new Date(visitDate), 'dd/MM/yyyy - HH:mm');
 
   return (
-    <VisitContainer>
+    <Card variant="outline">
       <Text>{formattedDate}</Text>
-    </VisitContainer>
+    </Card>
   );
 };
-
-const VisitContainer = styled.View`
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  border: 1px solid ${({ theme }) => theme.colors.text.dark};
-  padding: ${({ theme }) => theme.space[2]}px;
-  gap: ${({ theme }) => theme.space[2]}px;
-  margin-bottom: ${({ theme }) => theme.space[2]}px;
-`;
 
 const EmptyContainer = styled.View`
   flex: 1;
@@ -63,6 +59,7 @@ export const VisitList: React.FC<VisitListProps> = ({ visits }) => {
           </EmptyContainer>
         }
         contentContainerStyle={visits.length === 0 ? styles.full : {}}
+        ItemSeparatorComponent={ItemSeparatorComponent}
       />
     </Container>
   );
