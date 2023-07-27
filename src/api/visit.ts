@@ -19,8 +19,15 @@ export const createAudioFileFormData = (uri: string): FormData => {
   return formData;
 };
 
+export type ProcessVisitRecordingResponse = {
+  transcription: string;
+  medicalRecord: {
+    topics: { title: string; content: string }[];
+  };
+};
+
 export const useProcessVisitRecording = () => {
-  return useMutation<AxiosResponse<string>, AppAxiosError, FormData>(
+  return useMutation<AxiosResponse<ProcessVisitRecordingResponse>, AppAxiosError, FormData>(
     (formData) =>
       axios.post(`${BASE_URL}/visit/process-visit-recording`, formData, {
         headers: {

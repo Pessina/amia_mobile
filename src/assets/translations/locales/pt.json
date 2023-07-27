@@ -59,7 +59,16 @@
       "finishVisit": "Finalizar consulta",
       "retry": "Tentar novamente",
       "loading": "Aguarde...",
-      "processingMessage": "Sua consulta está sendo processada e em breve um resumo será enviado para o seu email"
+      "processingMessage": "Sua consulta está sendo processada e em breve um resumo será enviado para o seu email",
+      "confirmStopRecordingModal": {
+        "text": "Finalizar consulta?",
+        "confirm": "Confirmar",
+        "cancel": "Cancelar"
+      },
+      "medicalRecordBottomSheet": {
+        "title": "Resumo da Visita",
+        "transcription": "Transcrição"
+      }
     }
   },
   "validation": {
