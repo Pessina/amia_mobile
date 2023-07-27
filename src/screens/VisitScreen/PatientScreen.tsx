@@ -5,13 +5,14 @@ import { Icon } from '../../components/Icon/Icon';
 import { RootStackParamList, StackNavigation } from '../../routes';
 import { useGetPatient } from '../../api/patient';
 import { Text } from '../../components/Text/Text';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../../components/Button/Button';
-import { styles } from '../../styles/styles';
 import { MicrophoneBottomSheet } from './components/MicrophoneBottomSheet';
 import { MedicalRecord } from './components/MedicalRecord';
+import { useCreateVisit, useGetAllVisitsForPatient } from '../../api/visit';
+import { VisitList } from './components/VisitList';
 
 interface PatientScreenProps {
   route: RouteProp<RootStackParamList, 'Patient'>;
@@ -34,6 +35,8 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
   >(undefined);
 
   const patientQuery = useGetPatient(patientId);
+  const visitsQuery = useGetAllVisitsForPatient(patientId);
+  const createVisitMutation = useCreateVisit();
 
   return (
     <SafeArea>
@@ -45,16 +48,7 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
           />
           <Text size="3xl">{patientQuery.data?.data.name}</Text>
         </View>
-        <ScrollView contentContainerStyle={styles.full}>
-          {audioData && (
-            <MedicalRecord
-              visible={isVisitSummaryBottomSheetOpen}
-              onRequestClose={() => setIsVisitSummaryBottomVisible(false)}
-              transcription={audioData.transcription}
-              medicalRecord={audioData.medicalRecord}
-            />
-          )}
-        </ScrollView>
+        <VisitList visits={visitsQuery.data?.data ?? []} />
         <Button
           alignment="flex-end"
           left={
@@ -73,8 +67,17 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
           onProcessAudioSuccess={(data) => {
             setAudioData(data);
             setIsVisitSummaryBottomVisible(true);
+            createVisitMutation.mutate({ patientId, requestTimestamp: new Date().toISOString() });
           }}
         />
+        {audioData && (
+          <MedicalRecord
+            visible={isVisitSummaryBottomSheetOpen}
+            onRequestClose={() => setIsVisitSummaryBottomVisible(false)}
+            transcription={audioData.transcription}
+            medicalRecord={audioData.medicalRecord}
+          />
+        )}
       </PatientMainContainer>
     </SafeArea>
   );

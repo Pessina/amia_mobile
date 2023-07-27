@@ -40,6 +40,8 @@ type MedicalRecordProps = {
   onRequestClose: () => void;
 };
 
+type TopicItem = { title: string; content: string };
+
 export const MedicalRecord: React.FC<MedicalRecordProps> = ({
   transcription,
   medicalRecord,
@@ -55,13 +57,13 @@ export const MedicalRecord: React.FC<MedicalRecordProps> = ({
       title={t('title')}
     >
       <Container>
-        <FlatList
+        <FlatList<TopicItem>
           data={[...medicalRecord.topics, { title: t('transcription'), content: transcription }]}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }: { item: { title: string; content: string } }) => (
+          keyExtractor={(item) => item.title}
+          renderItem={({ item: { title, content } }) => (
             <TopicCard
-              title={item.title}
-              content={item.content}
+              title={title}
+              content={content}
             />
           )}
           ItemSeparatorComponent={() => <SpacingItem />}

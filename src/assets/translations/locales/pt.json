@@ -60,6 +60,8 @@
       "retry": "Tentar novamente",
       "loading": "Aguarde...",
       "processingMessage": "Sua consulta está sendo processada e em breve um resumo será enviado para o seu email",
+      "visitListTitle": "Lista de Visitas",
+      "noVisitsYet": "Nenhuma visita ainda",
       "confirmStopRecordingModal": {
         "text": "Finalizar consulta?",
         "confirm": "Confirmar",
