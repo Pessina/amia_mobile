@@ -12,7 +12,7 @@ type KeyboardAvoidingViewProps = {
   children: ReactNode;
 };
 
-export const AppKeyboardAvoidingView: React.FC<KeyboardAvoidingViewProps> = ({ children }) => {
+export const KeyboardAvoidingView: React.FC<KeyboardAvoidingViewProps> = ({ children }) => {
   return (
     <StyledKeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

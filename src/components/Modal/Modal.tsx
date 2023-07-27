@@ -4,7 +4,7 @@ import { SafeArea } from '../Containers/SafeArea';
 import styled from 'styled-components/native';
 import { Text } from '../Text/Text';
 import { Icon } from '../Icon/Icon';
-import { AppKeyboardAvoidingView } from '../AppKeyboardAvoidingView/AppKeyboardAvoidingView';
+import { KeyboardAvoidingView } from '../KeyboardAvoidingView/KeyboardAvoidingView';
 
 interface Props extends NativeModalProps {
   title?: string;
@@ -18,7 +18,7 @@ export const Modal: React.FC<Props> = ({ children, title, ...props }) => {
       {...props}
     >
       <Overlay>
-        <AppKeyboardAvoidingView>
+        <KeyboardAvoidingView>
           <Content>
             <ScrollView>
               <Header>
@@ -31,7 +31,7 @@ export const Modal: React.FC<Props> = ({ children, title, ...props }) => {
               {children}
             </ScrollView>
           </Content>
-        </AppKeyboardAvoidingView>
+        </KeyboardAvoidingView>
       </Overlay>
     </NativeModal>
   );

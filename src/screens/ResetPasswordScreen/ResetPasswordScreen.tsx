@@ -13,7 +13,7 @@ import { Icon } from '../../components/Icon/Icon';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { styles } from '../../styles/styles';
-import { KeyboardAvoidingView } from '../../components/AppKeyboardAvoidingView/AppKeyboardAvoidingView';
+import { KeyboardAvoidingView } from '../../components/KeyboardAvoidingView/KeyboardAvoidingView';
 import { ResetPasswordMainContainer } from './components/ResetPasswordMainContainer';
 import { Form } from './components/Form';
 import { sendPasswordResetEmail } from '../../auth/resetPassword';

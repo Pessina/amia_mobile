@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
 import { login } from '../../auth/login';
 import { styles } from '../../styles/styles';
-import { KeyboardAvoidingView } from '../../components/AppKeyboardAvoidingView/AppKeyboardAvoidingView';
+import { KeyboardAvoidingView } from '../../components/KeyboardAvoidingView/KeyboardAvoidingView';
 
 type FormData = {
   email: string;
@@ -66,7 +66,7 @@ export const LoginScreen = (): JSX.Element => {
           {t('title')}
         </Text>
         <KeyboardAvoidingView>
-          <ScrollView contentContainerStyle={styles.full}>
+          <ScrollView contentContainerStyle={styles.fullWithPaddingBottom}>
             <Form>
               <Controller
                 name="email"

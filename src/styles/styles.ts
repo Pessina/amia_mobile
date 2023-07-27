@@ -4,9 +4,8 @@ export const styles = StyleSheet.create({
   full: {
     flexGrow: 1,
   },
-  fullCenter: {
+  fullWithPaddingBottom: {
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingBottom: 16,
   },
 });

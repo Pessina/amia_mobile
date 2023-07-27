@@ -18,7 +18,7 @@ import { StackNavigation } from '../../routes';
 import { createUser } from '../../auth/createUser';
 import { existDoctor, useCreateDoctor } from '../../api/doctor';
 import { Error } from '../../components/Error/Error';
-import { KeyboardAvoidingView } from '../../components/AppKeyboardAvoidingView/AppKeyboardAvoidingView';
+import { KeyboardAvoidingView } from '../../components/KeyboardAvoidingView/KeyboardAvoidingView';
 import { styles } from '../../styles/styles';
 
 type FormData = {
@@ -90,7 +90,7 @@ export const RegisterScreen = (): JSX.Element => {
           {t('title')}
         </Text>
         <KeyboardAvoidingView>
-          <ScrollView contentContainerStyle={styles.full}>
+          <ScrollView contentContainerStyle={styles.fullWithPaddingBottom}>
             <Form>
               <Controller
                 name="name"
@@ -172,7 +172,7 @@ export const RegisterScreen = (): JSX.Element => {
                   />
                 )}
               />
-              <Error>{error}</Error>
+              {error && <Error textAlign="center">{error}</Error>}
             </Form>
             <Footer>
               <Text textAlign="center">
