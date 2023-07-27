@@ -14,7 +14,7 @@ interface VisitItemProps {
 }
 
 export const VisitItem: React.FC<VisitItemProps> = ({ visitDate }) => {
-  const formattedDate = format(new Date(visitDate), 'dd/MM/yyyy HH:mm');
+  const formattedDate = format(new Date(visitDate), 'dd/MM/yyyy - HH:mm');
 
   return (
     <VisitContainer>
