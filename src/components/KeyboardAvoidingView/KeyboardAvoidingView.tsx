@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
   flex: 1;
   justify-content: center;
+  width: 100%;
 `;
 
 type KeyboardAvoidingViewProps = {

@@ -14,16 +14,14 @@ import { Icon } from '../../../components/Icon/Icon';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../routes';
 
-const MicrophoneContainer = styled.View`
-  flex: 1;
-  padding-top: ${({ theme }) => theme.space[8]}px;
-  justify-content: flex-start;
+const MicrophoneContainer = styled.View<{ isRecordMode?: boolean }>`
+  padding: ${({ theme }) => theme.space[4]}px;
   align-items: center;
+  ${({ isRecordMode }) => (isRecordMode ? 'height: 340px' : '')};
   gap: ${({ theme }) => theme.space[8]}px;
 `;
 
 const Content = styled.View`
-  flex: 1;
   justify-content: center;
   align-items: center;
 `;
@@ -127,7 +125,7 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
       onRequestClose={onClose}
     >
       <Content>
-        <MicrophoneContainer>
+        <MicrophoneContainer isRecordMode={!fileUri}>
           {fileUri ? (
             <>
               <Text textAlign="center">{t('processingMessage')}</Text>

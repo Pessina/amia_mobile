@@ -90,7 +90,7 @@ export const RegisterScreen = (): JSX.Element => {
           {t('title')}
         </Text>
         <KeyboardAvoidingView>
-          <ScrollView contentContainerStyle={styles.full}>
+          <ScrollView contentContainerStyle={styles.fullWithPaddingBottom}>
             <Form>
               <Controller
                 name="name"
@@ -172,7 +172,7 @@ export const RegisterScreen = (): JSX.Element => {
                   />
                 )}
               />
-              <Error>{error}</Error>
+              {error && <Error textAlign="center">{error}</Error>}
             </Form>
             <Footer>
               <Text textAlign="center">

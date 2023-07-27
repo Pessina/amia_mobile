@@ -1,16 +1,10 @@
 import React from 'react';
-import {
-  Modal as NativeModal,
-  ModalProps as NativeModalProps,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-} from 'react-native';
+import { Modal as NativeModal, ModalProps as NativeModalProps, ScrollView } from 'react-native';
 import { SafeArea } from '../Containers/SafeArea';
 import styled from 'styled-components/native';
 import { Text } from '../Text/Text';
 import { Icon } from '../Icon/Icon';
-import { styles } from '../../styles/styles';
+import { KeyboardAvoidingView } from '../KeyboardAvoidingView/KeyboardAvoidingView';
 
 interface Props extends NativeModalProps {
   title?: string;
@@ -23,13 +17,10 @@ export const Modal: React.FC<Props> = ({ children, title, ...props }) => {
       transparent={false}
       {...props}
     >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.full}
-      >
-        <Overlay>
-          <ScrollView contentContainerStyle={styles.fullCenter}>
-            <Content>
+      <Overlay>
+        <KeyboardAvoidingView>
+          <Content>
+            <ScrollView>
               <Header>
                 <Text size="2xl">{title}</Text>
                 <Icon
@@ -38,27 +29,27 @@ export const Modal: React.FC<Props> = ({ children, title, ...props }) => {
                 />
               </Header>
               {children}
-            </Content>
-          </ScrollView>
-        </Overlay>
-      </KeyboardAvoidingView>
+            </ScrollView>
+          </Content>
+        </KeyboardAvoidingView>
+      </Overlay>
     </NativeModal>
   );
 };
 
 const Overlay = styled(SafeArea)`
   background-color: ${({ theme }) => theme.colors.overlay};
+  justify-content: center;
+  align-items: center;
   flex: 1;
 `;
 
 const Content = styled.View`
   background-color: ${({ theme }) => theme.colors.background.DEFAULT};
   padding: ${({ theme }) => theme.space[4]}px;
+  margin: ${({ theme }) => theme.space[4]}px;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  max-width: 80%;
-  max-height: 70%;
   min-width: 200px;
-  align-self: center;
 `;
 
 const Header = styled.View`

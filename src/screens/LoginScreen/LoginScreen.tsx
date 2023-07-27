@@ -66,7 +66,7 @@ export const LoginScreen = (): JSX.Element => {
           {t('title')}
         </Text>
         <KeyboardAvoidingView>
-          <ScrollView contentContainerStyle={styles.full}>
+          <ScrollView contentContainerStyle={styles.fullWithPaddingBottom}>
             <Form>
               <Controller
                 name="email"
