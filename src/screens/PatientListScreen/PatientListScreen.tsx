@@ -52,7 +52,8 @@ export const PatientListScreen: React.FC = () => {
               <PatientItem
                 onPress={() => navigate.navigate('Patient', { patientId: item.id })}
                 name={item.name}
-                id={item.assignedId ?? ''}
+                assignedId={item.assignedId ?? ''}
+                id={item.id ?? ''}
               />
             )}
             contentContainerStyle={styles.full}

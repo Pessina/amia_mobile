@@ -61,3 +61,16 @@ export const useGetPatient = (id?: string) => {
     }
   );
 };
+
+export const useDeletePatient = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<void, AppAxiosError, string>(
+    (id) => axios.delete(`${BASE_URL}/patient/${id}`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([PatientQueryStrings.PATIENTS]);
+      },
+    }
+  );
+};
