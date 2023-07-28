@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { Text } from '../../../components/Text/Text';
 import { useTranslation } from 'react-i18next';
-import { format } from 'date-fns';
+import { utcToZonedTime, format } from 'date-fns-tz';
 import { FlatList } from 'react-native';
 import { styles } from '../../../styles/styles';
 import Card from '../../../components/Card/Card';
@@ -15,7 +15,9 @@ interface VisitListProps {
 }
 
 const VisitItem: React.FC<{ visitDate: string }> = ({ visitDate }) => {
-  const formattedDate = format(new Date(visitDate), 'dd/MM/yyyy - HH:mm');
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const dateInUserTimezone = utcToZonedTime(visitDate, timeZone);
+  const formattedDate = format(dateInUserTimezone, 'dd/MM/yyyy - HH:mm', { timeZone });
 
   return (
     <Card variant="outline">

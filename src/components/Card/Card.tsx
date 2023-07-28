@@ -26,9 +26,11 @@ const Card: React.FC<CardProps> = ({
   bgColor = 'DEFAULT',
   variant = 'default',
   onPress,
+  ...props
 }) => {
   return (
     <CardContainer
+      {...props}
       bgColor={bgColor}
       variant={variant}
       onPress={onPress}

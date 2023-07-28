@@ -67,7 +67,7 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
           onProcessAudioSuccess={(data) => {
             setAudioData(data);
             setIsVisitSummaryBottomVisible(true);
-            createVisitMutation.mutate({ patientId, requestTimestamp: new Date().toISOString() });
+            createVisitMutation.mutate({ patientId, timestamp: new Date().toISOString() });
           }}
         />
         {audioData && (

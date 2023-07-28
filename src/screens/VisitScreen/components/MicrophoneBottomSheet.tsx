@@ -100,7 +100,7 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
     (uri: string) => {
       const formData = createAudioFileFormData(uri);
       formData.append('patientId', patientId ?? '');
-      formData.append('requestTimestamp', new Date().toISOString());
+      formData.append('userLocalTimestamp', new Date().toLocaleDateString());
       processVisitRecording.mutate(formData, {
         onSuccess: (res) => {
           onProcessAudioSuccess(res.data);

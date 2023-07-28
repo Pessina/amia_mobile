@@ -55,17 +55,17 @@ export type VisitResponse = {
 
 export type VisitPayload = {
   patientId: string;
-  requestTimestamp: string;
+  timestamp: string;
 };
 
 export const useCreateVisit = () => {
   const queryClient = useQueryClient();
 
   return useMutation<AxiosResponse<VisitResponse>, AppAxiosError, VisitPayload>(
-    ({ patientId, requestTimestamp }) =>
+    ({ patientId, timestamp }) =>
       axios.post(`${BASE_URL}/visit`, {
         patientId,
-        requestTimestamp,
+        timestamp,
       }),
     {
       onSuccess: (_, variables) => {

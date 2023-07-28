@@ -23,7 +23,7 @@ const ItemSeparatorComponent = () => <Spacing size={2} />;
 export const PatientListScreen: React.FC = () => {
   const { t } = useTranslation('', { keyPrefix: 'screen.patientList' });
   const [search, setSearch] = useState('');
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isPatientModalVisible, setIsPatientModalVisible] = useState(false);
   const navigate = useNavigation<StackNavigation>();
   const debouncedSearch = useDebounce(search, 500);
   const logoutMutation = useLogout();
@@ -71,11 +71,11 @@ export const PatientListScreen: React.FC = () => {
             />
           }
           title={t('addPatient.addCTA')}
-          onPress={() => setIsModalVisible(true)}
+          onPress={() => setIsPatientModalVisible(true)}
         />
         <AddPatientModal
-          visible={isModalVisible}
-          onRequestClose={() => setIsModalVisible(false)}
+          visible={isPatientModalVisible}
+          onRequestClose={() => setIsPatientModalVisible(false)}
         />
       </PatientListMainContainer>
     </SafeArea>
