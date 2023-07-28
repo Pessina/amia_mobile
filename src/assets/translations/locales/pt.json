@@ -49,6 +49,14 @@
           "hint": "Campo opcional"
         },
         "submitCTA": "Adicionar paciente"
+      },
+      "patientItem": {
+        "deleteModal": {
+          "title": "Deletar paciente",
+          "description": "Tem certeza que deseja deletar este paciente? Todos os dados relacionados a ele serão apagados",
+          "confirm": "Confirmar",
+          "cancel": "Cancelar"
+        }
       }
     },
     "patient": {
@@ -59,7 +67,18 @@
       "finishVisit": "Finalizar consulta",
       "retry": "Tentar novamente",
       "loading": "Aguarde...",
-      "processingMessage": "Sua consulta está sendo processada e em breve um resumo será enviado para o seu email"
+      "processingMessage": "Sua consulta está sendo processada e em breve um resumo será enviado para o seu email",
+      "visitListTitle": "Últimas consultas",
+      "noVisitsYet": "Nenhuma consulta ainda",
+      "confirmStopRecordingModal": {
+        "text": "Finalizar consulta?",
+        "confirm": "Confirmar",
+        "cancel": "Cancelar"
+      },
+      "medicalRecordBottomSheet": {
+        "title": "Resumo da Visita",
+        "transcription": "Transcrição"
+      }
     }
   },
   "validation": {

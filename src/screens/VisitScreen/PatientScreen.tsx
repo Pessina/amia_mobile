@@ -5,12 +5,14 @@ import { Icon } from '../../components/Icon/Icon';
 import { RootStackParamList, StackNavigation } from '../../routes';
 import { useGetPatient } from '../../api/patient';
 import { Text } from '../../components/Text/Text';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../../components/Button/Button';
-import { styles } from '../../styles/styles';
 import { MicrophoneBottomSheet } from './components/MicrophoneBottomSheet';
+import { MedicalRecord } from './components/MedicalRecord';
+import { useCreateVisit, useGetAllVisitsForPatient } from '../../api/visit';
+import { VisitList } from './components/VisitList';
 
 interface PatientScreenProps {
   route: RouteProp<RootStackParamList, 'Patient'>;
@@ -19,11 +21,22 @@ interface PatientScreenProps {
 export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
   const { patientId } = route.params;
   const navigate = useNavigation<StackNavigation>();
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isMicrophoneBottomSheetOpen, setIsMicrophoneBottomVisible] = useState(false);
+  const [isVisitSummaryBottomSheetOpen, setIsVisitSummaryBottomVisible] = useState(false);
   const { t } = useTranslation('', { keyPrefix: 'screen.patient' });
-  const [audioText, setAudioText] = useState<string | undefined>(undefined);
+  const [audioData, setAudioData] = useState<
+    | {
+        transcription: string;
+        medicalRecord: {
+          topics: { title: string; content: string }[];
+        };
+      }
+    | undefined
+  >(undefined);
 
   const patientQuery = useGetPatient(patientId);
+  const visitsQuery = useGetAllVisitsForPatient(patientId);
+  const createVisitMutation = useCreateVisit();
 
   return (
     <SafeArea>
@@ -35,9 +48,7 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
           />
           <Text size="3xl">{patientQuery.data?.data.name}</Text>
         </View>
-        <ScrollView contentContainerStyle={styles.full}>
-          {audioText && <Text>{audioText}</Text>}
-        </ScrollView>
+        <VisitList visits={visitsQuery.data?.data ?? []} />
         <Button
           alignment="flex-end"
           left={
@@ -47,16 +58,26 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
             />
           }
           title={t('newVisit')}
-          onPress={() => setIsModalVisible(true)}
+          onPress={() => setIsMicrophoneBottomVisible(true)}
         />
         <MicrophoneBottomSheet
           title={t('newVisit')}
-          visible={isModalVisible}
-          onRequestClose={() => setIsModalVisible(false)}
-          onProcessAudioSuccess={(text) => {
-            setAudioText(text);
+          visible={isMicrophoneBottomSheetOpen}
+          onRequestClose={() => setIsMicrophoneBottomVisible(false)}
+          onProcessAudioSuccess={(data) => {
+            setAudioData(data);
+            setIsVisitSummaryBottomVisible(true);
+            createVisitMutation.mutate({ patientId, timestamp: new Date().toISOString() });
           }}
         />
+        {audioData && (
+          <MedicalRecord
+            visible={isVisitSummaryBottomSheetOpen}
+            onRequestClose={() => setIsVisitSummaryBottomVisible(false)}
+            transcription={audioData.transcription}
+            medicalRecord={audioData.medicalRecord}
+          />
+        )}
       </PatientMainContainer>
     </SafeArea>
   );

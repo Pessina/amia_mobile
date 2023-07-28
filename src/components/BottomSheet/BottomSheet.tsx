@@ -26,11 +26,15 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({ children, title, ...pr
             >
               {title}
             </Title>
-            <Icon
-              name="close-circle-fill"
-              onPress={props.onRequestClose}
-              size={24}
-            />
+            {props.onRequestClose ? (
+              <Icon
+                name="close-circle-fill"
+                onPress={props.onRequestClose}
+                size={24}
+              />
+            ) : (
+              <IconPlaceholder />
+            )}
           </Header>
           {children}
         </Content>
@@ -53,6 +57,7 @@ const Content = styled.View`
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   width: 100%;
+  max-height: 90%;
 `;
 
 const Header = styled.View`

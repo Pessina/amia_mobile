@@ -1,28 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
-
-import { Pressable } from 'react-native';
 import { Text } from '../../../components/Text/Text';
+import { Icon } from '../../../components/Icon/Icon';
+import { useDeletePatient } from '../../../api/patient';
+import { View } from 'react-native';
+import Card from '../../../components/Card/Card';
+import { Loader } from '../../../components/Loader/Loader';
+import { ConfirmDeletePatientModal } from './ConfirmDeletePatientModal';
+
+const CardContainer = styled(Card)`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const DeleteIcon = styled(Icon)`
+  color: ${({ theme }) => theme.colors.error};
+`;
 
 interface Props {
   id: string;
+  assignedId: string;
   name: string;
   onPress: () => void;
 }
 
-export const PatientItem: React.FC<Props> = ({ id, name, onPress }) => {
+export const PatientItem: React.FC<Props> = ({ id, assignedId, name, onPress }) => {
+  const deleteMutation = useDeletePatient();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleDeletePatient = () => {
+    setIsModalVisible(false);
+    deleteMutation.mutate(id);
+  };
+
   return (
-    <PatientContainer onPress={onPress}>
-      <Text>{name}</Text>
-      <Text>{id}</Text>
-    </PatientContainer>
+    <>
+      <ConfirmDeletePatientModal
+        visible={isModalVisible}
+        onRequestClose={() => setIsModalVisible(false)}
+        onConfirm={handleDeletePatient}
+      />
+      <CardContainer
+        variant="outline"
+        onPress={onPress}
+      >
+        <View>
+          <Text>{name}</Text>
+          <Text>{assignedId}</Text>
+        </View>
+        {deleteMutation.isLoading ? (
+          <Loader />
+        ) : (
+          <DeleteIcon
+            name="ri-delete-bin-line"
+            onPress={() => setIsModalVisible(true)}
+          />
+        )}
+      </CardContainer>
+    </>
   );
 };
-
-const PatientContainer = styled(Pressable)`
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  border: 1px solid ${({ theme }) => theme.colors.text.dark};
-  padding: ${({ theme }) => theme.space[2]}px;
-  gap: ${({ theme }) => theme.space[2]}px;
-  margin-bottom: ${({ theme }) => theme.space[2]}px;
-`;

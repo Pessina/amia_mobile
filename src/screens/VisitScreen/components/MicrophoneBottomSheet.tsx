@@ -7,12 +7,17 @@ import { formatTime } from '../../../utils/time';
 import { useAudioRecording } from '../hooks/useAudioRecording';
 import { Text } from '../../../components/Text/Text';
 import { Button } from '../../../components/Button/Button';
-import { createAudioFileFormData, useProcessVisitRecording } from '../../../api/visit';
+import {
+  ProcessVisitRecordingResponse,
+  createAudioFileFormData,
+  useProcessVisitRecording,
+} from '../../../api/visit';
 import { RecordButton } from './RecordButton';
 import { AuthContext } from '../../../providers/AuthProvider';
 import { Icon } from '../../../components/Icon/Icon';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../routes';
+import { ConfirmStopRecordingModal } from './ConfirmStopRecordingModal';
 
 const MicrophoneContainer = styled.View<{ isRecordMode?: boolean }>`
   padding: ${({ theme }) => theme.space[4]}px;
@@ -30,7 +35,7 @@ export type MicrophoneBottomSheetProps = {
   visible: boolean;
   onRequestClose: () => void;
   title?: string;
-  onProcessAudioSuccess: (text: string) => void;
+  onProcessAudioSuccess: (data: ProcessVisitRecordingResponse) => void;
 };
 
 export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
@@ -52,28 +57,30 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [fileUri, setFileUri] = useState<string | undefined>(undefined);
+  const [isConfirmStopRecordingModalVisible, setIsConfirmStopRecordingModalVisible] =
+    useState(false);
   const processVisitRecording = useProcessVisitRecording();
   const user = useContext(AuthContext);
   const route = useRoute<RouteProp<RootStackParamList, 'Patient'>>();
   const { patientId } = route.params;
 
-  const { buttonAction, buttonLabel } = useMemo(() => {
+  const { recordButtonAction, recordButtonLabel } = useMemo(() => {
     if (hasStartedRecording) {
       if (isRecording) {
         return {
-          buttonAction: pauseRecording,
-          buttonLabel: t('pauseRecord'),
+          recordButtonAction: pauseRecording,
+          recordButtonLabel: t('pauseRecord'),
         };
       } else {
         return {
-          buttonAction: resumeRecording,
-          buttonLabel: t('resumeRecord'),
+          recordButtonAction: resumeRecording,
+          recordButtonLabel: t('resumeRecord'),
         };
       }
     } else {
       return {
-        buttonAction: startRecording,
-        buttonLabel: t('startRecord'),
+        recordButtonAction: startRecording,
+        recordButtonLabel: t('startRecord'),
       };
     }
   }, [hasStartedRecording, isRecording, pauseRecording, resumeRecording, startRecording, t]);
@@ -93,7 +100,9 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
     (uri: string) => {
       const formData = createAudioFileFormData(uri);
       formData.append('patientId', patientId ?? '');
-      formData.append('requestTimestamp', new Date().toISOString());
+      formData.append('timestamp', new Date().toISOString());
+      // TODO: Consider including the timezone on all requests or set as a user property
+      formData.append('timezone', Intl.DateTimeFormat().resolvedOptions().timeZone);
       processVisitRecording.mutate(formData, {
         onSuccess: (res) => {
           onProcessAudioSuccess(res.data);
@@ -111,18 +120,35 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
     [onClose, onProcessAudioSuccess, patientId, processVisitRecording]
   );
 
-  const onPressCTA = useCallback(async () => {
-    setIsLoading(true);
-    const uri = fileUri ?? (await stopRecording());
-    setFileUri(uri);
-    onProcessVisitRecording(uri);
-  }, [fileUri, onProcessVisitRecording, stopRecording]);
+  const { ctaButtonAction, ctaButtonLabel } = useMemo(() => {
+    if (isLoading) {
+      return {
+        ctaButtonAction: undefined,
+        ctaButtonLabel: t('loading'),
+      };
+    } else if (hasError && fileUri) {
+      return {
+        ctaButtonAction: () => {
+          setIsLoading(true);
+          onProcessVisitRecording(fileUri);
+        },
+        ctaButtonLabel: t('retry'),
+      };
+    } else {
+      return {
+        ctaButtonAction: () => {
+          setIsConfirmStopRecordingModalVisible(true);
+        },
+        ctaButtonLabel: t('finishVisit'),
+      };
+    }
+  }, [fileUri, hasError, isLoading, onProcessVisitRecording, t]);
 
   return (
     <BottomSheet
       title={title}
       visible={visible}
-      onRequestClose={onClose}
+      onRequestClose={hasStartedRecording ? undefined : onClose}
     >
       <Content>
         <MicrophoneContainer isRecordMode={!fileUri}>
@@ -140,14 +166,14 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
                 {formatTime(recordingTime)}
               </Text>
               <RecordButton
-                onPress={buttonAction}
+                onPress={recordButtonAction}
                 isRecording={isRecording}
               />
               <Text
                 fontWeight="medium"
                 size="sm"
               >
-                {buttonLabel}
+                {recordButtonLabel}
               </Text>
             </>
           )}
@@ -155,13 +181,23 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
             <Button
               isLoading={isLoading}
               left={hasError && <Icon name="ri-error-warning-fill" />}
-              title={isLoading ? t('loading') : hasError ? t('retry') : t('finishVisit')}
+              title={ctaButtonLabel}
               buttonStyle="outlined"
-              onPress={onPressCTA}
+              onPress={ctaButtonAction}
             />
           )}
         </MicrophoneContainer>
       </Content>
+      <ConfirmStopRecordingModal
+        visible={isConfirmStopRecordingModalVisible}
+        onConfirm={async () => {
+          setIsLoading(true);
+          const uri = await stopRecording();
+          setFileUri(uri);
+          onProcessVisitRecording(uri);
+        }}
+        onRequestClose={() => setIsConfirmStopRecordingModalVisible(false)}
+      />
     </BottomSheet>
   );
 };

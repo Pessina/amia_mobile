@@ -8,9 +8,10 @@ import { KeyboardAvoidingView } from '../KeyboardAvoidingView/KeyboardAvoidingVi
 
 interface Props extends NativeModalProps {
   title?: string;
+  width?: string;
 }
 
-export const Modal: React.FC<Props> = ({ children, title, ...props }) => {
+export const Modal: React.FC<Props> = ({ children, title, width, ...props }) => {
   return (
     <NativeModal
       animationType="fade"
@@ -19,14 +20,16 @@ export const Modal: React.FC<Props> = ({ children, title, ...props }) => {
     >
       <Overlay>
         <KeyboardAvoidingView>
-          <Content>
+          <Content width={width}>
             <ScrollView>
               <Header>
                 <Text size="2xl">{title}</Text>
-                <Icon
-                  name="close-circle-fill"
-                  onPress={props.onRequestClose}
-                />
+                {props.onRequestClose && (
+                  <Icon
+                    name="close-circle-fill"
+                    onPress={props.onRequestClose}
+                  />
+                )}
               </Header>
               {children}
             </ScrollView>
@@ -44,12 +47,14 @@ const Overlay = styled(SafeArea)`
   flex: 1;
 `;
 
-const Content = styled.View`
+const Content = styled.View<{ width?: string }>`
   background-color: ${({ theme }) => theme.colors.background.DEFAULT};
   padding: ${({ theme }) => theme.space[4]}px;
-  margin: ${({ theme }) => theme.space[4]}px;
+  margin: auto;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  min-width: 200px;
+  max-width: 90%;
+  max-height: 90%;
+  width: ${({ width }) => width || '100%'};
 `;
 
 const Header = styled.View`

@@ -27,7 +27,7 @@ export type FontWeight =
   | 'extrabold'
   | 'black';
 
-interface Color {
+export interface ThemeColors {
   light: string;
   DEFAULT: string;
   dark: string;
@@ -35,10 +35,10 @@ interface Color {
 
 export interface Theme {
   colors: {
-    primary: Color;
-    secondary: Color;
-    background: Color;
-    text: Color;
+    primary: ThemeColors;
+    secondary: ThemeColors;
+    background: ThemeColors;
+    text: ThemeColors;
     error: string;
     warning: string;
     success: string;
