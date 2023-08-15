@@ -7,11 +7,7 @@ import { formatTime } from '../../../utils/time';
 import { useAudioRecording } from '../hooks/useAudioRecording';
 import { Text } from '../../../components/Text/Text';
 import { Button } from '../../../components/Button/Button';
-import {
-  ProcessVisitRecordingResponse,
-  createAudioFileFormData,
-  useProcessVisitRecording,
-} from '../../../api/visit';
+import { ProcessVisitRecordingResponse, useProcessVisitRecording } from '../../../api/visit';
 import { RecordButton } from './RecordButton';
 import { AuthContext } from '../../../providers/AuthProvider';
 import { Icon } from '../../../components/Icon/Icon';
@@ -98,24 +94,28 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
   // TODO: Improve error handling, if the file can't be processed allow the user to download it
   const onProcessVisitRecording = useCallback(
     (uri: string) => {
-      const formData = createAudioFileFormData(uri);
-      formData.append('patientId', patientId ?? '');
-      formData.append('timestamp', new Date().toISOString());
-      // TODO: Consider including the timezone on all requests or set as a user property
-      formData.append('timezone', Intl.DateTimeFormat().resolvedOptions().timeZone);
-      processVisitRecording.mutate(formData, {
-        onSuccess: (res) => {
-          onProcessAudioSuccess(res.data);
-          RNFS.unlink(uri);
-          onClose();
+      processVisitRecording.mutate(
+        {
+          patientId,
+          timestamp: new Date().toISOString(),
+          // TODO: Consider including the timezone on all requests or set as a user property
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          fileUri: uri,
         },
-        onSettled: () => {
-          setIsLoading(false);
-        },
-        onError: () => {
-          setHasError(true);
-        },
-      });
+        {
+          onSuccess: (res) => {
+            onProcessAudioSuccess(res);
+            RNFS.unlink(uri);
+            onClose();
+          },
+          onSettled: () => {
+            setIsLoading(false);
+          },
+          onError: () => {
+            setHasError(true);
+          },
+        }
+      );
     },
     [onClose, onProcessAudioSuccess, patientId, processVisitRecording]
   );

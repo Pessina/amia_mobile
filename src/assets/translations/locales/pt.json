@@ -66,6 +66,7 @@
       "pauseRecord": "Pausar gravação",
       "finishVisit": "Finalizar consulta",
       "retry": "Tentar novamente",
+      "close": "Fechar",
       "loading": "Aguarde...",
       "processingMessage": "Sua consulta está sendo processada e em breve um resumo será enviado para o seu email",
       "visitListTitle": "Últimas consultas",
@@ -76,8 +77,7 @@
         "cancel": "Cancelar"
       },
       "medicalRecordBottomSheet": {
-        "title": "Resumo da Visita",
-        "transcription": "Transcrição"
+        "title": "Resumo da Visita"
       }
     }
   },
