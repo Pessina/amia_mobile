@@ -26,7 +26,6 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
   const { t } = useTranslation('', { keyPrefix: 'screen.patient' });
   const [audioData, setAudioData] = useState<
     | {
-        transcription: string;
         medicalRecord: {
           topics: { title: string; content: string }[];
         };
@@ -74,7 +73,6 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
           <MedicalRecord
             visible={isVisitSummaryBottomSheetOpen}
             onRequestClose={() => setIsVisitSummaryBottomVisible(false)}
-            transcription={audioData.transcription}
             medicalRecord={audioData.medicalRecord}
           />
         )}

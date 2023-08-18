@@ -31,7 +31,6 @@ const Container = styled.View`
 `;
 
 type MedicalRecordProps = {
-  transcription: string;
   medicalRecord: {
     topics: { title: string; content: string }[];
   };
@@ -40,7 +39,6 @@ type MedicalRecordProps = {
 };
 
 export const MedicalRecord: React.FC<MedicalRecordProps> = ({
-  transcription,
   medicalRecord,
   visible,
   onRequestClose,
@@ -55,7 +53,7 @@ export const MedicalRecord: React.FC<MedicalRecordProps> = ({
     >
       <Container>
         <FlatList
-          data={[...medicalRecord.topics, { title: t('transcription'), content: transcription }]}
+          data={[...medicalRecord.topics]}
           keyExtractor={(item) => item.title}
           renderItem={({ item: { title, content } }) => (
             <TopicCard

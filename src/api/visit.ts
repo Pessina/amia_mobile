@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import Config from 'react-native-config';
 import { AppAxiosError } from './axios.config';
+import { SSEOptions, SSEClient } from './SSEClient';
 
 const BASE_URL = Config.REACT_APP_API_URL;
 
@@ -9,35 +10,74 @@ export enum VisitQueryStrings {
   VISITS = 'VISITS',
 }
 
-export const createAudioFileFormData = (uri: string): FormData => {
-  const formData = new FormData();
-
-  const type = uri.substring(uri.lastIndexOf('.') + 1);
-
-  formData.append('audio', {
-    uri,
-    type: `audio/${type}`,
-    name: `audio.${type}`,
-  });
-
-  return formData;
-};
-
 export type ProcessVisitRecordingResponse = {
-  transcription: string;
   medicalRecord: {
     topics: { title: string; content: string }[];
   };
 };
 
+type ProcessVisitRecordingError = {
+  errorCode: string;
+  errorMessage: string;
+  errorDetails: {
+    reason: string;
+  };
+};
+
+type ProcessVisitRecordingFormData = {
+  patientId: string;
+  timestamp: string;
+  timezone: string;
+  fileUri: string;
+};
+
+export const sseProcessVisitRecording = async <T>(
+  url: string,
+  options: SSEOptions<T>
+): Promise<T> => {
+  return new Promise<T>(async (resolve, reject) => {
+    const sseClient = new SSEClient<T>(url, {
+      ...options,
+      onMessage: (msg) => {
+        const data = JSON.parse(JSON.stringify(msg));
+        if (data?.type === 'success') {
+          resolve(data?.data);
+          sseClient.close();
+        }
+      },
+      onError: (error) => {
+        reject(error);
+      },
+    });
+    sseClient.connect();
+  });
+};
+
 export const useProcessVisitRecording = () => {
-  return useMutation<AxiosResponse<ProcessVisitRecordingResponse>, AppAxiosError, FormData>(
-    (formData) =>
-      axios.post(`${BASE_URL}/visit/process-visit-recording`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }),
+  const mutation = useMutation<
+    ProcessVisitRecordingResponse,
+    ProcessVisitRecordingError,
+    ProcessVisitRecordingFormData
+  >(
+    async ({ patientId, timestamp, timezone, fileUri }) => {
+      const url = `${BASE_URL}/visit/process-visit-recording`;
+
+      const body = new FormData();
+      const type = fileUri.substring(fileUri.lastIndexOf('.') + 1);
+      body.append('patientId', patientId);
+      body.append('timestamp', timestamp);
+      body.append('timezone', timezone);
+      body.append('audio', {
+        uri: fileUri,
+        type: `audio/${type}`,
+        name: `audio.${type}`,
+      });
+
+      return await sseProcessVisitRecording<ProcessVisitRecordingResponse>(url, {
+        method: 'POST',
+        body,
+      });
+    },
     {
       onError: (error) => {
         console.error(JSON.stringify(error));
@@ -45,6 +85,8 @@ export const useProcessVisitRecording = () => {
       retry: 3,
     }
   );
+
+  return mutation;
 };
 
 export type VisitResponse = {
