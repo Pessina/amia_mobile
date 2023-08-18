@@ -1,20 +1,14 @@
-import { UseMutationResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import Config from 'react-native-config';
 import { AppAxiosError } from './axios.config';
-import { fetchWithAuth } from './fetch.config';
+import { SSEOptions, SSEClient } from './SSEClient';
 
 const BASE_URL = Config.REACT_APP_API_URL;
 
 export enum VisitQueryStrings {
   VISITS = 'VISITS',
 }
-
-export type ProcessVisitRecordingData = {
-  medicalRecord: {
-    topics: { title: string; content: string }[];
-  };
-};
 
 export type ProcessVisitRecordingResponse = {
   medicalRecord: {
@@ -37,66 +31,52 @@ type ProcessVisitRecordingFormData = {
   fileUri: string;
 };
 
-const handleSseResponse = async (
+export const sseProcessVisitRecording = async <T>(
   url: string,
-  options: RequestInit
-): Promise<ProcessVisitRecordingResponse> => {
-  return new Promise((resolve, reject) => {
-    fetchWithAuth(url, options).then(async (response) => {
-      const text = await response.text();
-
-      let eventName = '';
-      const lines = text.split('\n');
-      for (const line of lines) {
-        if (line.startsWith('event: ')) {
-          eventName = line.slice(6).trim();
-        } else if (line.startsWith('data: ')) {
-          const eventData = JSON.parse(line.slice(6));
-          switch (eventName) {
-            case 'success':
-              resolve(eventData);
-              break;
-            case 'error':
-              reject(eventData);
-              break;
-            default:
-              break;
-          }
+  options: SSEOptions<T>
+): Promise<T> => {
+  return new Promise<T>(async (resolve, reject) => {
+    const sseClient = new SSEClient<T>(url, {
+      ...options,
+      onMessage: (msg) => {
+        const data = JSON.parse(JSON.stringify(msg));
+        if (data?.type === 'success') {
+          resolve(data?.data);
+          sseClient.close();
         }
-      }
+      },
+      onError: (error) => {
+        reject(error);
+      },
     });
+    sseClient.connect();
   });
 };
 
-export const useProcessVisitRecording = (): UseMutationResult<
-  ProcessVisitRecordingResponse,
-  ProcessVisitRecordingError,
-  ProcessVisitRecordingFormData
-> => {
+export const useProcessVisitRecording = () => {
   const mutation = useMutation<
     ProcessVisitRecordingResponse,
     ProcessVisitRecordingError,
     ProcessVisitRecordingFormData
   >(
-    async (formData: ProcessVisitRecordingFormData) => {
+    async ({ patientId, timestamp, timezone, fileUri }) => {
       const url = `${BASE_URL}/visit/process-visit-recording`;
 
-      const headers = {
-        Accept: 'text/event-stream',
-      };
-
       const body = new FormData();
-      const type = formData.fileUri.substring(formData.fileUri.lastIndexOf('.') + 1);
-      body.append('patientId', formData.patientId);
-      body.append('timestamp', formData.timestamp);
-      body.append('timezone', formData.timezone);
+      const type = fileUri.substring(fileUri.lastIndexOf('.') + 1);
+      body.append('patientId', patientId);
+      body.append('timestamp', timestamp);
+      body.append('timezone', timezone);
       body.append('audio', {
-        uri: formData.fileUri,
+        uri: fileUri,
         type: `audio/${type}`,
         name: `audio.${type}`,
       });
 
-      return await handleSseResponse(url, { method: 'POST', headers, body });
+      return await sseProcessVisitRecording<ProcessVisitRecordingResponse>(url, {
+        method: 'POST',
+        body,
+      });
     },
     {
       onError: (error) => {
