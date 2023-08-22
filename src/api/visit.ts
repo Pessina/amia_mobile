@@ -31,21 +31,16 @@ type ProcessVisitRecordingFormData = {
   fileUri: string;
 };
 
-type SSEProcessVisitRecordingData = {
-  type: 'success' | 'error';
-  data: ProcessVisitRecordingResponse;
-};
-
 export const sseProcessVisitRecording = async (
   url: string,
-  options: SSEOptions<SSEProcessVisitRecordingData>
+  options: SSEOptions<ProcessVisitRecordingResponse>
 ): Promise<ProcessVisitRecordingResponse> => {
   return new Promise((resolve, reject) => {
-    const sseClient = new SSEClient<SSEProcessVisitRecordingData>(url, {
+    const sseClient = new SSEClient<ProcessVisitRecordingResponse>(url, {
       ...options,
       onMessage: (msg) => {
-        if (msg.data.type === 'success') {
-          resolve(msg.data.data);
+        if (msg.type === 'success') {
+          resolve(msg.data);
           sseClient.close();
         }
       },
