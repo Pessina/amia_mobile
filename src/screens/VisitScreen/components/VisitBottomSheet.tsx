@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import RNFS from 'react-native-fs';
 import { BottomSheet } from '../../../components/BottomSheet/BottomSheet';
-import { useCallback, useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatTime } from '../../../utils/time';
 import { useAudioRecording } from '../hooks/useAudioRecording';
@@ -14,6 +14,33 @@ import { Icon } from '../../../components/Icon/Icon';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../routes';
 import { ConfirmStopRecordingModal } from './ConfirmStopRecordingModal';
+import Card from '../../../components/Card/Card';
+import Spacing from '../../../components/Spacing/Spacing';
+import { FlatList } from 'react-native';
+
+const ItemSeparatorComponent = () => <Spacing size={4} />;
+
+const TopicCardContainer = styled.View`
+  gap: ${({ theme }) => theme.space[2]}px;
+`;
+
+const TopicCard: React.FC<{ title: string; content: string }> = ({ title, content }) => (
+  <TopicCardContainer>
+    <Text
+      fontWeight="bold"
+      size="lg"
+    >
+      {title}
+    </Text>
+    <Card bgColor="dark">
+      <Text>{content}</Text>
+    </Card>
+  </TopicCardContainer>
+);
+
+const MedicalRecordContainer = styled.View`
+  padding-bottom: ${({ theme }) => theme.space[16]}px;
+`;
 
 const MicrophoneContainer = styled.View<{ isRecordMode?: boolean }>`
   padding: ${({ theme }) => theme.space[4]}px;
@@ -27,17 +54,15 @@ const Content = styled.View`
   align-items: center;
 `;
 
-export type MicrophoneBottomSheetProps = {
+export type VisitBottomSheetProps = {
   visible: boolean;
   onRequestClose: () => void;
-  title?: string;
   onProcessAudioSuccess: (data: ProcessVisitRecordingResponse) => void;
 };
 
-export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
+export const VisitBottomSheet: React.FC<VisitBottomSheetProps> = ({
   visible,
   onRequestClose,
-  title,
   onProcessAudioSuccess,
 }) => {
   const {
@@ -59,6 +84,9 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
   const user = useContext(AuthContext);
   const route = useRoute<RouteProp<RootStackParamList, 'Patient'>>();
   const { patientId } = route.params;
+  const [audioProcessedData, setAudioProcessedData] = useState<
+    ProcessVisitRecordingResponse | undefined
+  >(undefined);
 
   const { recordButtonAction, recordButtonLabel } = useMemo(() => {
     if (hasStartedRecording) {
@@ -85,11 +113,16 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
     if (isRecording) {
       stopRecording();
     }
+    setAudioProcessedData(undefined);
     setIsLoading(false);
     setHasError(false);
     setFileUri(undefined);
     onRequestClose();
   }, [isRecording, onRequestClose, stopRecording]);
+
+  useEffect(() => {
+    setAudioProcessedData(undefined);
+  }, [visible]);
 
   // TODO: Improve error handling, if the file can't be processed allow the user to download it
   const onProcessVisitRecording = useCallback(
@@ -105,8 +138,8 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
         {
           onSuccess: (res) => {
             onProcessAudioSuccess(res);
+            setAudioProcessedData(res);
             RNFS.unlink(uri);
-            onClose();
           },
           onSettled: () => {
             setIsLoading(false);
@@ -117,7 +150,7 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
         }
       );
     },
-    [onClose, onProcessAudioSuccess, patientId, processVisitRecording]
+    [onProcessAudioSuccess, patientId, processVisitRecording]
   );
 
   const { ctaButtonAction, ctaButtonLabel } = useMemo(() => {
@@ -144,53 +177,73 @@ export const MicrophoneBottomSheet: React.FC<MicrophoneBottomSheetProps> = ({
     }
   }, [fileUri, hasError, isLoading, onProcessVisitRecording, t]);
 
+  const isResultsVisible =
+    audioProcessedData && !hasStartedRecording && !processVisitRecording.isLoading;
+
   return (
     <BottomSheet
-      title={title}
+      title={isResultsVisible ? t('medicalRecordBottomSheet.title') : t('newVisit')}
       visible={visible}
       onRequestClose={hasStartedRecording ? undefined : onClose}
     >
       <Content>
-        <MicrophoneContainer isRecordMode={!fileUri}>
-          {fileUri ? (
-            <>
-              <Text textAlign="center">{t('processingMessage')}</Text>
-              <Text fontWeight="bold">{user.user?.email}</Text>
-            </>
-          ) : (
-            <>
-              <Text
-                fontWeight="bold"
-                size="xl"
-              >
-                {formatTime(recordingTime)}
-              </Text>
-              <RecordButton
-                onPress={recordButtonAction}
-                isRecording={isRecording}
-              />
-              <Text
-                fontWeight="medium"
-                size="sm"
-              >
-                {recordButtonLabel}
-              </Text>
-            </>
-          )}
-          {(hasStartedRecording || isLoading || hasError) && (
-            <Button
-              isLoading={isLoading}
-              left={hasError && <Icon name="ri-error-warning-fill" />}
-              title={ctaButtonLabel}
-              buttonStyle="outlined"
-              onPress={ctaButtonAction}
+        {isResultsVisible ? (
+          <MedicalRecordContainer>
+            <FlatList
+              data={[...audioProcessedData?.medicalRecord.topics]}
+              keyExtractor={(item) => item.title}
+              renderItem={({ item }) => (
+                <TopicCard
+                  title={item.title}
+                  content={item.content}
+                />
+              )}
+              ItemSeparatorComponent={ItemSeparatorComponent}
             />
-          )}
-        </MicrophoneContainer>
+          </MedicalRecordContainer>
+        ) : (
+          <MicrophoneContainer isRecordMode={!fileUri}>
+            {fileUri ? (
+              <>
+                <Text textAlign="center">{t('processingMessage')}</Text>
+                <Text fontWeight="bold">{user.user?.email}</Text>
+              </>
+            ) : (
+              <>
+                <Text
+                  fontWeight="bold"
+                  size="xl"
+                >
+                  {formatTime(recordingTime)}
+                </Text>
+                <RecordButton
+                  onPress={recordButtonAction}
+                  isRecording={isRecording}
+                />
+                <Text
+                  fontWeight="medium"
+                  size="sm"
+                >
+                  {recordButtonLabel}
+                </Text>
+              </>
+            )}
+            {(hasStartedRecording || isLoading || hasError) && (
+              <Button
+                isLoading={isLoading}
+                left={hasError && <Icon name="ri-error-warning-fill" />}
+                title={ctaButtonLabel}
+                buttonStyle="outlined"
+                onPress={ctaButtonAction}
+              />
+            )}
+          </MicrophoneContainer>
+        )}
       </Content>
       <ConfirmStopRecordingModal
         visible={isConfirmStopRecordingModalVisible}
         onConfirm={async () => {
+          setAudioProcessedData(undefined);
           setIsLoading(true);
           const uri = await stopRecording();
           setFileUri(uri);
