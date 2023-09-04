@@ -9,8 +9,7 @@ import { View } from 'react-native';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../../components/Button/Button';
-import { MicrophoneBottomSheet } from './components/MicrophoneBottomSheet';
-import { MedicalRecord } from './components/MedicalRecord';
+import { VisitBottomSheet } from './components/VisitBottomSheet';
 import { useCreateVisit, useGetAllVisitsForPatient } from '../../api/visit';
 import { VisitList } from './components/VisitList';
 
@@ -19,20 +18,10 @@ interface PatientScreenProps {
 }
 
 export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
+  const { t } = useTranslation('', { keyPrefix: 'screen.patient' });
   const { patientId } = route.params;
   const navigate = useNavigation<StackNavigation>();
-  const [isMicrophoneBottomSheetOpen, setIsMicrophoneBottomVisible] = useState(false);
-  const [isVisitSummaryBottomSheetOpen, setIsVisitSummaryBottomVisible] = useState(false);
-  const { t } = useTranslation('', { keyPrefix: 'screen.patient' });
-  const [audioData, setAudioData] = useState<
-    | {
-        medicalRecord: {
-          topics: { title: string; content: string }[];
-        };
-      }
-    | undefined
-  >(undefined);
-
+  const [isVisitBottomSheetOpen, setIsMicrophoneBottomVisible] = useState(false);
   const patientQuery = useGetPatient(patientId);
   const visitsQuery = useGetAllVisitsForPatient(patientId);
   const createVisitMutation = useCreateVisit();
@@ -59,23 +48,13 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
           title={t('newVisit')}
           onPress={() => setIsMicrophoneBottomVisible(true)}
         />
-        <MicrophoneBottomSheet
-          title={t('newVisit')}
-          visible={isMicrophoneBottomSheetOpen}
+        <VisitBottomSheet
+          visible={isVisitBottomSheetOpen}
           onRequestClose={() => setIsMicrophoneBottomVisible(false)}
-          onProcessAudioSuccess={(data) => {
-            setAudioData(data);
-            setIsVisitSummaryBottomVisible(true);
+          onProcessAudioSuccess={() => {
             createVisitMutation.mutate({ patientId, timestamp: new Date().toISOString() });
           }}
         />
-        {audioData && (
-          <MedicalRecord
-            visible={isVisitSummaryBottomSheetOpen}
-            onRequestClose={() => setIsVisitSummaryBottomVisible(false)}
-            medicalRecord={audioData.medicalRecord}
-          />
-        )}
       </PatientMainContainer>
     </SafeArea>
   );

@@ -31,17 +31,16 @@ type ProcessVisitRecordingFormData = {
   fileUri: string;
 };
 
-export const sseProcessVisitRecording = async <T>(
+export const sseProcessVisitRecording = async (
   url: string,
-  options: SSEOptions<T>
-): Promise<T> => {
-  return new Promise<T>(async (resolve, reject) => {
-    const sseClient = new SSEClient<T>(url, {
+  options: SSEOptions<ProcessVisitRecordingResponse>
+): Promise<ProcessVisitRecordingResponse> => {
+  return new Promise((resolve, reject) => {
+    const sseClient = new SSEClient<ProcessVisitRecordingResponse>(url, {
       ...options,
       onMessage: (msg) => {
-        const data = JSON.parse(JSON.stringify(msg));
-        if (data?.type === 'success') {
-          resolve(data?.data);
+        if (msg.type === 'success') {
+          resolve(msg.data);
           sseClient.close();
         }
       },
@@ -49,6 +48,7 @@ export const sseProcessVisitRecording = async <T>(
         reject(error);
       },
     });
+
     sseClient.connect();
   });
 };
@@ -73,7 +73,7 @@ export const useProcessVisitRecording = () => {
         name: `audio.${type}`,
       });
 
-      return await sseProcessVisitRecording<ProcessVisitRecordingResponse>(url, {
+      return await sseProcessVisitRecording(url, {
         method: 'POST',
         body,
       });
