@@ -1,8 +1,8 @@
 {
-  "name": "Amia",
+  "name": "Nami",
   "screen": {
     "home": {
-      "header": "Amia te ajuda a melhorar a eficiência e qualidade das consultas por meio de AI",
+      "header": "Nami te ajuda a melhorar a eficiência e qualidade das consultas por meio de AI",
       "subHeader": "Otimize o fluxo de trabalho médico, transformando as conversas das consultas em registros precisos e detalhados",
       "buttons": {
         "login": "Entrar",
