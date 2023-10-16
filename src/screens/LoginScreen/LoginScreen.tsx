@@ -60,8 +60,9 @@ export const LoginScreen = (): JSX.Element => {
           onPress={() => navigate.navigate('Home')}
         />
         <Text
-          size="3xl"
+          size="4xl"
           color="dark"
+          fontWeight="bold"
         >
           {t('title')}
         </Text>

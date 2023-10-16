@@ -37,7 +37,12 @@ export const PatientListScreen: React.FC = () => {
           name={'ri-logout-box-line'}
           onPress={() => logoutMutation.mutate()}
         />
-        <Text size="3xl">{t('title')}</Text>
+        <Text
+          size="4xl"
+          fontWeight="bold"
+        >
+          {t('title')}
+        </Text>
         <Input
           onChangeText={(value) => {
             setSearch(value);

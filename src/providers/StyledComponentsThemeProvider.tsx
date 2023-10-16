@@ -39,6 +39,7 @@ export interface Theme {
     secondary: ThemeColors;
     background: ThemeColors;
     text: ThemeColors;
+    border: ThemeColors;
     error: string;
     warning: string;
     success: string;
@@ -69,30 +70,35 @@ export interface Theme {
 const theme: Theme = {
   colors: {
     primary: {
-      light: '#8fe7e2',
-      DEFAULT: '#30cfc0',
-      dark: '#23a3a0',
+      light: '#00809033',
+      DEFAULT: '#008090',
+      dark: '#00809099',
     },
     secondary: {
-      light: '#FFFFFF',
-      DEFAULT: '#C0C0C0',
-      dark: '#808080',
+      light: '#999999',
+      DEFAULT: '#666666',
+      dark: '#0000000E',
     },
     background: {
       light: '#ffffff',
-      DEFAULT: '#f8f8f8',
+      DEFAULT: '#ffffff',
       dark: '#e1e5e9',
     },
     text: {
       light: '#ffffff',
-      DEFAULT: '#767676',
-      dark: '#4a4a4a',
+      DEFAULT: '#00000099',
+      dark: '#000000',
+    },
+    border: {
+      light: '#CCCCCC33',
+      DEFAULT: '#CCCCCC',
+      dark: '#CCCCCC99',
     },
     error: '#FF0000',
     warning: '#FFA500',
     success: '#008000',
-    overlay: 'rgba(0, 0, 0, 0.5)',
-    transparent: 'rgba(0, 0, 0, 0)',
+    overlay: '#00000033',
+    transparent: '#00000000',
     white: '#FFFFFF',
   },
   fontSizes: {

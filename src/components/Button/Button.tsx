@@ -46,9 +46,10 @@ const StyledText = styled.Text<{ buttonStyle: ButtonStyle }>`
       ? theme.colors.text.dark
       : buttonStyle === 'danger'
       ? theme.colors.background.light
-      : theme.colors.primary.DEFAULT};
+      : theme.colors.text.dark};
   font-weight: ${({ theme, buttonStyle }) =>
-    buttonStyle === 'link' ? theme.fontWeights.normal : theme.fontWeights.bold};
+    buttonStyle === 'link' ? theme.fontWeights.normal : theme.fontWeights.semibold};
+  font-size: ${({ theme }) => theme.fontSizes.base}px;
 `;
 
 export const Button: React.FC<ButtonProps> = ({

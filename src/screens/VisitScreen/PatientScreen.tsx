@@ -34,7 +34,12 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
             name="arrow-left-s-line"
             onPress={() => navigate.navigate('PatientList')}
           />
-          <Text size="3xl">{patientQuery.data?.data.name}</Text>
+          <Text
+            size="4xl"
+            fontWeight="bold"
+          >
+            {patientQuery.data?.data.name}
+          </Text>
         </View>
         <VisitList visits={visitsQuery.data?.data ?? []} />
         <Button

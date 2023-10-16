@@ -21,4 +21,5 @@ export const Text = styled.Text<TextProps>`
   font-weight: ${({ theme, fontWeight = 'normal' }) => theme.fontWeights[fontWeight]};
   text-decoration: ${({ underline }) => (underline ? 'underline' : 'none')};
   font-style: ${({ italic }) => (italic ? 'italic' : 'normal')};
+  font-family: Inter;
 `;
