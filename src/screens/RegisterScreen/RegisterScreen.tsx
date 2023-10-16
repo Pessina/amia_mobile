@@ -6,11 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from '../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
-import { Form } from './components/Form';
 import { Text } from '../../components/Text/Text';
-import { RegisterMainContainer } from './components/RegisterMainContainer';
 import { formatCPF, replaceTagsInText } from '../../utils/text';
-import { Footer } from './components/Footer';
 import { ScrollView } from 'react-native';
 import { Icon } from '../../components/Icon/Icon';
 import { useNavigation } from '@react-navigation/native';
@@ -20,6 +17,7 @@ import { existDoctor, useCreateDoctor } from '../../api/doctor';
 import { Error } from '../../components/Error/Error';
 import { KeyboardAvoidingView } from '../../components/KeyboardAvoidingView/KeyboardAvoidingView';
 import { styles } from '../../styles/styles';
+import FlexContainer from '../../components/Spacing/Spacing';
 
 type FormData = {
   name: string;
@@ -78,21 +76,29 @@ export const RegisterScreen = (): JSX.Element => {
 
   return (
     <SafeArea>
-      <RegisterMainContainer>
-        <Icon
-          name="arrow-left-s-line"
-          onPress={() => navigate.navigate('Home')}
-        />
-        <Text
-          size="4xl"
-          color="dark"
-          fontWeight="bold"
+      <FlexContainer
+        gap={6}
+        padding={5}
+      >
+        <FlexContainer
+          gap={5}
+          grow={0}
         >
-          {t('title')}
-        </Text>
+          <Icon
+            name="arrow-left-s-line"
+            onPress={() => navigate.navigate('Home')}
+          />
+          <Text
+            size="4xl"
+            color="dark"
+            fontWeight="bold"
+          >
+            {t('title')}
+          </Text>
+        </FlexContainer>
         <KeyboardAvoidingView>
           <ScrollView contentContainerStyle={styles.fullWithPaddingBottom}>
-            <Form>
+            <FlexContainer gap={2}>
               <Controller
                 name="name"
                 control={control}
@@ -174,8 +180,8 @@ export const RegisterScreen = (): JSX.Element => {
                 )}
               />
               {error && <Error textAlign="center">{error}</Error>}
-            </Form>
-            <Footer>
+            </FlexContainer>
+            <FlexContainer gap={4}>
               <Text textAlign="center">
                 {replaceTagsInText(t('disclaimer'), {
                   a1: (
@@ -197,10 +203,10 @@ export const RegisterScreen = (): JSX.Element => {
                 onPress={handleSubmit(onSubmit)}
                 title={t('cta')}
               />
-            </Footer>
+            </FlexContainer>
           </ScrollView>
         </KeyboardAvoidingView>
-      </RegisterMainContainer>
+      </FlexContainer>
     </SafeArea>
   );
 };

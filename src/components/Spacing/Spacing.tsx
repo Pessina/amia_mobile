@@ -1,16 +1,19 @@
-import React from 'react';
 import styled from 'styled-components/native';
 
-interface SpacingProps {
-  size: number;
+interface FlexContainerProps {
+  flexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
+  grow?: number;
+  gap?: number;
+  padding?: number;
+  margin?: number;
 }
 
-const StyledSpacing = styled.View<SpacingProps>`
-  height: ${({ theme, size }) => theme.space[size]}px;
+const FlexContainer = styled.View<FlexContainerProps>`
+  flex-grow: ${({ grow = 1 }) => grow};
+  flex-direction: ${({ flexDirection = 'column' }) => flexDirection};
+  gap: ${({ theme, gap = 0 }) => theme.space[gap]}px;
+  padding: ${({ theme, padding = 0 }) => theme.space[padding]}px;
+  margin: ${({ theme, margin = 0 }) => theme.space[margin]}px;
 `;
 
-const Spacing: React.FC<SpacingProps> = ({ size }) => {
-  return <StyledSpacing size={size} />;
-};
-
-export default Spacing;
+export default FlexContainer;

@@ -15,10 +15,10 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../routes';
 import { ConfirmStopRecordingModal } from './ConfirmStopRecordingModal';
 import Card from '../../../components/Card/Card';
-import Spacing from '../../../components/Spacing/Spacing';
 import { FlatList } from 'react-native';
+import Space from '../../../components/Space/Space';
 
-const ItemSeparatorComponent = () => <Spacing size={4} />;
+const ItemSeparatorComponent = () => <Space size={4} />;
 
 const TopicCardContainer = styled.View`
   gap: ${({ theme }) => theme.space[2]}px;
@@ -147,10 +147,10 @@ export const VisitBottomSheet: React.FC<VisitBottomSheetProps> = ({
           onError: () => {
             setHasError(true);
           },
-        }
+        },
       );
     },
-    [onProcessAudioSuccess, patientId, processVisitRecording]
+    [onProcessAudioSuccess, patientId, processVisitRecording],
   );
 
   const { ctaButtonAction, ctaButtonLabel } = useMemo(() => {

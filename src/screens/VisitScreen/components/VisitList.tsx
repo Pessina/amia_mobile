@@ -6,9 +6,9 @@ import { utcToZonedTime, format } from 'date-fns-tz';
 import { FlatList } from 'react-native';
 import { styles } from '../../../styles/styles';
 import Card from '../../../components/Card/Card';
-import Spacing from '../../../components/Spacing/Spacing';
+import Space from '../../../components/Space/Space';
 
-const ItemSeparatorComponent = () => <Spacing size={2} />;
+const ItemSeparatorComponent = () => <Space size={2} />;
 
 interface VisitListProps {
   visits: { visitDate: string; id: number }[];

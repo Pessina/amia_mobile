@@ -14,11 +14,11 @@ import { StackNavigation } from '../../routes';
 import { Icon } from '../../components/Icon/Icon';
 import { useDebounce } from '../../hooks/useDebounce';
 import { FloatingButton } from '../../components/Button/FloatingButton';
-import Spacing from '../../components/Spacing/Spacing';
 import { FlatList } from 'react-native';
 import { styles } from '../../styles/styles';
+import Space from '../../components/Space/Space';
 
-const ItemSeparatorComponent = () => <Spacing size={2} />;
+const ItemSeparatorComponent = () => <Space size={2} />;
 
 export const PatientListScreen: React.FC = () => {
   const { t } = useTranslation('', { keyPrefix: 'screen.patientList' });
