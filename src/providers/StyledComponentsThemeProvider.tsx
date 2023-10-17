@@ -32,6 +32,7 @@ export interface Theme {
     primary: string;
     black60: string;
     black06: string;
+    black12: string;
     grayCCC: string;
     gray666: string;
     error: string;
@@ -67,6 +68,7 @@ const theme: Theme = {
     primary: '#008090',
     black60: '#00000099',
     black06: '#0000000F',
+    black12: '#0000001F',
     grayCCC: '#CCCCCC',
     gray666: '#666666',
     error: '#FF0000',

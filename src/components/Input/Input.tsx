@@ -95,7 +95,7 @@ const Input: React.FC<InputProps> = ({
           onBlur={() => setIsFocused(false)}
         />
       </FieldContainer>
-      {error ? <Error>{error}</Error> : hint && <Text>{hint}</Text>}
+      {error ? <Error>{error}</Error> : hint && <Text color="gray666">{hint}</Text>}
     </InputContainer>
   );
 };

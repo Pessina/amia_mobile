@@ -60,6 +60,7 @@ const Content = styled.View<{ width?: string }>`
   max-width: 90%;
   max-height: 90%;
   width: ${({ width }) => width || '100%'};
+  gap: ${({ theme }) => theme.space[6]}px;
 `;
 
 const Header = styled.View`

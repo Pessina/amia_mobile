@@ -57,7 +57,7 @@ export const VisitList: React.FC<VisitListProps> = ({ visits }) => {
         renderItem={({ item: visit }) => <VisitItem visitDate={visit.visitDate} />}
         ListEmptyComponent={
           <EmptyContainer>
-            <Text>{t('noVisitsYet')}</Text>
+            <Text color="gray666">{t('noVisitsYet')}</Text>
           </EmptyContainer>
         }
         contentContainerStyle={visits.length === 0 ? styles.full : {}}

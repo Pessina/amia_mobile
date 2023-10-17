@@ -14,10 +14,6 @@ const CardContainer = styled(Card)`
   align-items: center;
 `;
 
-const DeleteIcon = styled(Icon)`
-  color: ${({ theme }) => theme.colors.error};
-`;
-
 interface Props {
   id: string;
   assignedId: string;
@@ -47,14 +43,20 @@ export const PatientItem: React.FC<Props> = ({ id, assignedId, name, onPress }) 
       >
         <View>
           <Text>{name}</Text>
-          <Text>{assignedId}</Text>
+          <Text
+            size="sm"
+            color="black60"
+          >
+            {assignedId}
+          </Text>
         </View>
         {deleteMutation.isLoading ? (
           <Loader />
         ) : (
-          <DeleteIcon
+          <Icon
             name="ri-delete-bin-line"
             onPress={() => setIsModalVisible(true)}
+            colorCode="black60"
           />
         )}
       </CardContainer>

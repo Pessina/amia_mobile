@@ -13,7 +13,7 @@ const CardContainer = styled(Pressable)<CardContainerProps>`
     bgColor ? theme.colors[bgColor] : theme.colors.white};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border: ${({ theme, variant }) =>
-    variant === 'outline' ? `1px solid ${theme.colors.black}` : 'none'};
+    variant === 'outline' ? `1px solid ${theme.colors.black12}` : 'none'};
   padding: ${({ theme }) => theme.space[2]}px;
 `;
 
