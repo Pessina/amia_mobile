@@ -19,7 +19,7 @@ const IconStyled = styled(RemixIcon)<IconProps>`
 export const Icon: React.FC<IconProps> = ({
   name,
   padding,
-  colorCode = 'textBlack06',
+  colorCode = 'black60',
   size = 24,
   onPress,
 }) => {

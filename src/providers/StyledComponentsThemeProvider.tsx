@@ -30,8 +30,10 @@ export type FontWeight =
 export interface Theme {
   colors: {
     primary: string;
-    textBlack06: string;
-    borderGray: string;
+    black60: string;
+    black06: string;
+    grayCCC: string;
+    gray666: string;
     error: string;
     warning: string;
     success: string;
@@ -63,8 +65,10 @@ export interface Theme {
 const theme: Theme = {
   colors: {
     primary: '#008090',
-    textBlack06: '#00000099',
-    borderGray: '#CCCCCC',
+    black60: '#00000099',
+    black06: '#0000000F',
+    grayCCC: '#CCCCCC',
+    gray666: '#666666',
     error: '#FF0000',
     warning: '#FFA500',
     success: '#008000',

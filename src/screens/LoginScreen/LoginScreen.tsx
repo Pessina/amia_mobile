@@ -74,7 +74,7 @@ export const LoginScreen = (): JSX.Element => {
         </FlexContainer>
         <KeyboardAvoidingView>
           <ScrollView contentContainerStyle={styles.fullWithPaddingBottom}>
-            <FlexContainer gap={2}>
+            <FlexContainer gap={4}>
               <Controller
                 name="email"
                 control={control}

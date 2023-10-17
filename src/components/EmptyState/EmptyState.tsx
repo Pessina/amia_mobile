@@ -14,7 +14,7 @@ export type EmptyStateProps = {
 export const EmptyState: React.FC<EmptyStateProps> = ({ text }) => {
   return (
     <EmptyStateContainer>
-      <Text>{text}</Text>
+      <Text color="gray666">{text}</Text>
     </EmptyStateContainer>
   );
 };

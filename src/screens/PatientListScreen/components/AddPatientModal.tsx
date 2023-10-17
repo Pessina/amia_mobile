@@ -10,6 +10,7 @@ import { Button } from '../../../components/Button/Button';
 import { useCreatePatient } from '../../../api/patient';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../../routes';
+import FlexContainer from '../../../components/FlexContainer/FlexContainer';
 
 interface PatientData {
   name: string;
@@ -67,35 +68,45 @@ export const AddPatientModal: React.FC<Props> = ({ visible, onRequestClose }) =>
       onRequestClose={onRequestClose}
       title={t('title')}
     >
-      <Controller
-        control={control}
-        name="name"
-        render={({ field }) => (
-          <Input
-            label={t('name.label')}
-            onChangeText={field.onChange}
-            value={field.value}
-            error={errors.name?.message}
+      <FlexContainer
+        gap={6}
+        grow={0}
+      >
+        <FlexContainer
+          gap={4}
+          grow={0}
+        >
+          <Controller
+            control={control}
+            name="name"
+            render={({ field }) => (
+              <Input
+                label={t('name.label')}
+                onChangeText={field.onChange}
+                value={field.value}
+                error={errors.name?.message}
+              />
+            )}
           />
-        )}
-      />
-      <Controller
-        control={control}
-        name="assignedId"
-        render={({ field }) => (
-          <Input
-            label={t('ID.label')}
-            hint={t('ID.hint')}
-            onChangeText={field.onChange}
-            value={field.value}
-            error={errors.assignedId?.message}
+          <Controller
+            control={control}
+            name="assignedId"
+            render={({ field }) => (
+              <Input
+                label={t('ID.label')}
+                hint={t('ID.hint')}
+                onChangeText={field.onChange}
+                value={field.value}
+                error={errors.assignedId?.message}
+              />
+            )}
           />
-        )}
-      />
-      <Button
-        onPress={handleSubmit(onSubmit)}
-        title={t('submitCTA')}
-      />
+        </FlexContainer>
+        <Button
+          onPress={handleSubmit(onSubmit)}
+          title={t('submitCTA')}
+        />
+      </FlexContainer>
     </Modal>
   );
 };

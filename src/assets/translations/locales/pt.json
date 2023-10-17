@@ -40,7 +40,7 @@
         "addCTA": "Novo paciente",
         "title": "Novo paciente",
         "name": {
-          "label": "Nome",
+          "label": "Nome completo do paciente",
           "placeholder": "Nome do paciente"
         },
         "ID": {

@@ -23,7 +23,12 @@ export const Modal: React.FC<Props> = ({ children, title, width, ...props }) => 
           <Content width={width}>
             <ScrollView>
               <Header>
-                <Text size="2xl">{title}</Text>
+                <Text
+                  size="xl"
+                  fontWeight="bold"
+                >
+                  {title}
+                </Text>
                 {props.onRequestClose && (
                   <Icon
                     name="close-circle-fill"

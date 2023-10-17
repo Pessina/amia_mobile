@@ -98,115 +98,117 @@ export const RegisterScreen = (): JSX.Element => {
         </FlexContainer>
         <KeyboardAvoidingView>
           <ScrollView contentContainerStyle={styles.fullWithPaddingBottom}>
-            <FlexContainer gap={2}>
-              <Controller
-                name="name"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    label={t('name')}
-                    autoCapitalize="words"
-                    onChangeText={field.onChange}
-                    value={field.value}
-                    error={errors.name?.message}
-                  />
-                )}
-              />
-              <Controller
-                name="email"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    label={t('email')}
-                    keyboardType="email-address"
-                    autoComplete="email"
-                    autoCapitalize="none"
-                    onChangeText={field.onChange}
-                    value={field.value}
-                    error={errors.email?.message}
-                  />
-                )}
-              />
-              <Controller
-                name="password"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    label={t('password')}
-                    secureTextEntry
-                    onChangeText={field.onChange}
-                    value={field.value}
-                    error={errors.password?.message}
-                  />
-                )}
-              />
-              <Controller
-                name="cpf"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    label={t('cpf')}
-                    keyboardType="numeric"
-                    onChangeText={(value) => field.onChange(formatCPF(value))}
-                    value={field.value}
-                    error={errors.cpf?.message}
-                  />
-                )}
-              />
-              <Controller
-                name="crm"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    label={t('crm')}
-                    keyboardType="numeric"
-                    onChangeText={field.onChange}
-                    value={field.value}
-                    error={errors.crm?.message}
-                  />
-                )}
-              />
-              <Controller
-                name="specialty"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    label={t('specialty')}
-                    autoCapitalize="sentences"
-                    onChangeText={field.onChange}
-                    value={field.value}
-                    error={errors.specialty?.message}
-                  />
-                )}
-              />
-              {error && <Error textAlign="center">{error}</Error>}
-            </FlexContainer>
-            <FlexContainer gap={6}>
-              <Text
-                textAlign="center"
-                size="xs"
-                color="textBlack06"
-              >
-                {replaceTagsInText(t('disclaimer'), {
-                  a1: (
-                    <Text
-                      size="xs"
-                      onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}
+            <FlexContainer gap={10}>
+              <FlexContainer gap={4}>
+                <Controller
+                  name="name"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      label={t('name')}
+                      autoCapitalize="words"
+                      onChangeText={field.onChange}
+                      value={field.value}
+                      error={errors.name?.message}
                     />
-                  ),
-                  a2: (
-                    <Text
-                      size="xs"
-                      onPress={() => Linking.openURL(TERMS_OF_SERVICE_URL)}
+                  )}
+                />
+                <Controller
+                  name="email"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      label={t('email')}
+                      keyboardType="email-address"
+                      autoComplete="email"
+                      autoCapitalize="none"
+                      onChangeText={field.onChange}
+                      value={field.value}
+                      error={errors.email?.message}
                     />
-                  ),
-                })}
-              </Text>
-              <Button
-                buttonStyle="primary"
-                onPress={handleSubmit(onSubmit)}
-                title={t('cta')}
-              />
+                  )}
+                />
+                <Controller
+                  name="password"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      label={t('password')}
+                      secureTextEntry
+                      onChangeText={field.onChange}
+                      value={field.value}
+                      error={errors.password?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name="cpf"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      label={t('cpf')}
+                      keyboardType="numeric"
+                      onChangeText={(value) => field.onChange(formatCPF(value))}
+                      value={field.value}
+                      error={errors.cpf?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name="crm"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      label={t('crm')}
+                      keyboardType="numeric"
+                      onChangeText={field.onChange}
+                      value={field.value}
+                      error={errors.crm?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name="specialty"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      label={t('specialty')}
+                      autoCapitalize="sentences"
+                      onChangeText={field.onChange}
+                      value={field.value}
+                      error={errors.specialty?.message}
+                    />
+                  )}
+                />
+                {error && <Error textAlign="center">{error}</Error>}
+              </FlexContainer>
+              <FlexContainer gap={6}>
+                <Text
+                  textAlign="center"
+                  size="xs"
+                  color="black60"
+                >
+                  {replaceTagsInText(t('disclaimer'), {
+                    a1: (
+                      <Text
+                        size="xs"
+                        onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}
+                      />
+                    ),
+                    a2: (
+                      <Text
+                        size="xs"
+                        onPress={() => Linking.openURL(TERMS_OF_SERVICE_URL)}
+                      />
+                    ),
+                  })}
+                </Text>
+                <Button
+                  buttonStyle="primary"
+                  onPress={handleSubmit(onSubmit)}
+                  title={t('cta')}
+                />
+              </FlexContainer>
             </FlexContainer>
           </ScrollView>
         </KeyboardAvoidingView>
