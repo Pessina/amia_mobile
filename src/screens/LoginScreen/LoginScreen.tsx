@@ -6,9 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from '../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
-import { Form } from './components/Form';
 import { Text } from '../../components/Text/Text';
-import { LoginMainContainer } from './components/LoginMainContainer';
 import { ScrollView } from 'react-native';
 import { Icon } from '../../components/Icon/Icon';
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +14,7 @@ import { StackNavigation } from '../../routes';
 import { login } from '../../auth/login';
 import { styles } from '../../styles/styles';
 import { KeyboardAvoidingView } from '../../components/KeyboardAvoidingView/KeyboardAvoidingView';
+import FlexContainer from '../../components/FlexContainer/FlexContainer';
 
 type FormData = {
   email: string;
@@ -54,21 +53,29 @@ export const LoginScreen = (): JSX.Element => {
 
   return (
     <SafeArea>
-      <LoginMainContainer>
-        <Icon
-          name="arrow-left-s-line"
-          onPress={() => navigate.navigate('Home')}
-        />
-        <Text
-          size="4xl"
-          color="dark"
-          fontWeight="bold"
+      <FlexContainer
+        gap={4}
+        padding={4}
+      >
+        <FlexContainer
+          gap={5}
+          grow={0}
         >
-          {t('title')}
-        </Text>
+          <Icon
+            name="arrow-left-s-line"
+            onPress={() => navigate.navigate('Home')}
+          />
+          <Text
+            size="4xl"
+            color="dark"
+            fontWeight="bold"
+          >
+            {t('title')}
+          </Text>
+        </FlexContainer>
         <KeyboardAvoidingView>
           <ScrollView contentContainerStyle={styles.fullWithPaddingBottom}>
-            <Form>
+            <FlexContainer gap={2}>
               <Controller
                 name="email"
                 control={control}
@@ -97,7 +104,7 @@ export const LoginScreen = (): JSX.Element => {
                   />
                 )}
               />
-            </Form>
+            </FlexContainer>
             <Button
               buttonStyle="link"
               title={t('resetPassword')}
@@ -110,7 +117,7 @@ export const LoginScreen = (): JSX.Element => {
             />
           </ScrollView>
         </KeyboardAvoidingView>
-      </LoginMainContainer>
+      </FlexContainer>
     </SafeArea>
   );
 };

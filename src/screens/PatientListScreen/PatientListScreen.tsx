@@ -38,6 +38,7 @@ export const PatientListScreen: React.FC = () => {
           onPress={() => logoutMutation.mutate()}
         />
         <Text
+          color="dark"
           size="4xl"
           fontWeight="bold"
         >

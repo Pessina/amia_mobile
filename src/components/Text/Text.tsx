@@ -1,10 +1,11 @@
 import styled from 'styled-components/native';
 import { FontSize, FontWeight } from '../../providers/StyledComponentsThemeProvider';
 import { ReactNode } from 'react';
+import { TextProps as NativeTextProps } from 'react-native';
 
 export type TextAlign = 'left' | 'center' | 'right' | 'justify' | 'initial' | 'inherit';
 
-interface TextProps {
+interface TextProps extends NativeTextProps {
   children?: ReactNode;
   size?: FontSize;
   color?: 'light' | 'DEFAULT' | 'dark';
