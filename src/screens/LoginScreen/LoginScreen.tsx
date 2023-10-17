@@ -67,7 +67,6 @@ export const LoginScreen = (): JSX.Element => {
           />
           <Text
             size="4xl"
-            color="dark"
             fontWeight="bold"
           >
             {t('title')}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { useTheme } from 'styled-components/native';
 import { TextInputProps } from 'react-native';
 import { FontSize } from '../../providers/StyledComponentsThemeProvider';
@@ -19,14 +19,22 @@ const InputContainer = styled.View`
   gap: ${({ theme }) => theme.space[2]}px;
 `;
 
-const FieldContainer = styled.View<{ error?: string }>`
+const FieldContainer = styled.View<{ error?: string; isFocused?: boolean }>`
   flex-direction: row;
   align-items: center;
-  border-color: ${({ error, theme }) => (error ? theme.colors.error : theme.colors.border.DEFAULT)};
-  border-width: 1px;
+  border-color: ${({ error, isFocused, theme }) => {
+    if (error) {
+      return theme.colors.error;
+    }
+    if (isFocused) {
+      return theme.colors.primary;
+    }
+    return theme.colors.borderGray;
+  }};
+  border-width: ${({ isFocused }) => (isFocused ? '2.5px' : '1px')};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: ${({ theme }) => theme.space[3]}px;
-  background-color: ${({ theme }) => theme.colors.background.DEFAULT};
+  background-color: ${({ theme }) => theme.colors.white};
   width: 100%;
 `;
 
@@ -36,19 +44,25 @@ const StyledInput = styled.TextInput<InputProps>`
   height: ${({ theme, fontSize = 'base' }) => theme.fontSizes[fontSize] * 1.5}px;
   padding: 0;
   font-weight: ${({ theme }) => theme.fontWeights.medium};
-  color: ${({ theme }) => theme.colors.text.dark};
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 const Input: React.FC<InputProps> = ({ label, error, hint, ...rest }) => {
   const theme = useTheme();
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
     <InputContainer>
       {label && <Label>{label}</Label>}
-      <FieldContainer error={error}>
+      <FieldContainer
+        error={error}
+        isFocused={isFocused}
+      >
         <StyledInput
           {...rest}
-          placeholderTextColor={theme.colors.text.DEFAULT}
+          placeholderTextColor={theme.colors.textBlack06}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
         />
       </FieldContainer>
       {error ? <Error>{error}</Error> : hint && <Text>{hint}</Text>}

@@ -27,19 +27,13 @@ export const HomeScreen = (): JSX.Element => {
           grow={0}
         >
           <Text
-            color="dark"
             fontWeight="bold"
             size="2xl"
             textAlign="center"
           >
             {t('header')}
           </Text>
-          <Text
-            textAlign="center"
-            color="dark"
-          >
-            {t('subHeader')}
-          </Text>
+          <Text textAlign="center">{t('subHeader')}</Text>
         </FlexContainer>
         <FlexContainer
           gap={4}

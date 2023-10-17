@@ -14,7 +14,7 @@ import { StackNavigation } from '../../routes';
 import { Icon } from '../../components/Icon/Icon';
 import { useDebounce } from '../../hooks/useDebounce';
 import { FloatingButton } from '../../components/Button/FloatingButton';
-import { FlatList } from 'react-native';
+import { FlatList, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { styles } from '../../styles/styles';
 import Space from '../../components/Space/Space';
 
@@ -38,7 +38,6 @@ export const PatientListScreen: React.FC = () => {
           onPress={() => logoutMutation.mutate()}
         />
         <Text
-          color="dark"
           size="4xl"
           fontWeight="bold"
         >
@@ -73,7 +72,7 @@ export const PatientListScreen: React.FC = () => {
           left={
             <Icon
               name="ri-add-line"
-              colorCode="light"
+              colorCode="white"
             />
           }
           title={t('addPatient.addCTA')}

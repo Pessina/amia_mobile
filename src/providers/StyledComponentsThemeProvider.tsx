@@ -27,25 +27,18 @@ export type FontWeight =
   | 'extrabold'
   | 'black';
 
-export interface ThemeColors {
-  light: string;
-  DEFAULT: string;
-  dark: string;
-}
-
 export interface Theme {
   colors: {
-    primary: ThemeColors;
-    secondary: ThemeColors;
-    background: ThemeColors;
-    text: ThemeColors;
-    border: ThemeColors;
+    primary: string;
+    textBlack06: string;
+    borderGray: string;
     error: string;
     warning: string;
     success: string;
     overlay: string;
     transparent: string;
     white: string;
+    black: string;
   };
   fontSizes: {
     [key in FontSize]: number;
@@ -69,36 +62,15 @@ export interface Theme {
 
 const theme: Theme = {
   colors: {
-    primary: {
-      light: '#00809033',
-      DEFAULT: '#008090',
-      dark: '#00809099',
-    },
-    secondary: {
-      light: '#999999',
-      DEFAULT: '#666666',
-      dark: '#0000000E',
-    },
-    background: {
-      light: '#ffffff',
-      DEFAULT: '#ffffff',
-      dark: '#e1e5e9',
-    },
-    text: {
-      light: '#ffffff',
-      DEFAULT: '#00000099',
-      dark: '#000000',
-    },
-    border: {
-      light: '#CCCCCC33',
-      DEFAULT: '#CCCCCC',
-      dark: '#CCCCCC99',
-    },
+    primary: '#008090',
+    textBlack06: '#00000099',
+    borderGray: '#CCCCCC',
     error: '#FF0000',
     warning: '#FFA500',
     success: '#008000',
     overlay: '#00000033',
     transparent: '#00000000',
+    black: '#000000',
     white: '#FFFFFF',
   },
   fontSizes: {

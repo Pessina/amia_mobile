@@ -91,7 +91,6 @@ export const RegisterScreen = (): JSX.Element => {
           />
           <Text
             size="4xl"
-            color="dark"
             fontWeight="bold"
           >
             {t('title')}
@@ -186,19 +185,18 @@ export const RegisterScreen = (): JSX.Element => {
               <Text
                 textAlign="center"
                 size="xs"
+                color="textBlack06"
               >
                 {replaceTagsInText(t('disclaimer'), {
                   a1: (
                     <Text
                       size="xs"
-                      color="dark"
                       onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}
                     />
                   ),
                   a2: (
                     <Text
                       size="xs"
-                      color="dark"
                       onPress={() => Linking.openURL(TERMS_OF_SERVICE_URL)}
                     />
                   ),

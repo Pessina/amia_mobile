@@ -51,7 +51,7 @@ const Overlay = styled.View`
 `;
 
 const Content = styled.View`
-  background-color: ${({ theme }) => theme.colors.background.DEFAULT};
+  background-color: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.space[4]}px;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border-bottom-left-radius: 0;
