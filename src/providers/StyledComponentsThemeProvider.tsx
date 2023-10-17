@@ -71,7 +71,7 @@ const theme: Theme = {
     black12: '#0000001F',
     grayCCC: '#CCCCCC',
     gray666: '#666666',
-    error: '#FF0000',
+    error: '#D32F2F',
     warning: '#FFA500',
     success: '#008000',
     overlay: '#00000033',

@@ -33,7 +33,7 @@ const StyledPressable = styled.TouchableOpacity<ButtonProps>`
       ? theme.colors.error
       : 'transparent'};
   border: ${({ buttonStyle, theme }) =>
-    buttonStyle === 'outlined' ? `1px solid ${theme.colors.black}` : 'none'};
+    buttonStyle === 'outlined' ? `1px solid ${theme.colors.grayCCC}` : 'none'};
   align-self: ${({ alignment }) => alignment};
   gap: ${({ theme }) => theme.space[2]}px;
 `;

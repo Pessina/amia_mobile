@@ -28,7 +28,7 @@ export const PatientScreen: React.FC<PatientScreenProps> = ({ route }) => {
   return (
     <SafeArea>
       <FlexContainer
-        gap={4}
+        gap={8}
         padding={4}
       >
         <FlexContainer

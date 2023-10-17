@@ -7,6 +7,7 @@ import { FlatList } from 'react-native';
 import { styles } from '../../../styles/styles';
 import Card from '../../../components/Card/Card';
 import Space from '../../../components/Space/Space';
+import FlexContainer from '../../../components/FlexContainer/FlexContainer';
 
 const ItemSeparatorComponent = () => <Space size={2} />;
 
@@ -36,21 +37,17 @@ const StyledFlatList = styled(FlatList)`
   flex: 1;
 ` as unknown as typeof FlatList;
 
-const Container = styled.View`
-  flex: 1;
-`;
-
-const TitleText = styled(Text)`
-  align-self: flex-start;
-  margin-bottom: ${({ theme }) => theme.space[2]}px;
-`;
-
 export const VisitList: React.FC<VisitListProps> = ({ visits }) => {
   const { t } = useTranslation('', { keyPrefix: 'screen.patient' });
 
   return (
-    <Container>
-      <TitleText size="2xl">{t('visitListTitle')}</TitleText>
+    <FlexContainer gap={4}>
+      <Text
+        size="sm"
+        fontWeight="bold"
+      >
+        {t('visitListTitle')}
+      </Text>
       <StyledFlatList
         data={visits}
         keyExtractor={(item) => item.id.toString()}
@@ -63,6 +60,6 @@ export const VisitList: React.FC<VisitListProps> = ({ visits }) => {
         contentContainerStyle={visits.length === 0 ? styles.full : {}}
         ItemSeparatorComponent={ItemSeparatorComponent}
       />
-    </Container>
+    </FlexContainer>
   );
 };
