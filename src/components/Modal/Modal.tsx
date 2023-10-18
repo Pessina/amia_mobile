@@ -23,7 +23,12 @@ export const Modal: React.FC<Props> = ({ children, title, width, ...props }) => 
           <Content width={width}>
             <ScrollView>
               <Header>
-                <Text size="2xl">{title}</Text>
+                <Text
+                  size="xl"
+                  fontWeight="bold"
+                >
+                  {title}
+                </Text>
                 {props.onRequestClose && (
                   <Icon
                     name="close-circle-fill"
@@ -48,13 +53,14 @@ const Overlay = styled(SafeArea)`
 `;
 
 const Content = styled.View<{ width?: string }>`
-  background-color: ${({ theme }) => theme.colors.background.DEFAULT};
+  background-color: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.space[4]}px;
   margin: auto;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   max-width: 90%;
   max-height: 90%;
   width: ${({ width }) => width || '100%'};
+  gap: ${({ theme }) => theme.space[6]}px;
 `;
 
 const Header = styled.View`

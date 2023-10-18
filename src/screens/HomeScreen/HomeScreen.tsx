@@ -2,11 +2,12 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '../../components/Button/Button';
 import { Text } from '../../components/Text/Text';
 import { useNavigation } from '@react-navigation/native';
-import { ContentWrapper } from './components/ContentWrapper';
 import { Logo } from './components/Logo/Logo';
 import { SafeArea } from '../../components/Containers/SafeArea';
 import { MainContainer } from '../../components/Containers/MainContainer';
 import { StackNavigation } from '../../routes';
+import { View } from 'react-native';
+import FlexContainer from '../../components/FlexContainer/FlexContainer';
 
 export const HomeScreen = (): JSX.Element => {
   const { t } = useTranslation('', { keyPrefix: 'screen.home' });
@@ -14,11 +15,18 @@ export const HomeScreen = (): JSX.Element => {
 
   return (
     <SafeArea>
-      <MainContainer>
-        <Logo />
-        <ContentWrapper>
+      <FlexContainer
+        padding={4}
+        gap={10}
+      >
+        <FlexContainer>
+          <Logo />
+        </FlexContainer>
+        <FlexContainer
+          gap={6}
+          grow={0}
+        >
           <Text
-            color="dark"
             fontWeight="bold"
             size="2xl"
             textAlign="center"
@@ -26,6 +34,11 @@ export const HomeScreen = (): JSX.Element => {
             {t('header')}
           </Text>
           <Text textAlign="center">{t('subHeader')}</Text>
+        </FlexContainer>
+        <FlexContainer
+          gap={4}
+          grow={0}
+        >
           <Button
             onPress={() => navigate.navigate('Login')}
             buttonStyle={'primary'}
@@ -36,8 +49,8 @@ export const HomeScreen = (): JSX.Element => {
             buttonStyle={'transparent'}
             title={t('buttons.signUp')}
           />
-        </ContentWrapper>
-      </MainContainer>
+        </FlexContainer>
+      </FlexContainer>
     </SafeArea>
   );
 };

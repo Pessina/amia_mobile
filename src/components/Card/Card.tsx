@@ -1,18 +1,19 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Pressable } from 'react-native';
+import { Theme } from '../../providers/StyledComponentsThemeProvider';
 
 interface CardContainerProps {
-  bgColor?: 'light' | 'DEFAULT' | 'dark';
+  bgColor?: keyof Theme['colors'];
   variant?: 'default' | 'outline';
 }
 
 const CardContainer = styled(Pressable)<CardContainerProps>`
   background-color: ${({ theme, bgColor }) =>
-    bgColor ? theme.colors.background[bgColor] : theme.colors.background.DEFAULT};
+    bgColor ? theme.colors[bgColor] : theme.colors.white};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   border: ${({ theme, variant }) =>
-    variant === 'outline' ? `1px solid ${theme.colors.text.dark}` : 'none'};
+    variant === 'outline' ? `1px solid ${theme.colors.black12}` : 'none'};
   padding: ${({ theme }) => theme.space[2]}px;
 `;
 
@@ -23,7 +24,7 @@ interface CardProps extends CardContainerProps {
 
 const Card: React.FC<CardProps> = ({
   children,
-  bgColor = 'DEFAULT',
+  bgColor = 'white',
   variant = 'default',
   onPress,
   ...props

@@ -1,11 +1,12 @@
 import { GestureResponderEvent, Pressable } from 'react-native';
 import RemixIcon from 'react-native-remix-icon';
 import styled, { useTheme } from 'styled-components/native';
+import { Theme } from '../../providers/StyledComponentsThemeProvider';
 
 type IconProps = {
   name: string;
   padding?: number;
-  colorCode?: 'light' | 'DEFAULT' | 'dark';
+  colorCode?: keyof Theme['colors'];
   size?: number;
   color?: string;
   onPress?: (e: GestureResponderEvent) => void;
@@ -18,7 +19,7 @@ const IconStyled = styled(RemixIcon)<IconProps>`
 export const Icon: React.FC<IconProps> = ({
   name,
   padding,
-  colorCode = 'DEFAULT',
+  colorCode = 'black60',
   size = 24,
   onPress,
 }) => {
@@ -30,7 +31,7 @@ export const Icon: React.FC<IconProps> = ({
         name={name}
         padding={padding}
         size={size}
-        color={theme.colors.text[colorCode]}
+        color={theme.colors[colorCode]}
       />
     </Pressable>
   );

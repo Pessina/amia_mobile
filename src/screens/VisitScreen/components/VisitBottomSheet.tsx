@@ -15,27 +15,20 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../../routes';
 import { ConfirmStopRecordingModal } from './ConfirmStopRecordingModal';
 import Card from '../../../components/Card/Card';
-import Spacing from '../../../components/Spacing/Spacing';
 import { FlatList } from 'react-native';
-
-const ItemSeparatorComponent = () => <Spacing size={4} />;
-
-const TopicCardContainer = styled.View`
-  gap: ${({ theme }) => theme.space[2]}px;
-`;
+import Space from '../../../components/Space/Space';
+import FlexContainer from '../../../components/FlexContainer/FlexContainer';
 
 const TopicCard: React.FC<{ title: string; content: string }> = ({ title, content }) => (
-  <TopicCardContainer>
-    <Text
-      fontWeight="bold"
-      size="lg"
-    >
-      {title}
-    </Text>
-    <Card bgColor="dark">
+  <FlexContainer
+    grow={0}
+    gap={1}
+  >
+    <Text fontWeight="medium">{title}</Text>
+    <Card bgColor="black06">
       <Text>{content}</Text>
     </Card>
-  </TopicCardContainer>
+  </FlexContainer>
 );
 
 const MedicalRecordContainer = styled.View`
@@ -147,10 +140,10 @@ export const VisitBottomSheet: React.FC<VisitBottomSheetProps> = ({
           onError: () => {
             setHasError(true);
           },
-        }
+        },
       );
     },
-    [onProcessAudioSuccess, patientId, processVisitRecording]
+    [onProcessAudioSuccess, patientId, processVisitRecording],
   );
 
   const { ctaButtonAction, ctaButtonLabel } = useMemo(() => {
@@ -198,7 +191,7 @@ export const VisitBottomSheet: React.FC<VisitBottomSheetProps> = ({
                   content={item.content}
                 />
               )}
-              ItemSeparatorComponent={ItemSeparatorComponent}
+              ItemSeparatorComponent={() => <Space size={4} />}
             />
           </MedicalRecordContainer>
         ) : (

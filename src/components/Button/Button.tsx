@@ -24,16 +24,16 @@ const StyledPressable = styled.TouchableOpacity<ButtonProps>`
   border-radius: ${({ theme }) => theme.borderRadius.full};
   background-color: ${({ theme, buttonStyle }) =>
     buttonStyle === 'primary'
-      ? theme.colors.primary.DEFAULT
+      ? theme.colors.primary
       : buttonStyle === 'outlined'
-      ? theme.colors.background.light
+      ? theme.colors.white
       : buttonStyle === 'link'
       ? 'transparent'
       : buttonStyle === 'danger'
       ? theme.colors.error
       : 'transparent'};
   border: ${({ buttonStyle, theme }) =>
-    buttonStyle === 'outlined' ? `1px solid ${theme.colors.text.DEFAULT}` : 'none'};
+    buttonStyle === 'outlined' ? `1px solid ${theme.colors.grayCCC}` : 'none'};
   align-self: ${({ alignment }) => alignment};
   gap: ${({ theme }) => theme.space[2]}px;
 `;
@@ -41,14 +41,15 @@ const StyledPressable = styled.TouchableOpacity<ButtonProps>`
 const StyledText = styled.Text<{ buttonStyle: ButtonStyle }>`
   color: ${({ theme, buttonStyle }) =>
     buttonStyle === 'primary'
-      ? theme.colors.background.light
+      ? theme.colors.white
       : buttonStyle === 'outlined'
-      ? theme.colors.text.dark
+      ? theme.colors.black
       : buttonStyle === 'danger'
-      ? theme.colors.background.light
-      : theme.colors.primary.DEFAULT};
+      ? theme.colors.white
+      : theme.colors.black};
   font-weight: ${({ theme, buttonStyle }) =>
-    buttonStyle === 'link' ? theme.fontWeights.normal : theme.fontWeights.bold};
+    buttonStyle === 'link' ? theme.fontWeights.normal : theme.fontWeights.semibold};
+  font-size: ${({ theme }) => theme.fontSizes.base}px;
 `;
 
 export const Button: React.FC<ButtonProps> = ({
