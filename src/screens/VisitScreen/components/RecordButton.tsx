@@ -30,13 +30,13 @@ export const RecordButton: React.FC<RecordButtonProps> = ({ onPress, isRecording
         {isRecording ? (
           <Icon
             name="ri-pause-line"
-            colorCode="light"
+            colorCode="white"
             size={40}
           />
         ) : (
           <Icon
             name="ri-mic-fill"
-            colorCode="light"
+            colorCode="white"
             size={40}
           />
         )}

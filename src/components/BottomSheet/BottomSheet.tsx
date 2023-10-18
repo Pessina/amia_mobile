@@ -21,7 +21,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({ children, title, ...pr
             <IconPlaceholder />
             <Title
               size="lg"
-              color="dark"
+              color="black"
               fontWeight="bold"
             >
               {title}
