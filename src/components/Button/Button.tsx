@@ -20,7 +20,7 @@ const StyledPressable = styled.TouchableOpacity<ButtonProps>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: ${({ theme }) => `${theme.space[3]}px`};
+  padding: ${({ theme }) => `${theme.space[3]}px ${theme.space[6]}px`};
   border-radius: ${({ theme }) => theme.borderRadius.full};
   background-color: ${({ theme, buttonStyle }) =>
     buttonStyle === 'primary'

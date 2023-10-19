@@ -36,6 +36,7 @@ export interface Theme {
     grayCCC: string;
     gray666: string;
     error: string;
+    blue: string;
     warning: string;
     success: string;
     overlay: string;
@@ -72,6 +73,7 @@ const theme: Theme = {
     grayCCC: '#CCCCCC',
     gray666: '#666666',
     error: '#D32F2F',
+    blue: '#0041F0',
     warning: '#FFA500',
     success: '#008000',
     overlay: '#00000033',

@@ -35,13 +35,6 @@ const MedicalRecordContainer = styled.View`
   padding-bottom: ${({ theme }) => theme.space[16]}px;
 `;
 
-const MicrophoneContainer = styled.View<{ isRecordMode?: boolean }>`
-  padding: ${({ theme }) => theme.space[4]}px;
-  align-items: center;
-  ${({ isRecordMode }) => (isRecordMode ? 'height: 340px' : '')};
-  gap: ${({ theme }) => theme.space[8]}px;
-`;
-
 const Content = styled.View`
   justify-content: center;
   align-items: center;
@@ -195,12 +188,25 @@ export const VisitBottomSheet: React.FC<VisitBottomSheetProps> = ({
             />
           </MedicalRecordContainer>
         ) : (
-          <MicrophoneContainer isRecordMode={!fileUri}>
+          <FlexContainer
+            gap={12}
+            alignItems="center"
+            padding={6}
+          >
             {fileUri ? (
-              <>
-                <Text textAlign="center">{t('processingMessage')}</Text>
+              <FlexContainer
+                alignItems="center"
+                grow={0}
+                gap={6}
+              >
+                <Text
+                  textAlign="center"
+                  fontWeight="medium"
+                >
+                  {t('processingMessage')}
+                </Text>
                 <Text fontWeight="bold">{user.user?.email}</Text>
-              </>
+              </FlexContainer>
             ) : (
               <>
                 <Text
@@ -209,16 +215,23 @@ export const VisitBottomSheet: React.FC<VisitBottomSheetProps> = ({
                 >
                   {formatTime(recordingTime)}
                 </Text>
-                <RecordButton
-                  onPress={recordButtonAction}
-                  isRecording={isRecording}
-                />
-                <Text
-                  fontWeight="medium"
-                  size="sm"
+                <FlexContainer
+                  grow={0}
+                  gap={6}
+                  alignItems="center"
                 >
-                  {recordButtonLabel}
-                </Text>
+                  <RecordButton
+                    onPress={recordButtonAction}
+                    isRecording={isRecording}
+                  />
+                  <Text
+                    fontWeight="semibold"
+                    size="xs"
+                    color="black60"
+                  >
+                    {recordButtonLabel}
+                  </Text>
+                </FlexContainer>
               </>
             )}
             {(hasStartedRecording || isLoading || hasError) && (
@@ -230,7 +243,7 @@ export const VisitBottomSheet: React.FC<VisitBottomSheetProps> = ({
                 onPress={ctaButtonAction}
               />
             )}
-          </MicrophoneContainer>
+          </FlexContainer>
         )}
       </Content>
       <ConfirmStopRecordingModal

@@ -104,16 +104,21 @@ export const LoginScreen = (): JSX.Element => {
                 )}
               />
             </FlexContainer>
-            <Button
-              buttonStyle="link"
-              title={t('resetPassword')}
-              onPress={() => navigate.navigate('ResetPassword')}
-            />
-            <Button
-              buttonStyle="primary"
-              onPress={handleSubmit(onSubmit)}
-              title={t('cta')}
-            />
+            <FlexContainer
+              gap={3}
+              grow={0}
+            >
+              <Button
+                buttonStyle={'link'}
+                title={t('resetPassword')}
+                onPress={() => navigate.navigate('ResetPassword')}
+              />
+              <Button
+                buttonStyle="primary"
+                onPress={handleSubmit(onSubmit)}
+                title={t('cta')}
+              />
+            </FlexContainer>
           </ScrollView>
         </KeyboardAvoidingView>
       </FlexContainer>

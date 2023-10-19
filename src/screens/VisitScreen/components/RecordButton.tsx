@@ -4,10 +4,17 @@ import { Icon } from '../../../components/Icon/Icon';
 const MicrophoneButton = styled.TouchableOpacity<{ isRecording: boolean }>`
   width: 100px;
   height: 100px;
-  border-radius: 50px;
+  border-radius: ${({ theme }) => theme.borderRadius.full};
   justify-content: center;
   align-items: center;
-  background-color: ${({ isRecording }) => (isRecording ? 'black' : 'blue')};
+  background-color: ${({ theme, isRecording }) =>
+    isRecording ? theme.colors.black : theme.colors.blue};
+  shadow-color: ${({ theme, isRecording }) =>
+    isRecording ? theme.colors.blue : theme.colors.black};
+  shadow-offset: 0px 16px;
+  shadow-opacity: 0.24;
+  shadow-radius: 40px;
+  elevation: 8;
 `;
 
 const IconContainer = styled.View`

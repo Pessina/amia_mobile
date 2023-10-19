@@ -12,11 +12,9 @@ import { ScrollView } from 'react-native';
 import { Icon } from '../../components/Icon/Icon';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigation } from '../../routes';
-import { styles } from '../../styles/styles';
 import { KeyboardAvoidingView } from '../../components/KeyboardAvoidingView/KeyboardAvoidingView';
-import { ResetPasswordMainContainer } from './components/ResetPasswordMainContainer';
-import { Form } from './components/Form';
 import { sendPasswordResetEmail } from '../../auth/resetPassword';
+import FlexContainer from '../../components/FlexContainer/FlexContainer';
 
 type FormData = {
   email: string;
@@ -47,46 +45,50 @@ export const ResetPasswordScreen = (): JSX.Element => {
 
   return (
     <SafeArea>
-      <ResetPasswordMainContainer>
-        <Icon
-          name="arrow-left-s-line"
-          onPress={() => navigate.navigate('Login')}
-        />
-        <Text
-          size="4xl"
-          color="dark"
-          fontWeight="bold"
+      <FlexContainer
+        gap={6}
+        padding={4}
+      >
+        <FlexContainer
+          gap={5}
+          grow={0}
         >
-          {t('title')}
-        </Text>
+          <Icon
+            name="arrow-left-s-line"
+            onPress={() => navigate.navigate('Login')}
+          />
+          <Text
+            size="4xl"
+            fontWeight="bold"
+          >
+            {t('title')}
+          </Text>
+        </FlexContainer>
         <KeyboardAvoidingView>
-          <ScrollView contentContainerStyle={styles.fullWithPaddingBottom}>
-            <Form>
-              <Controller
-                name="email"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    label={t('email')}
-                    keyboardType="email-address"
-                    autoComplete="email"
-                    autoCapitalize="none"
-                    onChangeText={field.onChange}
-                    value={field.value}
-                    error={errors.email?.message}
-                  />
-                )}
-              />
-            </Form>
-
-            <Button
-              buttonStyle="primary"
-              onPress={handleSubmit(onSubmit)}
-              title={t('cta')}
+          <FlexContainer>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  label={t('email')}
+                  keyboardType="email-address"
+                  autoComplete="email"
+                  autoCapitalize="none"
+                  onChangeText={field.onChange}
+                  value={field.value}
+                  error={errors.email?.message}
+                />
+              )}
             />
-          </ScrollView>
+          </FlexContainer>
+          <Button
+            buttonStyle="primary"
+            onPress={handleSubmit(onSubmit)}
+            title={t('cta')}
+          />
         </KeyboardAvoidingView>
-      </ResetPasswordMainContainer>
+      </FlexContainer>
     </SafeArea>
   );
 };
